@@ -961,8 +961,11 @@ class MITRECausalGraphBuilder:
 
 
 def find_latest_file(pattern: str, directory: str = "filtered_data") -> Optional[Path]:
-    """Trouve le fichier le plus récent correspondant au pattern."""
-    files = list(Path(directory).glob(pattern))
+    """Trouve le fichier le plus récent correspondant au pattern (recherche récursive)."""
+    files = list(Path(directory).glob(f"**/{pattern}"))
+    if not files:
+        # Fallback to non-recursive
+        files = list(Path(directory).glob(pattern))
     if not files:
         return None
     return max(files, key=lambda p: p.stat().st_mtime)
@@ -971,13 +974,15 @@ def find_latest_file(pattern: str, directory: str = "filtered_data") -> Optional
 def main():
     """Main entry point."""
     # Load MITRE data - exclude ICS variant, use main Enterprise ATT&CK
-    mitre_files = list(Path("filtered_data").glob("mitre_attack_2*_filtered_*.json"))
+    # Search recursively in new directory structure
+    mitre_files = list(Path("filtered_data").glob("**/mitre_attack_2*_filtered_*.json"))
     # Filter out ICS files
     mitre_files = [f for f in mitre_files if 'ics' not in f.name.lower()]
     mitre_path = max(mitre_files, key=lambda p: p.stat().st_mtime) if mitre_files else None
 
     if not mitre_path:
-        mitre_path = Path('filtered_data/mitre_attack_20251221_164817_filtered_20251221_220238.json')
+        # Fallback to new directory structure
+        mitre_path = Path('filtered_data/sources/attack_techniques/mitre_attack_20251221_164817_filtered_20251221_220238.json')
 
     print(f"Loading MITRE data from {mitre_path}...")
     with open(mitre_path, 'r') as f:

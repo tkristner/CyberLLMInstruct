@@ -58,6 +58,20 @@ class RemediationComplexityInfo:
 
 
 @dataclass
+class CausalGraphInfo:
+    """Causal graph relations for a technique."""
+    enables_count: int = 0          # How many techniques this enables
+    enabled_by_count: int = 0       # How many techniques enable this one
+    blocks_count: int = 0           # How many mitigations block this
+    exploited_by_cves: int = 0      # How many CVEs exploit this technique
+    pivot_alternatives: int = 0     # Alternative techniques in same phase
+    is_ransomware_associated: bool = False
+    top_enables: List[str] = field(default_factory=list)      # Top 5 techniques it enables
+    top_enabled_by: List[str] = field(default_factory=list)   # Top 5 that enable it
+    top_mitigations: List[str] = field(default_factory=list)  # Top 5 blocking mitigations
+
+
+@dataclass
 class EnrichedTechniqueWithCTI:
     """Technique enriched with all CTI sources."""
     technique_id: str           # MITRE internal ID
@@ -67,6 +81,7 @@ class EnrichedTechniqueWithCTI:
     corroboration_score: float  # 0.0 - 1.0
     source_details: Dict[str, SourceEvidence] = field(default_factory=dict)
     cti_chains: Optional[CTIChainEvidence] = None
+    causal_graph: Optional[CausalGraphInfo] = None  # From build_causal_graph.py
     is_lolbin: bool = False
     is_driver_abuse: bool = False
     has_dll_hijack: bool = False
@@ -87,6 +102,7 @@ class CTIEnricher:
         self.otx_pulses: List[Dict] = []
         self.nist_mappings: List[Dict] = []
         self.cti_chains: List[Dict] = []
+        self.causal_graph: Dict = {}  # From build_causal_graph.py
 
         # MITRE technique index
         self.techniques_by_external_id: Dict[str, Dict] = {}
@@ -99,6 +115,14 @@ class CTIEnricher:
         self.otx_by_technique: Dict[str, List[Dict]] = defaultdict(list)
         self.nist_by_technique: Dict[str, List[Dict]] = defaultdict(list)
         self.chains_by_technique: Dict[str, List[Dict]] = defaultdict(list)
+
+        # Causal graph indexes (built from loaded graph)
+        self.enables_by_source: Dict[str, List[Dict]] = defaultdict(list)
+        self.enables_by_target: Dict[str, List[Dict]] = defaultdict(list)
+        self.blocks_by_technique: Dict[str, List[Dict]] = defaultdict(list)
+        self.exploits_by_technique: Dict[str, List[Dict]] = defaultdict(list)
+        self.pivot_by_technique: Dict[str, List[Dict]] = defaultdict(list)
+        self.ransomware_techniques: Set[str] = set()
 
         # Remediation complexity analyzer
         self.remediation_analyzer = None
@@ -349,6 +373,122 @@ class CTIEnricher:
         logger.info(f"Loaded {len(self.cti_chains)} CTI chains -> {len(self.chains_by_technique)} techniques")
         return len(self.cti_chains)
 
+    def load_causal_graph(self) -> int:
+        """Load causal graph from build_causal_graph.py output."""
+        graph_file = self._find_latest_file("mitre_causal_graph.json")
+        if not graph_file:
+            logger.warning("Causal graph not found")
+            return 0
+
+        logger.info(f"Loading causal graph from {graph_file}")
+        with open(graph_file) as f:
+            self.causal_graph = json.load(f)
+
+        # Build MITRE ID -> external ID mapping from technique names
+        # The causal graph uses internal IDs, but we index by external ID (T1234)
+        internal_to_external = {}
+        for ext_id, tech in self.techniques_by_external_id.items():
+            internal_id = tech.get('id', '')
+            if internal_id:
+                internal_to_external[internal_id] = ext_id
+            # Also map by name for fallback
+            name = tech.get('name', '')
+            if name:
+                internal_to_external[name] = ext_id
+
+        # Index relations by technique
+        relations = self.causal_graph.get('relations', {})
+
+        def get_external_id(rel, prefix='source'):
+            """Get external ID from relation, trying multiple fields."""
+            # Try external_id field first
+            ext_id = rel.get(f'{prefix}_external_id', '')
+            if ext_id:
+                return ext_id
+            # Try to map from internal ID
+            internal_id = rel.get(f'{prefix}_id', '')
+            if internal_id in internal_to_external:
+                return internal_to_external[internal_id]
+            # Try to map from name
+            name = rel.get(f'{prefix}_name', '')
+            if name in internal_to_external:
+                return internal_to_external[name]
+            return ''
+
+        # Index enables relations
+        for rel in relations.get('enables', []):
+            source_id = get_external_id(rel, 'source')
+            target_id = get_external_id(rel, 'target')
+            if source_id:
+                self.enables_by_source[source_id].append(rel)
+            if target_id:
+                self.enables_by_target[target_id].append(rel)
+
+        # Index blocks (mitigation -> technique)
+        for rel in relations.get('blocks', []):
+            target_id = get_external_id(rel, 'target')
+            if target_id:
+                self.blocks_by_technique[target_id].append(rel)
+
+        # Index exploits (CVE -> technique)
+        for rel in relations.get('exploits', []):
+            target_id = get_external_id(rel, 'target')
+            if target_id:
+                self.exploits_by_technique[target_id].append(rel)
+            # Track ransomware-associated techniques
+            if rel.get('ransomware_associated') or rel.get('is_ransomware'):
+                self.ransomware_techniques.add(target_id)
+
+        # Index pivot alternatives
+        for rel in relations.get('pivot_to', []):
+            source_id = get_external_id(rel, 'source')
+            target_id = get_external_id(rel, 'target')
+            if source_id:
+                self.pivot_by_technique[source_id].append(rel)
+            if target_id:
+                self.pivot_by_technique[target_id].append(rel)
+
+        self.stats['causal_enables'] = len(relations.get('enables', []))
+        self.stats['causal_blocks'] = len(relations.get('blocks', []))
+        self.stats['causal_exploits'] = len(relations.get('exploits', []))
+        self.stats['causal_pivots'] = len(relations.get('pivot_to', []))
+        self.stats['ransomware_techniques'] = len(self.ransomware_techniques)
+
+        logger.info(f"Loaded causal graph: {self.stats['causal_enables']} enables, "
+                    f"{self.stats['causal_blocks']} blocks, {self.stats['causal_exploits']} exploits")
+        return self.stats['causal_enables']
+
+    def get_causal_graph_info(self, tech_id: str) -> Optional[CausalGraphInfo]:
+        """Get causal graph info for a technique."""
+        if not self.causal_graph:
+            return None
+
+        enables = self.enables_by_source.get(tech_id, [])
+        enabled_by = self.enables_by_target.get(tech_id, [])
+        blocks = self.blocks_by_technique.get(tech_id, [])
+        exploits = self.exploits_by_technique.get(tech_id, [])
+        pivots = self.pivot_by_technique.get(tech_id, [])
+
+        if not any([enables, enabled_by, blocks, exploits, pivots]):
+            return None
+
+        # Get top 5 for each category (sorted by confidence)
+        top_enables = sorted(enables, key=lambda x: x.get('confidence', 0), reverse=True)[:5]
+        top_enabled_by = sorted(enabled_by, key=lambda x: x.get('confidence', 0), reverse=True)[:5]
+        top_blocks = sorted(blocks, key=lambda x: x.get('confidence', 0), reverse=True)[:5]
+
+        return CausalGraphInfo(
+            enables_count=len(enables),
+            enabled_by_count=len(enabled_by),
+            blocks_count=len(blocks),
+            exploited_by_cves=len(exploits),
+            pivot_alternatives=len(pivots),
+            is_ransomware_associated=tech_id in self.ransomware_techniques,
+            top_enables=[r.get('target_name', r.get('target_external_id', ''))[:50] for r in top_enables],
+            top_enabled_by=[r.get('source_name', r.get('source_external_id', ''))[:50] for r in top_enabled_by],
+            top_mitigations=[r.get('source_name', '')[:50] for r in top_blocks]
+        )
+
     def load_remediation_analyzer(self):
         """Load the remediation complexity analyzer."""
         try:
@@ -393,6 +533,7 @@ class CTIEnricher:
         self.load_otx()
         self.load_nist_mappings()
         self.load_cti_chains()
+        self.load_causal_graph()
         self.load_remediation_analyzer()
         logger.info("=== All sources loaded ===\n")
 
@@ -541,6 +682,9 @@ class CTIEnricher:
             if remediation_info:
                 techniques_with_complexity += 1
 
+            # Get causal graph info
+            causal_info = self.get_causal_graph_info(external_id)
+
             enriched_tech = EnrichedTechniqueWithCTI(
                 technique_id=tech.get('id', ''),
                 external_id=external_id,
@@ -549,6 +693,7 @@ class CTIEnricher:
                 corroboration_score=score,
                 source_details={k: asdict(v) for k, v in sources.items()},
                 cti_chains=asdict(chain_evidence) if chain_evidence else None,
+                causal_graph=asdict(causal_info) if causal_info else None,
                 is_lolbin=external_id in self.lolbas_by_technique,
                 is_driver_abuse=external_id in self.drivers_by_technique,
                 has_dll_hijack=external_id in self.hijack_by_technique,
@@ -563,9 +708,13 @@ class CTIEnricher:
         # Sort by corroboration score
         enriched.sort(key=lambda x: -x.corroboration_score)
 
+        # Count techniques with causal graph data
+        techniques_with_causal = sum(1 for t in enriched if t.causal_graph)
+
         logger.info(f"Enriched {len(enriched)} techniques")
         logger.info(f"Techniques with CTI data: {techniques_with_cti} ({100*techniques_with_cti/len(enriched):.1f}%)")
         logger.info(f"Techniques with complexity: {techniques_with_complexity} ({100*techniques_with_complexity/len(enriched):.1f}%)")
+        logger.info(f"Techniques with causal graph: {techniques_with_causal} ({100*techniques_with_causal/len(enriched):.1f}%)")
 
         return enriched
 

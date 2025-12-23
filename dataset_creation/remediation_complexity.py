@@ -117,6 +117,13 @@ class RemediationAnalyzer:
 
         self._load_data()
 
+    def _find_file(self, pattern: str) -> Optional[Path]:
+        """Find file matching pattern, searching recursively."""
+        files = list(self.data_dir.glob(f"**/{pattern}"))
+        if not files:
+            files = list(self.data_dir.glob(pattern))
+        return max(files, key=lambda p: p.stat().st_mtime) if files else None
+
     def _load_data(self):
         """Load all required data sources."""
         self._load_cis_controls()
@@ -130,12 +137,12 @@ class RemediationAnalyzer:
 
     def _load_cis_controls(self):
         """Load CIS Controls with Implementation Groups."""
-        cis_file = list(self.data_dir.glob("cis-controls*_filtered_*.json"))
+        cis_file = self._find_file("cis-controls*_filtered_*.json")
         if not cis_file:
             logger.warning("CIS Controls file not found")
             return
 
-        with open(cis_file[0]) as f:
+        with open(cis_file) as f:
             data = json.load(f)
 
         controls = data if isinstance(data, list) else data.get('controls', [])
@@ -179,12 +186,12 @@ class RemediationAnalyzer:
 
     def _load_nist_attack_mapping(self):
         """Load NIST 800-53 to ATT&CK mappings."""
-        mapping_file = list(self.data_dir.glob("nist_attack_mapping*_filtered_*.json"))
+        mapping_file = self._find_file("nist_attack_mapping*_filtered_*.json")
         if not mapping_file:
             logger.warning("NIST→ATT&CK mapping file not found")
             return
 
-        with open(mapping_file[0]) as f:
+        with open(mapping_file) as f:
             data = json.load(f)
 
         mappings = data if isinstance(data, list) else data.get('mapping_objects', [])
@@ -207,12 +214,12 @@ class RemediationAnalyzer:
 
     def _load_mitre_mitigations(self):
         """Load MITRE ATT&CK mitigations."""
-        attack_file = list(self.data_dir.glob("mitre_attack_*_filtered_*.json"))
+        attack_file = self._find_file("mitre_attack_*_filtered_*.json")
         if not attack_file:
             logger.warning("MITRE ATT&CK file not found")
             return
 
-        with open(attack_file[0]) as f:
+        with open(attack_file) as f:
             data = json.load(f)
 
         objects = data.get('objects', data) if isinstance(data, dict) else data
@@ -250,12 +257,12 @@ class RemediationAnalyzer:
 
     def _load_nist_controls(self):
         """Load NIST 800-53 control details."""
-        nist_file = list(self.data_dir.glob("nist_standards_*_filtered_*.json"))
+        nist_file = self._find_file("nist_standards_*_filtered_*.json")
         if not nist_file:
             logger.warning("NIST standards file not found")
             return
 
-        with open(nist_file[0]) as f:
+        with open(nist_file) as f:
             data = json.load(f)
 
         controls = data if isinstance(data, list) else data.get('controls', [])
