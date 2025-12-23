@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 # CWE to ATT&CK mapping based on MITRE and security research
+# Extended mapping for improved coverage (Issue #16)
 CWE_TO_ATTACK = {
     # Injection vulnerabilities
     'CWE-78': ['T1059'],       # OS Command Injection -> Command Execution
@@ -31,28 +32,60 @@ CWE_TO_ATTACK = {
     'CWE-94': ['T1059'],       # Code Injection -> Execution
     'CWE-95': ['T1059'],       # Eval Injection
     'CWE-79': ['T1189'],       # XSS -> Drive-by Compromise
+    'CWE-74': ['T1059'],       # Improper Neutralization of Special Elements
+    'CWE-917': ['T1059'],      # Server-Side Template Injection (SSTI)
+    'CWE-1236': ['T1059'],     # CSV Injection
+    'CWE-611': ['T1005', 'T1190'],  # XML External Entity (XXE)
+    'CWE-1321': ['T1059'],     # Prototype Pollution (JavaScript)
 
     # Memory corruption
     'CWE-787': ['T1203'],      # Out-of-bounds Write -> Exploitation for Client Execution
     'CWE-416': ['T1203'],      # Use After Free
     'CWE-119': ['T1203'],      # Buffer Overflow
     'CWE-120': ['T1203'],      # Classic Buffer Overflow
+    'CWE-121': ['T1203'],      # Stack-based Buffer Overflow
     'CWE-122': ['T1203'],      # Heap-based Buffer Overflow
+    'CWE-123': ['T1203'],      # Write-what-where Condition
+    'CWE-124': ['T1203'],      # Buffer Underwrite
     'CWE-125': ['T1203'],      # Out-of-bounds Read
+    'CWE-126': ['T1203'],      # Buffer Over-read
+    'CWE-127': ['T1203'],      # Buffer Under-read
     'CWE-190': ['T1203'],      # Integer Overflow
+    'CWE-191': ['T1203'],      # Integer Underflow
+    'CWE-415': ['T1203'],      # Double Free
+    'CWE-476': ['T1203'],      # NULL Pointer Dereference
+    'CWE-704': ['T1203'],      # Incorrect Type Conversion
+    'CWE-824': ['T1203'],      # Access of Uninitialized Pointer
     'CWE-843': ['T1203'],      # Type Confusion
 
     # Authentication/Authorization
     'CWE-287': ['T1078'],      # Improper Authentication -> Valid Accounts
+    'CWE-288': ['T1078'],      # Authentication Bypass Using Alternate Path
+    'CWE-289': ['T1078'],      # Authentication Bypass by Alternate Name
+    'CWE-290': ['T1078'],      # Authentication Bypass by Spoofing
     'CWE-306': ['T1190'],      # Missing Authentication -> Exploit Public App
     'CWE-284': ['T1548'],      # Improper Access Control -> Abuse Elevation
     'CWE-269': ['T1548'],      # Improper Privilege Management
     'CWE-264': ['T1548'],      # Permissions/Privileges
     'CWE-863': ['T1548'],      # Incorrect Authorization
     'CWE-862': ['T1548'],      # Missing Authorization
+    'CWE-307': ['T1110'],      # Improper Restriction of Excessive Authentication Attempts -> Brute Force
+    'CWE-798': ['T1078'],      # Hard-coded Credentials -> Valid Accounts
+    'CWE-522': ['T1078', 'T1552'],  # Insufficiently Protected Credentials
+    'CWE-521': ['T1078'],      # Weak Password Requirements
+    'CWE-259': ['T1078'],      # Use of Hard-coded Password
+    'CWE-256': ['T1552'],      # Plaintext Storage of Password
+
+    # Session management
+    'CWE-352': ['T1185'],      # Cross-Site Request Forgery (CSRF)
+    'CWE-384': ['T1185'],      # Session Fixation
+    'CWE-613': ['T1185'],      # Insufficient Session Expiration
+    'CWE-1021': ['T1185'],     # Improper Restriction of Rendered UI Layers (Clickjacking)
 
     # File operations
     'CWE-22': ['T1083', 'T1005'],   # Path Traversal -> File Discovery, Collection
+    'CWE-23': ['T1083', 'T1005'],   # Relative Path Traversal
+    'CWE-36': ['T1083', 'T1005'],   # Absolute Path Traversal
     'CWE-434': ['T1105'],      # Unrestricted File Upload -> Ingress Tool Transfer
     'CWE-59': ['T1574'],       # Symlink Following -> Hijack Execution Flow
     'CWE-426': ['T1574'],      # Untrusted Search Path
@@ -67,13 +100,31 @@ CWE_TO_ATTACK = {
     # Cryptography
     'CWE-327': ['T1557'],      # Broken Crypto -> Adversary-in-the-Middle
     'CWE-295': ['T1557'],      # Improper Cert Validation
+    'CWE-319': ['T1557', 'T1040'],  # Cleartext Transmission -> Network Sniffing
+    'CWE-326': ['T1557'],      # Inadequate Encryption Strength
+    'CWE-328': ['T1557'],      # Reversible One-Way Hash
+    'CWE-330': ['T1557'],      # Use of Insufficiently Random Values
+    'CWE-757': ['T1557'],      # Selection of Less-Secure Algorithm During Negotiation
+    'CWE-311': ['T1557', 'T1552'],  # Missing Encryption of Sensitive Data
 
     # Information disclosure
     'CWE-200': ['T1005'],      # Information Exposure -> Data from Local System
     'CWE-209': ['T1005'],      # Error Message Info Leak
+    'CWE-532': ['T1005', 'T1552'],  # Insertion of Sensitive Info into Log
+    'CWE-538': ['T1005'],      # Insertion of Sensitive Info into Externally-Accessible File
+    'CWE-312': ['T1552'],      # Cleartext Storage of Sensitive Information
 
     # SSRF
     'CWE-918': ['T1090'],      # SSRF -> Proxy
+
+    # Resource exhaustion / DoS
+    'CWE-400': ['T1499'],      # Uncontrolled Resource Consumption
+    'CWE-770': ['T1499'],      # Allocation of Resources Without Limits
+    'CWE-674': ['T1499'],      # Uncontrolled Recursion
+    'CWE-835': ['T1499'],      # Loop with Unreachable Exit Condition
+
+    # Phishing/Social Engineering related
+    'CWE-601': ['T1566'],      # URL Redirection to Untrusted Site (Open Redirect)
 }
 
 # Techniques commonly associated with ransomware

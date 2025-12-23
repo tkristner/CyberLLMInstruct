@@ -1578,6 +1578,7 @@ REQUIREMENTS:
         sample_size: int,
         client: VLLMClient,
         sample_output_dir: Path,
+        timestamp: str,
     ) -> Dict:
         """Process samples from a single source file.
 
@@ -1586,6 +1587,7 @@ REQUIREMENTS:
             sample_size: Number of entries to sample
             client: Shared VLLMClient instance (handles concurrency internally)
             sample_output_dir: Directory to save individual sample files
+            timestamp: Timestamp string for output file naming
 
         Returns:
             Summary dict for this source
@@ -1677,7 +1679,7 @@ REQUIREMENTS:
 
         # Save individual source sample file immediately
         base_name = file_path.stem.split('_filtered_')[0]
-        source_sample_file = sample_output_dir / f"{base_name}_sample.json"
+        source_sample_file = sample_output_dir / f"{base_name}_sample_{timestamp}.json"
 
         with open(source_sample_file, 'w', encoding='utf-8') as f:
             json.dump({
@@ -1725,6 +1727,9 @@ REQUIREMENTS:
         input_files = list(self.input_dir.glob('*_filtered_*.json'))
         total_files = len(input_files)
 
+        # Generate timestamp once for all files in this run
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
         logger.info(f"Found {total_files} filtered files to sample")
         logger.info(f"Max concurrent requests: {self.vllm_config.max_concurrent}")
 
@@ -1732,7 +1737,7 @@ REQUIREMENTS:
         async with VLLMClient(self.vllm_config) as client:
             # Process all sources in parallel - client's semaphore limits actual requests
             tasks = [
-                self._process_single_source_sample(file_path, sample_size, client, sample_output_dir)
+                self._process_single_source_sample(file_path, sample_size, client, sample_output_dir, timestamp)
                 for file_path in input_files
             ]
 
@@ -1751,8 +1756,7 @@ REQUIREMENTS:
                 source_summaries.append(result)
                 all_samples.extend(pairs)
 
-        # Save combined summary file
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        # Save combined summary file (use same timestamp)
         sample_file = sample_output_dir / f"sample_output_{timestamp}.json"
 
         with open(sample_file, 'w', encoding='utf-8') as f:

@@ -60,6 +60,294 @@ class CausalRelation:
     actors: List[str] = field(default_factory=list)  # Acteurs qui démontrent cette relation
     cves: List[str] = field(default_factory=list)  # CVEs liées (pour relations exploits)
     is_ransomware: bool = False  # Indicateur ransomware
+    # Issue #5/#6: Confidence scoring breakdown
+    p_theorique: float = 0.0  # Theoretical score (0-1)
+    p_empirique: float = 0.0  # Empirical score (0-1)
+    scoring_details: Dict = field(default_factory=dict)  # Detailed breakdown
+
+
+@dataclass
+class TheoreticalScoreResult:
+    """Result of theoretical confidence scoring."""
+    score: float
+    evidence: List[str]
+    components: Dict[str, float]  # Breakdown by component
+
+
+def calculate_theoretical_score(
+    t1_phases: List[int],
+    t2_phases: List[int],
+    is_subtechnique_relation: bool = False,
+    has_documented_prerequisite: bool = False,
+    shared_data_sources: int = 0,
+    t1_outputs: List[str] = None,
+    t2_inputs: List[str] = None
+) -> TheoreticalScoreResult:
+    """
+    Issue #5: Calculate theoretical confidence score for T1 -> T2 relation.
+
+    Components (max 0.95):
+    - Kill Chain Order (0.0 - 0.30): T1 phase < T2 phase
+    - I/O Relation (0.0 - 0.30): T1 outputs match T2 inputs
+    - Hierarchy (0.0 - 0.25): Parent/subtechnique relationship
+    - Prerequisites (0.0 - 0.15): Documented dependencies
+
+    Args:
+        t1_phases: Phase order indices for technique 1
+        t2_phases: Phase order indices for technique 2
+        is_subtechnique_relation: True if T1 is parent of T2
+        has_documented_prerequisite: True if MITRE documents T1 as prereq for T2
+        shared_data_sources: Number of shared data sources (proxy for I/O)
+        t1_outputs: What T1 produces (credentials, access, etc.)
+        t2_inputs: What T2 requires
+
+    Returns:
+        TheoreticalScoreResult with score, evidence, and component breakdown
+    """
+    components = {}
+    evidence = []
+
+    # 1. Kill Chain Order (0.0 - 0.30)
+    # Higher score if T1 phase < T2 phase (sequential progression)
+    kill_chain_score = 0.0
+    if t1_phases and t2_phases:
+        min_t1 = min(t1_phases)
+        min_t2 = min(t2_phases)
+        phase_diff = min_t2 - min_t1
+
+        if phase_diff > 0:
+            # T1 comes before T2 - good causal order
+            if phase_diff == 1:
+                kill_chain_score = 0.30  # Adjacent phases - strongest
+                evidence.append(f"Adjacent kill chain phases (+{phase_diff})")
+            elif phase_diff <= 3:
+                kill_chain_score = 0.20  # Close phases
+                evidence.append(f"Close kill chain phases (+{phase_diff})")
+            else:
+                kill_chain_score = 0.10  # Distant phases
+                evidence.append(f"Distant kill chain phases (+{phase_diff})")
+        elif phase_diff == 0:
+            # Same phase - possible but less likely causal
+            kill_chain_score = 0.05
+            evidence.append("Same kill chain phase")
+        else:
+            # T2 comes before T1 - reverse order, unlikely causal
+            kill_chain_score = 0.0
+            evidence.append("Reverse kill chain order (unlikely causal)")
+
+    components['kill_chain'] = kill_chain_score
+
+    # 2. I/O Relation (0.0 - 0.30)
+    # Score based on shared data sources or explicit I/O matching
+    io_score = 0.0
+    t1_outputs = t1_outputs or []
+    t2_inputs = t2_inputs or []
+
+    # Common I/O patterns in ATT&CK
+    io_patterns = {
+        ('credentials', 'credentials'): 0.30,
+        ('access', 'access'): 0.25,
+        ('code', 'execution'): 0.25,
+        ('persistence', 'execution'): 0.20,
+        ('discovery', 'lateral'): 0.20,
+    }
+
+    # Check for matching I/O
+    for t1_out in t1_outputs:
+        for t2_in in t2_inputs:
+            key = (t1_out.lower(), t2_in.lower())
+            if key in io_patterns:
+                io_score = max(io_score, io_patterns[key])
+                evidence.append(f"I/O match: {t1_out} -> {t2_in}")
+
+    # Fallback: use shared data sources as proxy
+    if io_score == 0 and shared_data_sources > 0:
+        io_score = min(0.20, shared_data_sources * 0.05)
+        evidence.append(f"Shared data sources: {shared_data_sources}")
+
+    components['io_relation'] = io_score
+
+    # 3. Hierarchy (0.0 - 0.25)
+    # Parent technique enables subtechnique execution
+    hierarchy_score = 0.0
+    if is_subtechnique_relation:
+        hierarchy_score = 0.25
+        evidence.append("Parent-subtechnique hierarchy")
+
+    components['hierarchy'] = hierarchy_score
+
+    # 4. Prerequisites (0.0 - 0.15)
+    # Documented dependencies in MITRE
+    prereq_score = 0.0
+    if has_documented_prerequisite:
+        prereq_score = 0.15
+        evidence.append("Documented prerequisite in MITRE")
+
+    components['prerequisites'] = prereq_score
+
+    # Calculate total (capped at 0.95)
+    total = sum(components.values())
+    total = min(0.95, total)
+
+    return TheoreticalScoreResult(
+        score=total,
+        evidence=evidence,
+        components=components
+    )
+
+
+@dataclass
+class EmpiricalScoreResult:
+    """Result of empirical confidence scoring."""
+    score: float
+    evidence: List[str]
+    components: Dict[str, float]
+
+
+def calculate_empirical_score(
+    actor_co_occurrence: int = 0,
+    campaign_documentation: int = 0,
+    source_corroboration: int = 0,
+    recency_years: int = 0,
+    cti_chain_confidence: float = 0.0
+) -> EmpiricalScoreResult:
+    """
+    Issue #6: Calculate empirical confidence score from observed CTI data.
+
+    Components (max 0.95):
+    - Actor Co-occurrence (0.0 - 0.40): Number of actors showing this T1->T2 pattern
+    - Campaign Documentation (0.0 - 0.30): Times documented in CTI reports
+    - Source Corroboration (0.0 - 0.20): Number of independent sources
+    - Recency (0.0 - 0.10): How recent the observations are
+
+    Args:
+        actor_co_occurrence: Number of actors that use both T1 and T2
+        campaign_documentation: Number of CTI reports documenting this chain
+        source_corroboration: Number of independent sources (OTX, NIST, LOLBAS, etc.)
+        recency_years: Years since most recent observation (0 = this year)
+        cti_chain_confidence: Average confidence from CTI chain extraction
+
+    Returns:
+        EmpiricalScoreResult with score, evidence, and component breakdown
+    """
+    components = {}
+    evidence = []
+
+    # 1. Actor Co-occurrence (0.0 - 0.40)
+    # More actors = stronger empirical evidence
+    actor_score = 0.0
+    if actor_co_occurrence >= 10:
+        actor_score = 0.40
+        evidence.append(f"Strong actor co-occurrence ({actor_co_occurrence} actors)")
+    elif actor_co_occurrence >= 5:
+        actor_score = 0.30
+        evidence.append(f"Moderate actor co-occurrence ({actor_co_occurrence} actors)")
+    elif actor_co_occurrence >= 2:
+        actor_score = 0.20
+        evidence.append(f"Some actor co-occurrence ({actor_co_occurrence} actors)")
+    elif actor_co_occurrence == 1:
+        actor_score = 0.10
+        evidence.append("Single actor observed")
+
+    components['actor_co_occurrence'] = actor_score
+
+    # 2. Campaign Documentation (0.0 - 0.30)
+    # More CTI reports = stronger evidence
+    campaign_score = 0.0
+    if campaign_documentation >= 10:
+        campaign_score = 0.30
+        evidence.append(f"Extensively documented ({campaign_documentation} reports)")
+    elif campaign_documentation >= 5:
+        campaign_score = 0.20
+        evidence.append(f"Well documented ({campaign_documentation} reports)")
+    elif campaign_documentation >= 1:
+        campaign_score = min(0.15, campaign_documentation * 0.05)
+        evidence.append(f"Documented in {campaign_documentation} report(s)")
+
+    # Boost from CTI chain confidence if available
+    if cti_chain_confidence > 0:
+        campaign_score = min(0.30, campaign_score + cti_chain_confidence * 0.1)
+        evidence.append(f"CTI chain confidence: {cti_chain_confidence:.2f}")
+
+    components['campaign_documentation'] = campaign_score
+
+    # 3. Source Corroboration (0.0 - 0.20)
+    # Multiple independent sources = stronger evidence
+    corroboration_score = 0.0
+    if source_corroboration >= 4:
+        corroboration_score = 0.20
+        evidence.append(f"Multi-source corroboration ({source_corroboration} sources)")
+    elif source_corroboration >= 2:
+        corroboration_score = 0.10
+        evidence.append(f"Some corroboration ({source_corroboration} sources)")
+    elif source_corroboration == 1:
+        corroboration_score = 0.05
+        evidence.append("Single source")
+
+    components['source_corroboration'] = corroboration_score
+
+    # 4. Recency (0.0 - 0.10)
+    # More recent = more relevant
+    recency_score = 0.0
+    if recency_years == 0:
+        recency_score = 0.10
+        evidence.append("Observed this year")
+    elif recency_years <= 1:
+        recency_score = 0.08
+        evidence.append("Observed last year")
+    elif recency_years <= 2:
+        recency_score = 0.05
+        evidence.append("Observed within 2 years")
+    elif recency_years <= 5:
+        recency_score = 0.02
+        evidence.append("Observed within 5 years")
+
+    components['recency'] = recency_score
+
+    # Calculate total (capped at 0.95)
+    total = sum(components.values())
+    total = min(0.95, total)
+
+    return EmpiricalScoreResult(
+        score=total,
+        evidence=evidence,
+        components=components
+    )
+
+
+def calculate_combined_confidence(
+    p_theorique: float,
+    p_empirique: float,
+    weight_theorique: float = 0.4,
+    weight_empirique: float = 0.6
+) -> Tuple[float, str]:
+    """
+    Issue #7: Combine theoretical and empirical scores.
+
+    The empirical score is weighted higher because observed evidence
+    is more reliable than theoretical reasoning.
+
+    Args:
+        p_theorique: Theoretical score (0-1)
+        p_empirique: Empirical score (0-1)
+        weight_theorique: Weight for theoretical (default 0.4)
+        weight_empirique: Weight for empirical (default 0.6)
+
+    Returns:
+        (combined_score, classification)
+        Classification: HIGH (>0.7), MEDIUM (0.4-0.7), LOW (<0.4)
+    """
+    combined = (p_theorique * weight_theorique) + (p_empirique * weight_empirique)
+    combined = min(0.95, combined)
+
+    if combined >= 0.7:
+        classification = "HIGH"
+    elif combined >= 0.4:
+        classification = "MEDIUM"
+    else:
+        classification = "LOW"
+
+    return combined, classification
 
 
 @dataclass
