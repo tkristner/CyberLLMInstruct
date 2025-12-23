@@ -421,20 +421,20 @@ def main():
     parser = argparse.ArgumentParser(description="Analyze dataset quality metrics")
     parser.add_argument("--enriched-file", type=Path, help="Path to enriched techniques JSON")
     parser.add_argument("--causal-graph", type=Path, help="Path to causal graph JSON")
-    parser.add_argument("--output-dir", type=Path, default=Path("filtered_data"), help="Output directory")
+    parser.add_argument("--output-dir", type=Path, default=Path("filtered_data/intermediate"), help="Output directory")
     parser.add_argument("--strict", action="store_true", help="Use strict thresholds")
 
     args = parser.parse_args()
 
     # Auto-detect files if not provided
     if not args.enriched_file:
-        enriched_files = sorted(Path("filtered_data").glob("techniques_enriched_cti_*.json"))
+        enriched_files = sorted(Path("filtered_data/enrichment/enriched_techniques").glob("techniques_enriched_cti_*.json"))
         if enriched_files:
             args.enriched_file = enriched_files[-1]
             logger.info(f"Auto-detected enriched file: {args.enriched_file}")
 
     if not args.causal_graph:
-        graph_files = sorted(Path("filtered_data").glob("causal_graph_*.json"))
+        graph_files = sorted(Path("filtered_data/intermediate").glob("causal_graph_*.json"))
         if graph_files:
             args.causal_graph = graph_files[-1]
             logger.info(f"Auto-detected causal graph: {args.causal_graph}")

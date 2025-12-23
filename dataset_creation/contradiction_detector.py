@@ -373,13 +373,13 @@ def main():
 
     parser = argparse.ArgumentParser(description="Detect contradictions in CTI data")
     parser.add_argument("--input", type=Path, help="Path to enriched techniques JSON")
-    parser.add_argument("--output", type=Path, default=Path("filtered_data/contradictions_review.json"))
+    parser.add_argument("--output", type=Path, default=Path("filtered_data/intermediate/contradictions_review.json"))
 
     args = parser.parse_args()
 
     # Auto-detect input file
     if not args.input:
-        enriched_files = sorted(Path("filtered_data").glob("techniques_enriched_cti_*.json"))
+        enriched_files = sorted(Path("filtered_data/enrichment/enriched_techniques").glob("techniques_enriched_cti_*.json"))
         if enriched_files:
             args.input = enriched_files[-1]
             logger.info(f"Auto-detected: {args.input}")

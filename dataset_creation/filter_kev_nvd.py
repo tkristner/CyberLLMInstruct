@@ -157,7 +157,7 @@ class FilteredCVE:
 class KEVNVDFilter:
     """Filter VulnCheck KEV and NVD data for causal graph integration."""
 
-    def __init__(self, raw_data_dir: str = "raw_data", output_dir: str = "filtered_data"):
+    def __init__(self, raw_data_dir: str = "raw_data", output_dir: str = "filtered_data/sources/vulnerabilities"):
         self.raw_data_dir = Path(raw_data_dir)
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -469,7 +469,7 @@ def main():
 
     parser = argparse.ArgumentParser(description="Filter KEV and NVD data for causal graph")
     parser.add_argument("--raw-dir", default="raw_data", help="Raw data directory")
-    parser.add_argument("--output-dir", default="filtered_data", help="Output directory")
+    parser.add_argument("--output-dir", default="filtered_data/sources/vulnerabilities", help="Output directory")
     parser.add_argument("--no-nvd", action="store_true", help="Skip NVD processing")
     parser.add_argument("--nvd-min-cvss", type=float, default=9.0, help="Minimum CVSS for NVD (default: 9.0)")
 

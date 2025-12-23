@@ -107,8 +107,12 @@ class CTIEnricher:
         self.stats = defaultdict(int)
 
     def _find_latest_file(self, pattern: str) -> Optional[Path]:
-        """Find most recent file matching pattern."""
-        files = list(self.data_dir.glob(pattern))
+        """Find most recent file matching pattern, searching recursively in subdirectories."""
+        # Search recursively with **/ prefix
+        files = list(self.data_dir.glob(f"**/{pattern}"))
+        if not files:
+            # Fallback: try direct pattern match
+            files = list(self.data_dir.glob(pattern))
         if not files:
             return None
         return max(files, key=lambda p: p.stat().st_mtime)
@@ -565,7 +569,7 @@ class CTIEnricher:
 
         return enriched
 
-    def export_results(self, enriched: List[EnrichedTechniqueWithCTI], output_dir: str = "filtered_data"):
+    def export_results(self, enriched: List[EnrichedTechniqueWithCTI], output_dir: str = "filtered_data/enrichment/enriched_techniques"):
         """Export enriched techniques."""
         output_path = Path(output_dir)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -614,7 +618,10 @@ class CTIEnricher:
             ]
         }
 
-        summary_output = output_path / f"techniques_enriched_summary_{timestamp}.json"
+        # Export summary to summaries directory
+        summary_dir = output_path.parent / "summaries"
+        summary_dir.mkdir(parents=True, exist_ok=True)
+        summary_output = summary_dir / f"techniques_enriched_summary_{timestamp}.json"
         with open(summary_output, 'w') as f:
             json.dump(summary, f, indent=2)
         logger.info(f"Exported summary to {summary_output}")

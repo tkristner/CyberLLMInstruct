@@ -96,7 +96,7 @@ class CTIReportExtractor:
     def __init__(
         self,
         reports_dir: str = "raw_data/MD_CTI_reports",
-        output_dir: str = "filtered_data",
+        output_dir: str = "filtered_data/sources/threat_intel",
         vllm_url: str = VLLM_BASE_URL,
         model: str = VLLM_MODEL,
         max_workers: int = 4
@@ -822,7 +822,7 @@ def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(description="Extract CTI data from reports using LLM")
     parser.add_argument("--reports-dir", default="raw_data/MD_CTI_reports", help="Reports directory")
-    parser.add_argument("--output-dir", default="filtered_data", help="Output directory")
+    parser.add_argument("--output-dir", default="filtered_data/sources/threat_intel", help="Output directory")
     parser.add_argument("--years", type=int, nargs="+", help="Specific years to process")
     parser.add_argument("--limit", type=int, help="Limit number of reports")
     parser.add_argument("--vllm-url", default=VLLM_BASE_URL, help="vLLM server URL")

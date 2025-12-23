@@ -44,7 +44,7 @@ class CyberDataStructurerVLLM:
 
     def __init__(
         self,
-        input_dir: str = "filtered_data",
+        input_dir: str = "filtered_data/sources",
         output_dir: str = "structured_data",
         vllm_url: str = "http://localhost:8000",
         vllm_model: str = "nemotron",
@@ -1833,7 +1833,7 @@ REQUIREMENTS:
 
 def main():
     parser = argparse.ArgumentParser(description="Structure cybersecurity data using vLLM")
-    parser.add_argument("--input-dir", default="filtered_data", help="Input directory")
+    parser.add_argument("--input-dir", default="filtered_data/sources", help="Input directory with source data")
     parser.add_argument("--output-dir", default="structured_data", help="Output directory")
     parser.add_argument("--vllm-url", default="http://localhost:8000", help="vLLM server URL")
     parser.add_argument("--vllm-model", default="nemotron", help="vLLM model name")
