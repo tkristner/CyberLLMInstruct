@@ -144,10 +144,34 @@ Résultat: Presque toutes les KEV (exploitées) = 0.5 + 0.3 = 0.8 minimum, mais 
 | VulnCheck KEV | ✅ | ✅ (via exploits) |
 | NVD | ✅ | ✅ (via exploits) |
 | MITRE ATT&CK | ✅ | ✅ |
+| **CTI Reports (MD)** | ✅ **EN COURS** | ✅ **EN COURS** |
 | LOLBAS | ❌ | ✅ (via enables) |
 | NIST Mappings | ❌ | ❌ |
 | AlienVault OTX | ❌ | ❌ |
 | LOLDrivers | ❌ | ✅ (partiel) |
+
+#### 3.2.1 Extraction CTI Reports (Nouveau)
+
+**Script**: `extract_cti_reports.py`
+**Source**: 454 rapports CTI markdown (2020-2025)
+**Méthode**: Extraction hybride LLM (vLLM Nemotron) + regex avec traçabilité
+
+**Résultats validation (10 rapports 2024)**:
+| Métrique | Valeur |
+|----------|--------|
+| Rapports traités | 10/10 (100%) |
+| Techniques uniques | 86 |
+| Acteurs identifiés | 4 (APT29, FIN7, CARR, CyberAv3ngers) |
+| Traçabilité | ✅ Context ±150 chars par technique |
+
+**Capacités d'extraction**:
+- Techniques MITRE ATT&CK (T1XXX.XXX)
+- Threat actors (APT, FIN, UNC groups)
+- Malware families (Cobalt Strike, LockBit, etc.)
+- CVE IDs
+- Contexte source pour chaque extraction
+
+**Statut**: Prêt pour extraction complète (454 rapports)
 
 ### 3.3 Tests Unitaires
 
@@ -243,8 +267,9 @@ Environ 600+ techniques MITRE ne peuvent PAS avoir de CVE:
 | Techniques avec CVE | 50% | **5%** | 1.9% |
 | CVEs mappées | 90% | **80%** | 67.2% |
 | Relations CONFIRMED | 40% | 40% | À mesurer |
-| Techniques multi-sources | 50% | 50% | ~5% |
+| Techniques multi-sources | 50% | 50% | ~10% (via CTI) |
 | Tests couverture | 80% | 80% | 0% |
+| **CTI Reports extraits** | - | **100%** | **2.2%** (10/454) |
 
 ---
 
@@ -252,20 +277,23 @@ Environ 600+ techniques MITRE ne peuvent PAS avoir de CVE:
 
 ### Sprint 1 (Immédiat)
 
-1. **Étendre CWE_TO_ATTACK** avec 10+ nouveaux CWEs
-2. **Relancer filter_kev_nvd.py** et build_causal_graph.py
-3. **Valider** la couverture améliorée
+1. ✅ **Créer extract_cti_reports.py** - Extraction LLM hybride
+2. ✅ **Valider qualité** - 10 rapports test, 86 techniques extraites
+3. ⏳ **Lancer extraction complète** - 454 rapports CTI (Issue #8)
+4. **Étendre CWE_TO_ATTACK** avec 10+ nouveaux CWEs (Issue #16)
+5. **Relancer filter_kev_nvd.py** et build_causal_graph.py
 
 ### Sprint 2
 
-4. **Implémenter P_théorique** (Issue #5)
-5. **Tests unitaires** pour scoring
+6. **Implémenter P_théorique** (Issue #5)
+7. **Tests unitaires** pour scoring (Issue #14)
+8. **Intégrer CTI extraits** dans graphe causal
 
 ### Sprint 3
 
-6. **Implémenter P_empirique** (Issue #6)
-7. **Classification matrix** (Issue #7)
-8. **Intégration LOLBAS/OTX** dans scoring
+9. **Implémenter P_empirique** (Issue #6)
+10. **Classification matrix** (Issue #7)
+11. **Intégration LOLBAS/OTX** dans scoring
 
 ---
 

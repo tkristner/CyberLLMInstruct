@@ -24,6 +24,13 @@ import random
 
 from vllm_client import VLLMClient, VLLMConfig, check_vllm_health
 
+# Import calibrated uncertainty module for response language calibration
+try:
+    from calibrated_uncertainty import get_uncertainty_prefix, get_uncertainty_qualifier
+    HAS_CALIBRATED_UNCERTAINTY = True
+except ImportError:
+    HAS_CALIBRATED_UNCERTAINTY = False
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -1269,6 +1276,20 @@ Explain OSINT tools, methodologies, and ethical considerations for intelligence 
         # Convert raw_data to string for LLM prompt
         raw_data_str = json.dumps(fields['raw_data'], indent=2, default=str)
 
+        # Build uncertainty calibration directive if confidence data is available
+        uncertainty_directive = ""
+        if HAS_CALIBRATED_UNCERTAINTY:
+            corroboration_score = fields.get('raw_data', {}).get('corroboration_score')
+            if corroboration_score is not None:
+                if corroboration_score >= 0.7:
+                    uncertainty_directive = "\n- Use confident language (e.g., 'is confirmed to', 'definitively', 'based on strong evidence')"
+                elif corroboration_score >= 0.4:
+                    uncertainty_directive = "\n- Use moderate confidence language (e.g., 'likely', 'evidence suggests', 'probably')"
+                elif corroboration_score >= 0.2:
+                    uncertainty_directive = "\n- Use cautious language (e.g., 'may', 'possibly', 'limited evidence suggests')"
+                else:
+                    uncertainty_directive = "\n- Use speculative language (e.g., 'theoretically', 'hypothetically', 'unconfirmed')"
+
         # Build prompt requesting structured reasoning + answer as JSON
         prompt = f"""Analyze the following {entry_type.replace('_', ' ')} data and answer the question.
 
@@ -1288,7 +1309,7 @@ REQUIREMENTS:
 - The "answer" field must be technically dense and actionable - prioritize substance over length
 - Include specific identifiers (CVE, CWE, MITRE IDs), concrete steps, and measurable recommendations
 - Avoid filler phrases, repetition, and generic statements - every sentence must add value
-- Use bullet points or numbered lists for actionable items when appropriate
+- Use bullet points or numbered lists for actionable items when appropriate{uncertainty_directive}
 - Return ONLY valid JSON, no markdown formatting"""
 
         response = await client.simple_query(
@@ -1320,9 +1341,20 @@ REQUIREMENTS:
                     logger.debug("Answer appears to be a refusal")
                     return None
 
-                return {
+                # Extract enrichment metadata if available
+                raw_data = fields.get('raw_data', {})
+                enrichment_metadata = {}
+                if raw_data.get('corroboration_score') is not None:
+                    enrichment_metadata['corroboration_score'] = raw_data.get('corroboration_score')
+                    enrichment_metadata['sources_count'] = raw_data.get('sources_count', 0)
+                if raw_data.get('remediation_complexity'):
+                    rc = raw_data['remediation_complexity']
+                    enrichment_metadata['remediation_complexity'] = rc.get('level') if isinstance(rc, dict) else None
+                    enrichment_metadata['implementation_group'] = rc.get('min_implementation_group') if isinstance(rc, dict) else None
+
+                result = {
                     'instruction': instruction,
-                    'context': fields.get('raw_data', {}),  # Full source data as native JSON
+                    'context': raw_data,  # Full source data as native JSON
                     'reasoning': reasoning,  # Structured reasoning
                     'response': answer,  # The actual answer
                     'type': entry_type,
@@ -1332,6 +1364,12 @@ REQUIREMENTS:
                         'kill_chain': fields.get('kill_chain_phases', ''),
                     }
                 }
+
+                # Add enrichment metadata if present
+                if enrichment_metadata:
+                    result['enrichment'] = enrichment_metadata
+
+                return result
             else:
                 logger.debug("Failed to parse JSON response")
         return None

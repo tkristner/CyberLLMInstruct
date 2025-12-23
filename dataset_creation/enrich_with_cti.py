@@ -48,6 +48,16 @@ class CTIChainEvidence:
 
 
 @dataclass
+class RemediationComplexityInfo:
+    """Remediation complexity information from CIS/NIST analysis."""
+    level: str  # basic, intermediate, advanced
+    score: float
+    min_implementation_group: Optional[int]
+    effort_description: str
+    controls_count: int
+
+
+@dataclass
 class EnrichedTechniqueWithCTI:
     """Technique enriched with all CTI sources."""
     technique_id: str           # MITRE internal ID
@@ -61,6 +71,7 @@ class EnrichedTechniqueWithCTI:
     is_driver_abuse: bool = False
     has_dll_hijack: bool = False
     nist_controls: List[str] = field(default_factory=list)
+    remediation_complexity: Optional[RemediationComplexityInfo] = None
 
 
 class CTIEnricher:
@@ -88,6 +99,9 @@ class CTIEnricher:
         self.otx_by_technique: Dict[str, List[Dict]] = defaultdict(list)
         self.nist_by_technique: Dict[str, List[Dict]] = defaultdict(list)
         self.chains_by_technique: Dict[str, List[Dict]] = defaultdict(list)
+
+        # Remediation complexity analyzer
+        self.remediation_analyzer = None
 
         # Stats
         self.stats = defaultdict(int)
@@ -331,6 +345,40 @@ class CTIEnricher:
         logger.info(f"Loaded {len(self.cti_chains)} CTI chains -> {len(self.chains_by_technique)} techniques")
         return len(self.cti_chains)
 
+    def load_remediation_analyzer(self):
+        """Load the remediation complexity analyzer."""
+        try:
+            from remediation_complexity import RemediationAnalyzer
+            self.remediation_analyzer = RemediationAnalyzer()
+            logger.info("Loaded remediation complexity analyzer")
+            return True
+        except ImportError as e:
+            logger.warning(f"Could not load remediation_complexity module: {e}")
+            return False
+        except Exception as e:
+            logger.warning(f"Error initializing remediation analyzer: {e}")
+            return False
+
+    def get_remediation_complexity(self, tech_id: str) -> Optional[RemediationComplexityInfo]:
+        """Get remediation complexity for a technique."""
+        if not self.remediation_analyzer:
+            return None
+
+        try:
+            complexity = self.remediation_analyzer.get_technique_complexity(tech_id)
+            if complexity.level.value != 'unknown':
+                return RemediationComplexityInfo(
+                    level=complexity.level.value,
+                    score=complexity.score,
+                    min_implementation_group=complexity.min_implementation_group,
+                    effort_description=complexity.effort_description,
+                    controls_count=len(complexity.controls)
+                )
+        except Exception as e:
+            logger.debug(f"Error getting complexity for {tech_id}: {e}")
+
+        return None
+
     def load_all_sources(self):
         """Load all CTI sources."""
         logger.info("=== Loading all CTI sources ===")
@@ -341,6 +389,7 @@ class CTIEnricher:
         self.load_otx()
         self.load_nist_mappings()
         self.load_cti_chains()
+        self.load_remediation_analyzer()
         logger.info("=== All sources loaded ===\n")
 
     def calculate_corroboration_score(self, tech_id: str) -> Tuple[float, Dict[str, SourceEvidence]]:
@@ -471,6 +520,7 @@ class CTIEnricher:
 
         enriched = []
         techniques_with_cti = 0
+        techniques_with_complexity = 0
 
         for external_id, tech in self.techniques_by_external_id.items():
             score, sources = self.calculate_corroboration_score(external_id)
@@ -481,6 +531,11 @@ class CTIEnricher:
                 e.get('control_id', '')
                 for e in self.nist_by_technique.get(external_id, [])
             ][:10]
+
+            # Get remediation complexity
+            remediation_info = self.get_remediation_complexity(external_id)
+            if remediation_info:
+                techniques_with_complexity += 1
 
             enriched_tech = EnrichedTechniqueWithCTI(
                 technique_id=tech.get('id', ''),
@@ -493,7 +548,8 @@ class CTIEnricher:
                 is_lolbin=external_id in self.lolbas_by_technique,
                 is_driver_abuse=external_id in self.drivers_by_technique,
                 has_dll_hijack=external_id in self.hijack_by_technique,
-                nist_controls=nist_controls
+                nist_controls=nist_controls,
+                remediation_complexity=asdict(remediation_info) if remediation_info else None
             )
             enriched.append(enriched_tech)
 
@@ -505,6 +561,7 @@ class CTIEnricher:
 
         logger.info(f"Enriched {len(enriched)} techniques")
         logger.info(f"Techniques with CTI data: {techniques_with_cti} ({100*techniques_with_cti/len(enriched):.1f}%)")
+        logger.info(f"Techniques with complexity: {techniques_with_complexity} ({100*techniques_with_complexity/len(enriched):.1f}%)")
 
         return enriched
 
@@ -519,6 +576,15 @@ class CTIEnricher:
             json.dump([asdict(t) for t in enriched], f, indent=2)
         logger.info(f"Exported full results to {full_output}")
 
+        # Remediation complexity stats
+        complexity_counts = {'basic': 0, 'intermediate': 0, 'advanced': 0, 'unknown': 0}
+        for t in enriched:
+            if t.remediation_complexity:
+                level = t.remediation_complexity.get('level', 'unknown') if isinstance(t.remediation_complexity, dict) else t.remediation_complexity.level
+                complexity_counts[level] = complexity_counts.get(level, 0) + 1
+            else:
+                complexity_counts['unknown'] += 1
+
         # Summary statistics
         summary = {
             'timestamp': timestamp,
@@ -531,15 +597,18 @@ class CTIEnricher:
                 'hijacklibs': sum(1 for t in enriched if t.has_dll_hijack),
                 'otx': sum(1 for t in enriched if 'otx' in t.source_details),
                 'nist': sum(1 for t in enriched if t.nist_controls),
-                'cti_chains': sum(1 for t in enriched if t.cti_chains)
+                'cti_chains': sum(1 for t in enriched if t.cti_chains),
+                'remediation_complexity': sum(1 for t in enriched if t.remediation_complexity)
             },
+            'remediation_complexity_distribution': complexity_counts,
             'stats': dict(self.stats),
             'top_10_corroborated': [
                 {
                     'id': t.external_id,
                     'name': t.technique_name,
                     'score': t.corroboration_score,
-                    'sources': list(t.source_details.keys())
+                    'sources': list(t.source_details.keys()),
+                    'complexity': t.remediation_complexity.get('level') if isinstance(t.remediation_complexity, dict) else (t.remediation_complexity.level if t.remediation_complexity else None)
                 }
                 for t in enriched[:10]
             ]
