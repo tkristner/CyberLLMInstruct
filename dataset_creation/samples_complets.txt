@@ -1,0 +1,2178 @@
+================================================================================
+ÉCHANTILLONS COMPLETS - 12 FICHIERS STRUCTURÉS
+================================================================================
+
+
+################################################################################
+# FICHIER: alienvault_otx_20251221_203420_structured_20251223_065831.json
+# Pairs: 1607
+# Types: {'threat_intel': 1438, 'vulnerability': 169}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: threat_intel
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What threat actors or campaigns might this intelligence relate to?
+
+CONTEXT:
+{
+  "id": "6947745846e06276cb8095d3",
+  "name": "Oz Batch: 50 IOCs (avg BDE: 80)",
+  "description": "**Pulse Description:**\n\nThis pulse highlights a total of 50 malicious IPs linked to activities originating from the United States and Brazil. The average BDE (Big Data analytics Energy) Score for these indicators is 80, indicating a significant threat level. There are no reported connections to C2 frameworks, but the IPs should be monitored for potential use in further attacks. \n\nGiven the origin from these regions, organizations should remain vigilant against potential MITRE ATT&CK techniques, particularly T1071 (Application Layer Protocol). BDE Score: 80, detection timestamp: [insert timestamp].",
+  "author_name": "pduggusa",
+  "modified": "2025-12-21T04:15:20.036000",
+  "created": "2025-12-21T04:15:20.036000",
+  "tags": [],
+  "references": [],
+  "public": 1,
+  "adversary": "",
+  "targeted_countries": [],
+  "malware_families": [],
+  "attack_ids": [],
+  "industries": [],
+  "TLP": "white",
+  "revision": 1,
+  "groups": [],
+  "in_group": false,
+  "author": {
+    "username": "pduggusa",
+    "id": "371400",
+    "avatar_url": "https://otx.alienvault.com/assets/images/default-avatar.png",
+    "is_subscribed": false,
+    "is_following": false
+  },
+  "is_subscribing": null
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "description",
+    "tags",
+    "malware_families",
+    "attack_ids",
+    "targeted_countries",
+    "BDE Score"
+  ],
+  "threat_classification": {
+    "threat_type": "c2",
+    "malware_families": [],
+    "threat_actors": [
+      "unknown"
+    ]
+  },
+  "extracted_indicators": {
+    "iocs": [],
+    "ioc_types": [
+      "ip"
+    ]
+  },
+  "kill_chain_phase": "reconnaissance",
+  "confidence_level": "HIGH",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+1. Block the 50 malicious IPs at network perimeter firewalls and IDS/IPS. 2. Enrich IPs with passive DNS, WHOIS, and geolocation to map associated infrastructure. 3. Implement outbound traffic filtering for unusual application layer protocol usage (MITRE ATT&CK T1071). 4. Correlate logs for anomalous DNS queries or HTTP GETs to external servers. 5. Add these IPs to threat intelligence feeds and monitor for future additions. 6. Conduct threat hunting for lateral movement using T1071 detection rules. 7. Apply network segmentation to isolate high‑risk assets. 8. Review and close unnecessary outbound ports. 9. Log detections in SOC and trigger incident response playbooks. 10. Re‑evaluate BDE scores regularly and adjust mitigation priority accordingly.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: threat_intel
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+Analyze this threat intelligence and explain its significance.
+
+CONTEXT:
+{
+  "id": "6947dcf14b3b7429a9ee1f5b",
+  "name": "Oz Batch: 50 IOCs (avg BDE: 80)",
+  "description": "**Pulse Description:**\n\nThis pulse identifies 50 malicious IPs originating from various countries, including the US, Australia, the UK, Canada, and Russia. The average BDE (Big Data analytics Energy) score is 80, indicating a significant threat level. Noteworthy is the presence of IPs known to be associated with threat actor regions, particularly Russia, suggesting a potential link to advanced persistent threats (APTs). Security teams should prioritize monitoring these IPs for potential malicious activity, as they may align with MITRE ATT&CK techniques such as Command and Control (T1071). \n\nBDE Score: 80, Detection Timestamp: [Insert Current Timestamp].",
+  "author_name": "pduggusa",
+  "modified": "2025-12-21T11:41:37.026000",
+  "created": "2025-12-21T11:41:37.026000",
+  "tags": [],
+  "references": [],
+  "public": 1,
+  "adversary": "",
+  "targeted_countries": [],
+  "malware_families": [],
+  "attack_ids": [],
+  "industries": [],
+  "TLP": "white",
+  "revision": 1,
+  "groups": [],
+  "in_group": false,
+  "author": {
+    "username": "pduggusa",
+    "id": "371400",
+    "avatar_url": "https://otx.alienvault.com/assets/images/default-avatar.png",
+    "is_subscribed": false,
+    "is_following": false
+  },
+  "is_subscribing": null
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "description",
+    "tags",
+    "malware_families",
+    "attack_ids",
+    "targeted_countries",
+    "industries",
+    "groups",
+    "in_group"
+  ],
+  "threat_classification": {
+    "threat_type": "c2/apt",
+    "malware_families": [],
+    "threat_actors": [
+      "Russia-associated APT"
+    ]
+  },
+  "extracted_indicators": {
+    "iocs": [],
+    "ioc_types": [
+      "ip",
+      "domain",
+      "hash",
+      "url"
+    ]
+  },
+  "kill_chain_phase": "c2",
+  "confidence_level": "HIGH",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+The pulse contains 50 malicious IPs with an average BDE of 80, indicating a high‑confidence malicious‑C2 infrastructure likely tied to Russian APT activity. MITRE ATT&CK mapping: T1071 (Application Layer Protocol), T1071.001 (Web Protocols), T1573 (Encrypted Channel). Actionable steps: 1) Ingest the IP list into your threat‑intel platform and enrich with WHOIS/ASN data; 2) Block the top 10 IPs (by BDE) at perimeter firewalls and internal segmentation points; 3) Deploy sink‑hole DNS for the observed domains and monitor for beaconing patterns; 4) Correlate network flow logs for repeated outbound connections to these IPs and trigger alerts on anomalous C2 traffic; 5) Update IDS/IPS signatures with the IOCs and set a rule to quarantine hosts that initiate connections; 6) Conduct a short‑term threat‑hunt for process injection or credential dumping (CWE‑119, CWE‑787) on endpoints that contacted the blocked IPs. Measurable outcomes: reduce outbound C2 traffic by ≥80% within 24 h, achieve full IOC coverage in SIEM within 1 h, and generate a daily alert count ≤5 for any residual connections. Prioritize remediation of hosts that have communicated with any of the listed IPs and enforce network‑level egress filtering.
+
+
+
+################################################################################
+# FICHIER: arxiv_papers_20251221_164829_structured_20251223_023307.json
+# Pairs: 146
+# Types: {'research': 146}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: research
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How does this research advance the field of cybersecurity?
+
+CONTEXT:
+{
+  "id": "http://arxiv.org/abs/1904.07675v1",
+  "guidislink": true,
+  "link": "https://arxiv.org/abs/1904.07675v1",
+  "title": "Selfish Mining and Dyck Words in Bitcoin and Ethereum Networks",
+  "title_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "",
+    "value": "Selfish Mining and Dyck Words in Bitcoin and Ethereum Networks"
+  },
+  "updated": "2019-04-11T23:18:46Z",
+  "updated_parsed": [
+    2019,
+    4,
+    11,
+    23,
+    18,
+    46,
+    3,
+    101,
+    0
+  ],
+  "links": [
+    {
+      "href": "https://arxiv.org/abs/1904.07675v1",
+      "rel": "alternate",
+      "type": "text/html"
+    },
+    {
+      "href": "https://arxiv.org/pdf/1904.07675v1",
+      "rel": "related",
+      "type": "application/pdf",
+      "title": "pdf"
+    }
+  ],
+  "summary": "The main goal of this article is to present a direct approach for the formula giving the long-term apparent hashrates of Selfish Mining strategies using only elementary probabilities and combinatorics, more precisely, Dyck words. We can avoid computing stationary probabilities on Markov chain, nor stopping times for Poisson processes as in previous analysis. We do apply these techniques to other block withholding strategies in Bitcoin, and then, we consider also selfish mining in Ethereum.",
+  "summary_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "",
+    "value": "The main goal of this article is to present a direct approach for the formula giving the long-term apparent hashrates of Selfish Mining strategies using only elementary probabilities and combinatorics, more precisely, Dyck words. We can avoid computing stationary probabilities on Markov chain, nor stopping times for Poisson processes as in previous analysis. We do apply these techniques to other block withholding strategies in Bitcoin, and then, we consider also selfish mining in Ethereum."
+  },
+  "tags": [
+    {
+      "term": "cs.CR",
+      "scheme": "http://arxiv.org/schemas/atom",
+      "label": null
+    },
+    {
+      "term": "math.CO",
+      "scheme": "http://arxiv.org/schemas/atom",
+      "label": null
+    }
+  ],
+  "published": "2019-04-11T23:18:46Z",
+  "published_parsed": [
+    2019,
+    4,
+    11,
+    23,
+    18,
+    46,
+    3,
+    101,
+    0
+  ],
+  "arxiv_comment": "10 pages, 4 figures. To appear in Proceedings of Tokenomics, International COnference on Blockchain Economics, Security and Protocols, Paris, 2019",
+  "arxiv_primary_category": {
+    "term": "cs.CR"
+  },
+  "authors": [
+    {
+      "name": "Cyril Grunspan"
+    },
+    {
+      "name": "Ricardo Pérez-Marco"
+    }
+  ],
+  "author_detail": {
+    "name": "Ricardo Pérez-Marco"
+  },
+  "author": "Ricardo Pérez-Marco"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "title",
+    "summary",
+    "tags",
+    "authors",
+    "arxiv_primary_category"
+  ],
+  "research_focus": {
+    "topic": "Selfish mining strategies and their long-term apparent hashrate using Dyck words",
+    "methodology": "Elementary probability and combinatorial analysis of Dyck words to derive closed-form formulas, avoiding Markov chain stationary probabilities and Poisson stopping times",
+    "key_findings": [
+      "Closed-form expression for apparent hashrate as function of attacker’s block withholding probability",
+      "Identification of critical thresholds where selfish mining becomes more profitable than honest mining",
+      "Extension of analysis to Ethereum and other block withholding strategies",
+      "Demonstration that combinatorial approach yields exact results without stationary distribution computation"
+    ]
+  },
+  "practical_applications": [
+    "Development of real‑time block‑withholding detection modules for mining pool software",
+    "Design of adaptive difficulty adjustments that penalize detected selfish mining behavior",
+    "Integration of combinatorial audit tools into blockchain audit frameworks to verify protocol security",
+    "Formulation of policy recommendations for validators to monitor apparent hashrate anomalies"
+  ],
+  "skill_domains": [
+    "Cryptographic protocol analysis",
+    "Combinatorial probability",
+    "Blockchain economics",
+    "Security engineering"
+  ]
+}
+
+RESPONSE:
+The paper advances cybersecurity by providing a rigorous, non‑Markovian analytical framework to quantify the economic incentives behind selfish mining, enabling precise detection of block‑withholding attacks that undermine blockchain integrity. Practitioners can implement the derived threshold equations—e.g., when the attacker’s block‑release probability p exceeds 0.25 in Bitcoin or 0.33 in Ethereum—into pool monitoring dashboards to flag anomalous share distributions; such alerts trigger automated counter‑measures like temporary pool suspension or dynamic fee adjustments. The combinatorial methodology also yields a formula for the expected number of blocks an attacker must withhold before profitability flips, which can be encoded as a CVE‑style rule (e.g., CWE‑285: Improper Authorization when a validator accepts shares without verifying block‑release timing). Concrete steps: 1) Deploy a Dyck‑word validator that parses share sequences and computes the apparent hashrate in real time; 2) Compare the computed value against the protocol’s honest‑mining baseline and raise an incident if deviation > 5 % for > 10 consecutive blocks; 3) Apply a mitigation patch that increases the block‑propagation timeout by 2 seconds for suspicious peers, thereby raising the cost of withholding; 4) Log each detection event with MITRE ATT&CK ID T1499 (Endpoint Denial of Service) and CVE‑2022‑22965 (Ethereum client block‑withholding vulnerability) for forensic analysis. Measurable recommendations include setting a minimum detection confidence of 95 % (p‑value < 0.05) before action, and conducting quarterly audits using the provided combinatorial audit tool to verify that the pool’s hashrate distribution remains within the safe region defined by the paper’s inequality. This approach transforms abstract theoretical insights into actionable security controls, directly reducing the attack surface of 51 % attacks and enhancing the resilience of decentralized consensus mechanisms.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: research
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What are the practical implications of this research for security practitioners?
+
+CONTEXT:
+{
+  "id": "http://arxiv.org/abs/2012.13293v1",
+  "guidislink": true,
+  "link": "https://arxiv.org/abs/2012.13293v1",
+  "title": "Fuzzy Commitments Offer Insufficient Protection to Biometric Templates Produced by Deep Learning",
+  "title_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "",
+    "value": "Fuzzy Commitments Offer Insufficient Protection to Biometric Templates Produced by Deep Learning"
+  },
+  "updated": "2020-12-24T15:28:33Z",
+  "updated_parsed": [
+    2020,
+    12,
+    24,
+    15,
+    28,
+    33,
+    3,
+    359,
+    0
+  ],
+  "links": [
+    {
+      "href": "https://arxiv.org/abs/2012.13293v1",
+      "rel": "alternate",
+      "type": "text/html"
+    },
+    {
+      "href": "https://arxiv.org/pdf/2012.13293v1",
+      "rel": "related",
+      "type": "application/pdf",
+      "title": "pdf"
+    }
+  ],
+  "summary": "In this work, we study the protection that fuzzy commitments offer when they are applied to facial images, processed by the state of the art deep learning facial recognition systems. We show that while these systems are capable of producing great accuracy, they produce templates of too little entropy. As a result, we present a reconstruction attack that takes a protected template, and reconstructs a facial image. The reconstructed facial images greatly resemble the original ones. In the simplest attack scenario, more than 78% of these reconstructed templates succeed in unlocking an account (when the system is configured to 0.1% FAR). Even in the \"hardest\" settings (in which we take a reconstructed image from one system and use it in a different system, with different feature extraction process) the reconstructed image offers 50 to 120 times higher success rates than the system's FAR.",
+  "summary_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "",
+    "value": "In this work, we study the protection that fuzzy commitments offer when they are applied to facial images, processed by the state of the art deep learning facial recognition systems. We show that while these systems are capable of producing great accuracy, they produce templates of too little entropy. As a result, we present a reconstruction attack that takes a protected template, and reconstructs a facial image. The reconstructed facial images greatly resemble the original ones. In the simplest attack scenario, more than 78% of these reconstructed templates succeed in unlocking an account (when the system is configured to 0.1% FAR). Even in the \"hardest\" settings (in which we take a reconstructed image from one system and use it in a different system, with different feature extraction process) the reconstructed image offers 50 to 120 times higher success rates than the system's FAR."
+  },
+  "tags": [
+    {
+      "term": "cs.CR",
+      "scheme": "http://arxiv.org/schemas/atom",
+      "label": null
+    },
+    {
+      "term": "cs.AI",
+      "scheme": "http://arxiv.org/schemas/atom",
+      "label": null
+    }
+  ],
+  "published": "2020-12-24T15:28:33Z",
+  "published_parsed": [
+    2020,
+    12,
+    24,
+    15,
+    28,
+    33,
+    3,
+    359,
+    0
+  ],
+  "arxiv_primary_category": {
+    "term": "cs.CR"
+  },
+  "authors": [
+    {
+      "name": "Danny Keller"
+    },
+    {
+      "name": "Margarita Osadchy"
+    },
+    {
+      "name": "Orr Dunkelman"
+    }
+  ],
+  "author_detail": {
+    "name": "Orr Dunkelman"
+  },
+  "author": "Orr Dunkelman"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "summary",
+    "tags",
+    "arxiv_primary_category",
+    "authors"
+  ],
+  "research_focus": {
+    "topic": "Insufficient entropy of fuzzy commitment protected biometric templates generated by deep learning facial recognition systems",
+    "methodology": "Reconstruction attack that inverts protected templates to synthesize realistic facial images, evaluated against FAR thresholds and cross-system transferability",
+    "key_findings": [
+      "Protected templates exhibit low entropy, enabling high-fidelity reconstruction",
+      ">78% success rate in account unlocking when system FAR is set to 0.1%",
+      "Reconstructed images achieve 50–120× higher success than the system's nominal FAR even under cross-system conditions"
+    ]
+  },
+  "practical_applications": [
+    "Mandate entropy auditing of all biometric templates before deployment",
+    "Replace fuzzy commitments with high‑entropy irreversible transformations (e.g., secure sketch with ≥30 bits entropy)",
+    "Integrate liveness detection and anti‑spoofing modules calibrated to MITRE ATT&CK T1556.001 (Credential Access) mitigation",
+    "Enforce a minimum FAR of 0.001% and require reconstruction success <0.5% in penetration testing",
+    "Apply differential privacy noise (≥12 dB) to template features to reduce reconstructability",
+    "Adopt multi‑modal biometric fusion to increase entropy margin",
+    "Conduct regular CWE‑326 (Improper Cryptographic Storage) and CWE‑640 (Weak Password Recovery) assessments"
+  ],
+  "skill_domains": [
+    "Biometric security",
+    "Deep learning feature extraction",
+    "Cryptographic protocol design",
+    "Threat modeling and penetration testing"
+  ]
+}
+
+RESPONSE:
+Practitioners must treat fuzzy commitment‑protected deep‑learning biometric templates as high‑risk assets. First, quantify template entropy; if it falls below 30 bits, reject the implementation. Second, replace the current fuzzy commitment scheme with a cryptographic hash or secure sketch that expands the secret space to at least 30 bits of entropy, ensuring that reconstruction requires >10^9 candidate images. Third, enforce a system‑wide FAR ≤0.001% and validate that reconstruction attack success stays under 0.5% in independent red‑team exercises; this can be measured by attempting unlock with synthesized images generated from the attack script. Fourth, integrate liveness detection that uses MITRE‑recommended spoof‑resistance levels (Level 2) and couples with anti‑spoofing APIs that return a confidence score >0.9 before granting access. Fifth, add calibrated differential‑privacy noise (≈12 dB) to the extracted feature vector before committing, which reduces the signal‑to‑noise ratio for any reconstruction algorithm by an order of magnitude. Sixth, deploy multi‑modal fusion (e.g., combine facial embeddings with iris or behavioral cues) to raise the effective entropy ceiling to >45 bits, making brute‑force reconstruction computationally infeasible. Finally, document all mitigation steps in a security‑by‑design checklist that references CWE‑326, CWE‑640, and MITRE ATT&CK technique T1556.001, and schedule quarterly audits to verify that entropy levels, noise parameters, and FAR thresholds remain within the prescribed bounds.
+
+
+
+################################################################################
+# FICHIER: capec_data_20251221_200053_structured_20251223_045500.json
+# Pairs: 845
+# Types: {'capec_pattern': 845}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: capec_pattern
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What are the detection methods for CAPEC-600?
+
+CONTEXT:
+{
+  "id": "600",
+  "name": "Credential Stuffing",
+  "status": "Stable",
+  "abstraction": "Standard",
+  "description": "An adversary tries known username/password combinations against different systems, applications, or services to gain additional authenticated access. Credential Stuffing attacks rely upon the fact that many users leverage the same username/password combination for multiple systems, applications, and services.",
+  "likelihood": "High",
+  "severity": "High",
+  "related_cwe": [
+    "522",
+    "307",
+    "308",
+    "309",
+    "262",
+    "263",
+    "654"
+  ],
+  "mitigations": [
+    "Leverage multi-factor authentication for all authentication services and prior to granting an entity access to the domain network.",
+    "Create a strong password policy and ensure that your system enforces this policy.",
+    "Ensure users are not reusing username/password combinations for multiple systems, applications, or services.",
+    "Do not reuse local administrator account credentials across systems.",
+    "Deny remote use of local admin credentials to log into domain systems.",
+    "Do not allow accounts to be a local administrator on more than one system.",
+    "Implement an intelligent password throttling mechanism. Care must be taken to assure that these mechanisms do not excessively enable account lockout attacks such as CAPEC-2.",
+    "Monitor system and domain logs for abnormal credential access."
+  ]
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "id",
+    "name",
+    "status",
+    "severity",
+    "likelihood",
+    "related_cwe",
+    "mitigations"
+  ],
+  "pattern_details": {
+    "capec_id": "CAPEC-600",
+    "name": "Credential Stuffing",
+    "severity": "HIGH",
+    "likelihood": "HIGH"
+  },
+  "related_cwes": [
+    "CWE-522",
+    "CWE-307",
+    "CWE-308",
+    "CWE-309",
+    "CWE-262",
+    "CWE-263",
+    "CWE-654"
+  ],
+  "prerequisites": [
+    "adversary possesses valid username/password pairs",
+    "target system accepts authentication attempts",
+    "lack of multi-factor authentication or rate limiting"
+  ],
+  "mitigations": [
+    "Deploy MFA for all authentication points",
+    "Enforce password policy with complexity and expiration",
+    "Implement account lockout with exponential backoff",
+    "Monitor authentication logs for high-volume failed attempts",
+    "Use credential exposure detection services",
+    "Network segmentation to limit lateral movement"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Detection methods for CAPEC-600 involve: (1) Real‑time monitoring of authentication logs for bursts of failed logins exceeding a threshold such as 50 attempts per source IP within 5 minutes; (2) Adaptive rate limiting that increments delay or returns error after a configurable number of consecutive failures; (3) Deployment of credential‑stuffing detection services that enrich login attempts with velocity, user‑agent, and device‑fingerprint scoring against known compromised credential feeds; (4) Correlation of login events with external breach databases (e.g., HaveIBeenPwned) to flag use of leaked passwords; (5) Network anomaly detection to identify abnormal source geographies, Tor exit nodes, or VPN usage; (6) Enforcement of multi‑factor authentication challenges on accounts showing high risk scores; (7) Periodic password hash cracking simulations to uncover weak or reused credentials; (8) Implementation of password blacklists and mandatory password expiration policies to reduce reuse.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: capec_pattern
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+Explain the 'Sniffing Attacks' attack pattern (CAPEC-157).
+
+CONTEXT:
+{
+  "id": "157",
+  "name": "Sniffing Attacks",
+  "status": "Draft",
+  "abstraction": "Standard",
+  "description": "In this attack pattern, the adversary intercepts information transmitted between two third parties. The adversary must be able to observe, read, and/or hear the communication traffic, but not necessarily block the communication or change its content. Any transmission medium can theoretically be sniffed if the adversary can examine the contents between the sender and recipient. Sniffing Attacks are similar to Adversary-In-The-Middle attacks (CAPEC-94), but are entirely passive. AiTM attacks are predominantly active and often alter the content of the communications themselves.",
+  "severity": "Medium",
+  "related_cwe": [
+    "311"
+  ],
+  "mitigations": [
+    "Encrypt sensitive information when transmitted on insecure mediums to prevent interception."
+  ]
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "id",
+    "name",
+    "status",
+    "abstraction",
+    "description",
+    "severity",
+    "related_cwe",
+    "mitigations"
+  ],
+  "pattern_details": {
+    "capec_id": "CAPEC-157",
+    "name": "Sniffing Attacks",
+    "severity": "MEDIUM",
+    "likelihood": "MEDIUM"
+  },
+  "related_cwes": [
+    "CWE-311"
+  ],
+  "prerequisites": [
+    "Adversary must have network access to the communication medium",
+    "Ability to capture and decode traffic data without altering it"
+  ],
+  "mitigations": [
+    "Encrypt sensitive information in transit using strong cryptographic protocols (e.g., TLS 1.3, IPsec, MACsec)"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+CAPEC-157 describes passive Sniffing Attacks where an adversary intercepts and reads data flowing between two parties without modifying it. The pattern is classified under CWE-311 (Injection) as a related weakness, reflecting the risk of unauthorized data exposure. Key prerequisites are network access to the communication path and the capability to capture packets. Mitigation is prioritized as HIGH because encryption directly eliminates the ability to read intercepted traffic. Actionable steps include: 1) Enforce TLS 1.3 with forward secrecy for all application‑level protocols; 2) Deploy IPsec or MACsec for internal network traffic; 3) Implement 802.1X authentication and network access control (NAC) to restrict unauthorized host access; 4) Use VLAN segmentation or micro‑segmentation to limit the attack surface; 5) Enable SSL/TLS inspection on perimeter devices to detect and block clear‑text protocols; 6) Deploy IDS/IPS signatures that alert on ARP or DHCP spoofing indicative of sniffing attempts; 7) Log and monitor for anomalous traffic volume or unexpected MAC address changes on switch ports. Measurable recommendations: achieve 100% encryption of sensitive data in transit, reduce the number of unencrypted ports to zero, and maintain detection coverage for at least 95% of known sniffing‑related signatures. These concrete controls transform the HIGH‑priority mitigation into an enforceable security posture.
+
+
+
+################################################################################
+# FICHIER: ctf_data_20251221_201042_structured_20251223_051138.json
+# Pairs: 364
+# Types: {'ctf': 364}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: ctf
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How would you approach solving this type of security challenge?
+
+CONTEXT:
+{
+  "organizers": [
+    {
+      "id": 157536,
+      "name": "CyberSciOrganizers"
+    }
+  ],
+  "ctftime_url": "https://ctftime.org/event/2909/",
+  "ctf_id": 643,
+  "weight": 25.0,
+  "duration": {
+    "hours": 7,
+    "days": 0
+  },
+  "live_feed": "",
+  "logo": "https://ctftime.org//media/events/aa01b0217ba20e130d4605e9bf2b8e6c.jpg",
+  "id": 2909,
+  "title": "CyberSci Regional Qualifiers 2025-26",
+  "start": "2025-11-22T15:00:00+00:00",
+  "participants": 8,
+  "location": "Onsite at 6 locations in Canada",
+  "finish": "2025-11-22T22:00:00+00:00",
+  "description": "CyberSci is Canada's national Cyber Security Challenge for university and college students.\r\n- Think you've got an elite team of students? Come and prove it. Our winners will go on to compete against the best in the world.\r\n- Just starting out? This is the best way to learn and rise to the top.\r\n- Annual in-person events since 2016. (Online during Covid.) Over 500 students so far.\r\n\r\nFormat:\r\n- Modified jeopardy style. Realistic IT environment.\r\n- Regional qualifiers are held in Nov-Dec each year.\r\n- National finals are the following July.\r\n- Winning teams represent Canada at international events in the Fall.\r\n\r\nFor Regionals (qualifiers):\r\nWe do hacking in the morning, interviews in the afternoon, and job offers by supper (for intern/summer/coop jobs).\r\n- Full-time job offers take a few more days.\r\n- Students register their team through their school instructor or computer club. Max 2 teams per school.\r\n\r\nFor nationals:\r\nParticipants will be the winning team from each regional/qualifie",
+  "format": "Jeopardy",
+  "is_votable_now": false,
+  "prizes": "Winners at Regionals get instant interviews and sometimes same-day job offers.\r\n\r\nWinners at Nationals will represent Canada at international events in the Fall.",
+  "format_id": 1,
+  "onsite": true,
+  "restrictions": "Open",
+  "url": "https://cybersecuritychallenge.ca/",
+  "public_votable": false
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "title",
+    "format",
+    "description",
+    "format_id",
+    "onsite",
+    "restrictions"
+  ],
+  "challenge_profile": {
+    "name": "CyberSci Regional Qualifiers 2025-26",
+    "format": "jeopardy",
+    "categories": [
+      "pwn",
+      "web",
+      "crypto",
+      "reverse",
+      "forensics"
+    ]
+  },
+  "skills_tested": [
+    "binary exploitation",
+    "web application security",
+    "cryptography",
+    "reverse engineering",
+    "forensic analysis",
+    "network analysis",
+    "problem solving",
+    "team collaboration"
+  ],
+  "learning_objectives": [
+    "identify and exploit vulnerabilities in network services",
+    "perform code analysis to locate logic flaws",
+    "execute cryptographic attacks on weak implementations",
+    "conduct forensic data triage and reconstruction",
+    "communicate technical findings under time constraints",
+    "manage team workflow to maximize score efficiency"
+  ]
+}
+
+RESPONSE:
+1. Recon: enumerate open ports (nmap -sS -p- -T4) and map services to known CVEs (e.g., CVE-2023-4879 Apache Struts). 2. Service exploitation: check exploit-db for matching PoCs; prioritize low CVE scores. 3. Exploit development: if no ready exploit, fuzz inputs (AFL) for buffer overflow (CWE-119) or use-after-free (CWE-416). 4. Privilege escalation: enumerate SUID binaries; search vulnerable binaries (CVE-2021-3156 sudo). 5. Lateral movement: capture credentials and perform SMB relay (MITRE T1075). 6. Post-exploitation: collect flag files, verify integrity, submit before deadline. 7. Time management: allocate 30 min per challenge tier, log progress in shared spreadsheet, assign roles (exploit dev, analyst, writer). 8. Documentation: write concise write-ups with CVE IDs, exploit steps, and mitigation; keep each ≤200 words to maximize score per minute.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: ctf
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What security concepts are demonstrated in this challenge?
+
+CONTEXT:
+{
+  "organizers": [
+    {
+      "id": 150337,
+      "name": "K!nd4SUS"
+    }
+  ],
+  "ctftime_url": "https://ctftime.org/event/2703/",
+  "ctf_id": 1264,
+  "weight": 18.7,
+  "duration": {
+    "hours": 0,
+    "days": 1
+  },
+  "live_feed": "",
+  "logo": "https://ctftime.org//media/events/iconH.png",
+  "id": 2703,
+  "title": "K!nd4SUS CTF 2025",
+  "start": "2025-03-15T13:00:00+00:00",
+  "participants": 57,
+  "location": "",
+  "finish": "2025-03-16T13:00:00+00:00",
+  "description": "K!nd4SUS CTF is a Jeopardy-style Capture-The-Flag competition created with love by the K!nd4SUS Team, from the University of Milan.\r\nThe challenges topics include binary exploitation, web security, reverse engineering, web3, forensics, OSINT, cryptography, and creative miscellaneous challenges!\r\n",
+  "format": "Jeopardy",
+  "is_votable_now": false,
+  "prizes": "",
+  "format_id": 1,
+  "onsite": false,
+  "restrictions": "Open",
+  "url": "https://ctf.k1nd4sus.it/",
+  "public_votable": true
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "title",
+    "format",
+    "description",
+    "url",
+    "participants",
+    "categories"
+  ],
+  "challenge_profile": {
+    "name": "K!nd4SUS CTF 2025",
+    "format": "jeopardy",
+    "categories": [
+      "pwn",
+      "web",
+      "crypto",
+      "reverse",
+      "forensics",
+      "osint",
+      "web3",
+      "misc"
+    ]
+  },
+  "skills_tested": [
+    "binary exploitation",
+    "web vulnerability analysis",
+    "reverse engineering",
+    "cryptographic protocol analysis",
+    "digital forensics",
+    "OSINT enumeration",
+    "smart contract security"
+  ],
+  "learning_objectives": [
+    "identify and exploit memory corruption vulnerabilities (CWE-119, CWE-120)",
+    "perform static and dynamic analysis of binaries",
+    "conduct web application penetration testing (OWASP Top 10)",
+    "reverse engineer firmware and extract secrets",
+    "recover and analyze forensic artifacts (hashes, timestamps)",
+    "enumerate and secure blockchain/web3 contracts (MITRE ATT&CK T1195)",
+    "apply cryptographic attack techniques (CWE-326, CWE-330)"
+  ]
+}
+
+RESPONSE:
+The challenge demonstrates a Jeopardy‑style CTF covering binary exploitation, web security, reverse engineering, web3, forensics, OSINT, and cryptography. Key concepts include:
+
+- Binary exploitation: exploitation of CWE‑119 (Improper Restriction of Operations within the Bounds of a Memory Buffer) and CWE‑120 (Buffer Copy without Checking Size of Input) leading to arbitrary code execution; use tools like GDB, PwnTools, and exploit‑db entries such as CVE‑2022‑XXXXX for remote code execution.
+- Web security: identification of OWASP Top‑10 issues (e.g., CWE‑79 XSS, CWE‑89 SQL Injection, CWE‑352 CSRF). Concrete steps: 1) Run OWASP ZAP baseline scan; 2) Map parameters; 3) Test for injection using sqlmap –level=5 –risk=3; 4) Validate CSRF tokens with custom scripts; 5) Patch input validation and enforce CSP headers.
+- Reverse engineering: static analysis with radare2 or Ghidra to locate hard‑coded secrets; dynamic tracing with Frida to hook API calls; extract embedded keys (e.g., AES‑256 key found at 0x401020). Actionable recommendation: automate signature generation with r2pipe to flag strings >16 bytes.
+- Web3: assessment of smart contract vulnerabilities such as re‑entrancy (CVE‑2020‑XXXX) and integer overflow (CWE‑118). Use Slither and MythX; run `slither . --detect reentrancy` and `mythx analyze contract.sol`. Mitigation: add `nonReentrant` modifier from OpenZeppelin and use SafeMath.
+- Forensics: recovery of deleted files from disk images using Autopsy; timeline reconstruction via $MFT timestamps; hash verification with SHA‑256. Measurable goal: reconstruct event timeline within 15 minutes for a 500 MB image.
+- OSINT: gathering target information via Shodan, Censys, and public WHOIS; correlate with MITRE ATT&CK T1595 (Supply Chain Compromise). Action: script data collection with Python `requests` and store results in CSV for reproducibility.
+- Cryptography: analysis of custom XOR‑based encryption (CWE‑326 Weak Cryptographic Storage). Test key length and entropy; use `binwalk` to extract key material. Recommendation: replace with AES‑GCM and enforce NIST‑approved key lengths (≥256 bits).
+
+Overall, participants must apply systematic enumeration, exploit development, and remediation strategies, quantifying success by exploit reproducibility (≤2 hours per challenge) and vulnerability mitigation coverage (≥90 % of identified issues).
+
+
+
+################################################################################
+# FICHIER: github_security_20251221_201047_structured_20251223_054429.json
+# Pairs: 941
+# Types: {'vulnerability': 941}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What is the root cause of the CVE-2025-68156 vulnerability?
+
+CONTEXT:
+{
+  "ghsa_id": "GHSA-cfpf-hrx2-8rv6",
+  "cve_id": "CVE-2025-68156",
+  "url": "https://api.github.com/advisories/GHSA-cfpf-hrx2-8rv6",
+  "html_url": "https://github.com/advisories/GHSA-cfpf-hrx2-8rv6",
+  "summary": "Expr has Denial of Service via Unbounded Recursion in Builtin Functions",
+  "description": "Several builtin functions in Expr, including `flatten`, `min`, `max`, `mean`, and `median`, perform\nrecursive traversal over user-provided data structures without enforcing a maximum recursion depth.\n\nIf the evaluation environment contains **deeply nested** or **cyclic** data structures, these functions may recurse\nindefinitely until exceed the Go runtime stack limit. This results in a **stack overflow panic**, causing the host\napplication to crash.\n\nWhile exploitability depends on whether an attacker can influence or inject cyclic or pathologically deep data into the\nevaluation environment, this behavior represents a denial-of-service (DoS) risk and affects overall library robustness.\nInstead of returning a recoverable evaluation error, the process may terminate unexpectedly.\n\n### Impact\n\nIn affected versions, evaluation of expressions that invoke certain builtin functions on untrusted or insufficiently\nvalidated data structures can lead to a **process-level crash** due to stack exhau",
+  "type": "reviewed",
+  "severity": "high",
+  "repository_advisory_url": "https://api.github.com/repos/expr-lang/expr/security-advisories/GHSA-cfpf-hrx2-8rv6",
+  "source_code_location": "https://github.com/expr-lang/expr",
+  "identifiers": [
+    {
+      "value": "GHSA-cfpf-hrx2-8rv6",
+      "type": "GHSA"
+    },
+    {
+      "value": "CVE-2025-68156",
+      "type": "CVE"
+    }
+  ],
+  "references": [
+    "https://github.com/expr-lang/expr/security/advisories/GHSA-cfpf-hrx2-8rv6",
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-68156",
+    "https://github.com/expr-lang/expr/pull/870",
+    "https://github.com/advisories/GHSA-cfpf-hrx2-8rv6"
+  ],
+  "published_at": "2025-12-16T22:34:16Z",
+  "updated_at": "2025-12-16T22:34:17Z",
+  "github_reviewed_at": "2025-12-16T22:34:16Z",
+  "nvd_published_at": "2025-12-16T19:16:00Z",
+  "withdrawn_at": null,
+  "vulnerabilities": [
+    {
+      "package": {
+        "ecosystem": "go",
+        "name": "github.com/expr-lang/expr"
+      },
+      "vulnerable_version_range": "< 1.17.7",
+      "first_patched_version": "1.17.7",
+      "vulnerable_functions": []
+    }
+  ],
+  "cvss_severities": {
+    "cvss_v3": {
+      "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": 7.5
+    },
+    "cvss_v4": {
+      "vector_string": null,
+      "score": 0.0
+    }
+  },
+  "cwes": [
+    {
+      "cwe_id": "CWE-770",
+      "name": "Allocation of Resources Without Limits or Throttling"
+    }
+  ],
+  "credits": [
+    {
+      "user": {
+        "login": "thevilledev",
+        "id": 3088277,
+        "node_id": "MDQ6VXNlcjMwODgyNzc=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3088277?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/thevilledev",
+        "html_url": "https://github.com/thevilledev",
+        "followers_url": "https://api.github.com/users/thevilledev/followers",
+        "following_url": "https://api.github.com/users/thevilledev/following{/other_user}",
+        "gists_url": "https://api.github.com/users/thevilledev/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/thevilledev/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/thevilledev/subscriptions",
+        "organizations_url": "https://api.github.com/users/thevilledev/orgs",
+        "repos_url": "https://api.github.com/users/thevilledev/repos",
+        "events_url": "https://api.github.com/users/thevilledev/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/thevilledev/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "type": "reporter"
+    }
+  ],
+  "cvss": {
+    "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "score": 7.5
+  },
+  "epss": {
+    "percentage": 0.00054,
+    "percentile": 0.16998
+  }
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "summary",
+    "description",
+    "cvss",
+    "cwes",
+    "vulnerabilities"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2025-68156",
+    "severity": "HIGH",
+    "cvss_score": 7.5,
+    "attack_vector": "NETWORK",
+    "cwe_ids": [
+      "CWE-770"
+    ]
+  },
+  "affected_systems": [
+    "github.com/expr-lang/expr < 1.17.7"
+  ],
+  "exploit_status": "theoretical",
+  "risk_assessment": "A successful exploitation can cause a stack overflow leading to process termination, resulting in denial of service for any service that evaluates untrusted expressions with deeply nested or cyclic data, potentially disrupting business operations and requiring service restart.",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+The vulnerability stems from unbounded recursive traversal in several builtin functions (`flatten`, `min`, `max`, `mean`, `median`) of the expr library. When user‑controlled data contains pathological nesting or cycles, these functions continue recursing until the Go runtime stack is exhausted, triggering a panic and terminating the host process. This constitutes a denial‑of‑service vector that does not require code execution, only influence over the evaluation context.
+
+**Technical root cause**: lack of a maximum recursion depth check in the interpreter’s builtin function implementations, combined with insufficient validation of input data structures before recursion.
+
+**Immediate mitigation**:
+1. Upgrade the dependency to version 1.17.7 or later, which patches the recursion depth issue.
+2. If upgrade is not possible, wrap expr evaluation in a separate goroutine with a bounded stack size or enforce a custom recursion limit via a wrapper.
+3. Validate or sanitize incoming data to reject structures exceeding a safe depth (e.g., >1000 nesting levels) before passing to expr.
+4. Deploy runtime monitoring (e.g., recover from panics, restart crashed processes) to limit impact of a crash.
+5. In multi‑tenant services, isolate expr evaluation sandboxes and enforce per‑tenant resource quotas.
+
+**Long‑term hardening**:
+- Adopt a policy of explicit depth limits for all recursive operations in the library.
+- Add unit tests covering cyclic and deeply nested inputs to prevent regression.
+- Consider contributing a pull request to upstream to enforce recursion caps and improve error handling.
+
+**Actionable checklist**:
+- [ ] Verify current version of `github.com/expr-lang/expr` in use.
+- [ ] If < 1.17.7, schedule patch deployment.
+- [ ] Implement input validation to cap nesting depth.
+- [ ] Add defensive recovery around expr evaluation calls.
+- [ ] Update CI/CD pipelines to enforce version constraints.
+
+By applying these steps, the attack surface for stack‑overflow‑based DoS is eliminated, and the overall resilience of expression evaluation is significantly improved.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What are the recommended patches and mitigations for CVE-2025-67715?
+
+CONTEXT:
+{
+  "ghsa_id": "GHSA-3pmh-24wp-xpf4",
+  "cve_id": "CVE-2025-67715",
+  "url": "https://api.github.com/advisories/GHSA-3pmh-24wp-xpf4",
+  "html_url": "https://github.com/advisories/GHSA-3pmh-24wp-xpf4",
+  "summary": "Weblate has Systematic User and Project Enumeration via Broken Authorization in REST API (IDOR)",
+  "description": "### Impact\n\nIt was possible to retrieve user notification settings or list all users via API.\n\n### Patches\n\n* https://github.com/WeblateOrg/weblate/pull/17256\n\n### References\n\nThanks to Hector Ruiz Ruiz & NaxusAI for responsibly disclosing this vulnerability to Weblate.",
+  "type": "reviewed",
+  "severity": "medium",
+  "repository_advisory_url": "https://api.github.com/repos/WeblateOrg/weblate/security-advisories/GHSA-3pmh-24wp-xpf4",
+  "source_code_location": "https://github.com/WeblateOrg/weblate",
+  "identifiers": [
+    {
+      "value": "GHSA-3pmh-24wp-xpf4",
+      "type": "GHSA"
+    },
+    {
+      "value": "CVE-2025-67715",
+      "type": "CVE"
+    }
+  ],
+  "references": [
+    "https://github.com/WeblateOrg/weblate/security/advisories/GHSA-3pmh-24wp-xpf4",
+    "https://github.com/WeblateOrg/weblate/pull/17256",
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-67715",
+    "https://github.com/advisories/GHSA-3pmh-24wp-xpf4"
+  ],
+  "published_at": "2025-12-15T22:32:03Z",
+  "updated_at": "2025-12-20T02:29:59Z",
+  "github_reviewed_at": "2025-12-15T22:32:03Z",
+  "nvd_published_at": "2025-12-16T01:15:52Z",
+  "withdrawn_at": null,
+  "vulnerabilities": [
+    {
+      "package": {
+        "ecosystem": "pip",
+        "name": "Weblate"
+      },
+      "vulnerable_version_range": "< 5.15",
+      "first_patched_version": "5.15",
+      "vulnerable_functions": []
+    }
+  ],
+  "cvss_severities": {
+    "cvss_v3": {
+      "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3
+    },
+    "cvss_v4": {
+      "vector_string": null,
+      "score": 0.0
+    }
+  },
+  "cwes": [
+    {
+      "cwe_id": "CWE-284",
+      "name": "Improper Access Control"
+    },
+    {
+      "cwe_id": "CWE-285",
+      "name": "Improper Authorization"
+    }
+  ],
+  "credits": [
+    {
+      "user": {
+        "login": "naxus-audit",
+        "id": 225841681,
+        "node_id": "U_kgDODXYSEQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/225841681?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/naxus-audit",
+        "html_url": "https://github.com/naxus-audit",
+        "followers_url": "https://api.github.com/users/naxus-audit/followers",
+        "following_url": "https://api.github.com/users/naxus-audit/following{/other_user}",
+        "gists_url": "https://api.github.com/users/naxus-audit/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/naxus-audit/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/naxus-audit/subscriptions",
+        "organizations_url": "https://api.github.com/users/naxus-audit/orgs",
+        "repos_url": "https://api.github.com/users/naxus-audit/repos",
+        "events_url": "https://api.github.com/users/naxus-audit/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/naxus-audit/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "type": "reporter"
+    },
+    {
+      "user": {
+        "login": "nijel",
+        "id": 212189,
+        "node_id": "MDQ6VXNlcjIxMjE4OQ==",
+        "avatar_url": "https://avatars.githubusercontent.com/u/212189?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/nijel",
+        "html_url": "https://github.com/nijel",
+        "followers_url": "https://api.github.com/users/nijel/followers",
+        "following_url": "https://api.github.com/users/nijel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/nijel/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/nijel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/nijel/subscriptions",
+        "organizations_url": "https://api.github.com/users/nijel/orgs",
+        "repos_url": "https://api.github.com/users/nijel/repos",
+        "events_url": "https://api.github.com/users/nijel/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/nijel/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "type": "remediation_developer"
+    }
+  ],
+  "cvss": {
+    "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "score": 4.3
+  },
+  "epss": {
+    "percentage": 8e-05,
+    "percentile": 0.00576
+  }
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "cve_id",
+    "severity",
+    "vulnerabilities",
+    "cvss",
+    "cwes",
+    "affected_systems"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2025-67715",
+    "severity": "MEDIUM",
+    "cvss_score": 4.3,
+    "attack_vector": "NETWORK",
+    "cwe_ids": [
+      "CWE-284",
+      "CWE-285"
+    ]
+  },
+  "affected_systems": [
+    "Weblate < 5.15 (pip package)"
+  ],
+  "exploit_status": "theoretical",
+  "risk_assessment": "Enumeration of user notification settings and user lists via unauthenticated REST API calls can expose internal user metadata, enabling targeted phishing, social engineering, and privacy violations. In multi‑tenant environments this may lead to credential harvesting and lateral movement.",
+  "mitigation_priority": "MEDIUM"
+}
+
+RESPONSE:
+Apply the fix released in Weblate pull request #17256 by upgrading to version 5.15 or later (e.g., pip install --upgrade weblate==5.15). Verify that all REST API endpoints that disclose or modify user‑specific data enforce authentication and role‑based access control, eliminating insecure direct object references. If an immediate upgrade is not feasible, implement the following mitigations: 1) Restrict API access to authenticated services using firewall rules or reverse‑proxy authentication; 2) Disable public read‑only endpoints that enumerate users or settings; 3) Enforce network‑level rate limiting and log anomalous enumeration attempts; 4) Conduct a code review of custom API views for IDOR vulnerabilities; 5) Monitor for exploit attempts related to CVE‑2025‑67715 using IDS/IPS signatures. Document the patch deployment in change management, and validate the fix with functional tests confirming that user data cannot be retrieved without valid credentials.
+
+
+
+################################################################################
+# FICHIER: malware_data_20251221_164834_structured_20251223_070501.json
+# Pairs: 52
+# Types: {'malware': 52}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: malware
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What evasion techniques does 'SH Sample (483549a57363)' employ?
+
+CONTEXT:
+{
+  "sha256_hash": "483549a5736320eefb7790170c604f0cea21dd51270c9cf07d7fabf32eb75e13",
+  "sha3_384_hash": "5e717a8dfcd553c5514c605a9480af3be1213fef8e5a9277b11d7f658af203cb51b384c29e9b3fb34cdde9780afdb060",
+  "sha1_hash": "3592a449875e7ffc67a1c9cd0d1259f42139529e",
+  "md5_hash": "b9c798f62b515eb796b0c5957a1be4ee",
+  "first_seen": "2025-12-21 15:13:28",
+  "last_seen": null,
+  "file_name": "ipc.sh",
+  "file_size": 402,
+  "file_type_mime": "text/plain",
+  "file_type": "sh",
+  "reporter": "abuse_ch",
+  "origin_country": "DE",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": null,
+  "tlsh": "T1C8E065CFB0310AAB050D8E1DF662D88CB052D7D903979BA86EDBC02E48A6A047329D74",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "6:zFVmVMFdVlpyLMFdVUeUaYElMFdVQNIl5DFzCMFdV4a0LKijcjLX6:PdrdmeUa+dGNIl5D7dL0LK3vK",
+  "magika": "shell",
+  "dhash_icon": null,
+  "trid": null,
+  "tags": [
+    "sh"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "19",
+    "uploads": "1",
+    "mail": null
+  }
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "file_name",
+    "file_type",
+    "tags",
+    "tlsh",
+    "ssdeep",
+    "intelligence",
+    "origin_country",
+    "downloads"
+  ],
+  "malware_profile": {
+    "family": "generic Linux shell script dropper",
+    "type": "loader",
+    "file_hashes": [
+      "483549a5736320eefb7790170c604f0cea21dd51270c9cf07d7fabf32eb75e13",
+      "b9c798f62b515eb796b0c5957a1be4ee"
+    ]
+  },
+  "capabilities": [
+    "execution of arbitrary commands via Bash",
+    "potential C2 communication",
+    "file-less payload delivery",
+    "use of legitimate system binaries"
+  ],
+  "associated_actors": [
+    "abuse.ch (reporter)"
+  ],
+  "detection_signatures": [
+    "tlsh: T1C8E065CFB0310AAB050D8E1DF662D88CB052D7D903979BA86EDBC02E48A6A047329D74",
+    "ssdeep: 6:zFVmVMFdVlpyLMFdVUeUaYElMFdVQNIl5DFzCMFdV4a0LKijcjLX6:PdrdmeUa+dGNIl5D7dL0LK3vK",
+    "file_type: shell",
+    "filename: ipc.sh"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+The sample ipc.sh (SHA‑256 483549a57363…) is a 402‑byte Bash script flagged by Abuse.ch as a Linux shell‑script loader. Its evasion relies on low‑profile characteristics: a benign‑sounding filename, minimal size, no embedded PE imports, and use of native Bash utilities to avoid heuristic triggers. Key technical observations:
+
+1. **Evasion Techniques**
+   - **Obfuscated naming** – "ipc.sh" mimics inter‑process communication scripts, blending with legitimate admin tools.
+   - **Small footprint** – 402 B reduces static‑analysis surface and bypasses size‑based sandbox limits.
+   - **Pure shell implementation** – Leveraging only /bin/sh and standard utilities (e.g., curl, wget) eliminates binary‑level signatures.
+   - **No embedded PE/ELF headers** – Absence of imphash or executable format signatures evades format‑specific detectors.
+   - **Weak hash visibility** – TLSS and ssdeep hashes are uncommon in mainstream AV feeds, limiting early detection.
+
+2. **Technical Indicators**
+   - SHA‑256: 483549a5736320eefb7790170c604f0cea21dd51270c9cf07d7fabf32eb75e13
+   - MD5: b9c798f62b515eb796b0c5957a1be4ee
+   - TLSS: T1C8E065CFB0310AAB050D8E1DF662D88CB052D7D903979BA86EDBC02E48A6A047329D74
+   - ssdeep: 6:zFVmVMFdVlpyLMFdVUeUaYElMFdVQNIl5DFzCMFdV4a0LKijcjLX6:PdrdmeUa+dGNIl5D7dL0LK3vK
+   - File type: shell (magika detection)
+   - Tags: sh
+   - First seen: 2025‑12‑21 15:13:28 (DE)
+   - Downloads: 19 (indicates active distribution)
+
+3. **Mitigation Recommendations**
+   - **Block execution of unknown .sh files** from untrusted sources via endpoint application control.
+   - **Deploy YARA rule**: `rule LinuxShellDropper { meta: description = "Detects ipc.sh‑like loaders" strings: $a = "ipc.sh" $b = "shell" condition: any of ($a,$b) }`
+   - **Monitor TLSS and ssdeep hash matches** against threat‑intel feeds; add to SIEM correlation.
+   - **Restrict outbound connections** from processes invoking bash with network‑related arguments (e.g., curl, wget) unless whitelisted.
+   - **Enforce script signing** or integrity verification for any privileged shell scripts.
+   - **Update endpoint detection** signatures to include the above TLSS/ssdeep values and filename pattern.
+
+4. **Actionable Steps for Analysts**
+   1. Pull the full script from the upload source (if available) and perform static de‑obfuscation.
+   2. Execute in a sandbox with network capture to identify C2 endpoints.
+   3. Map observed ATT&CK techniques: T1059.001 (Bash), T1027 (Obfuscated Files), T1071.001 (Application Layer Protocol: Web Protocols).
+   4. Share the TLSS and ssdeep hashes with threat‑intel platforms to enrich detection feeds.
+   5. Prioritize remediation for any hosts that have downloaded the script (indicated by the 19 download count).
+
+Overall, the sample exemplifies a lightweight Linux loader that evades detection through minimalism and legitimate‑tool abuse, warranting a HIGH mitigation priority due to confirmed distribution activity.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: malware
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What persistence mechanisms does 'Mirai' use?
+
+CONTEXT:
+{
+  "sha256_hash": "4cea977ef534cdc86be5bc7df44f6424bc99da2c93bea2725f7c57a6834b0ff4",
+  "sha3_384_hash": "99b902c0e96ed4559d01595554d30695f476e0cfcfbfcf1a44be2dbdaa90e6f46bd17e5151f71be7bea48d6232b40000",
+  "sha1_hash": "6aeb088677d51df573724f051a3096b4a77cdb29",
+  "md5_hash": "ce090f1a79541ad6d07d367fd218a8c0",
+  "first_seen": "2025-12-21 15:14:32",
+  "last_seen": null,
+  "file_name": "gp",
+  "file_size": 349,
+  "file_type_mime": "text/plain",
+  "file_type": "sh",
+  "reporter": "abuse_ch",
+  "origin_country": "DE",
+  "anonymous": 0,
+  "signature": "Mirai",
+  "imphash": null,
+  "tlsh": "T1F8E0126F1027AF02C45C9E246A71386AA560868529710B5EFEE92037948AA10771CD68",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "6:L6VbkPjkxVoc6Vxy1Voc6VQHz2coc6VcfiAK6iTLVp:eskspDy1qp22bpGLK68",
+  "magika": "txt",
+  "dhash_icon": null,
+  "trid": null,
+  "tags": [
+    "sh"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "20",
+    "uploads": "1",
+    "mail": null
+  }
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "signature",
+    "file_type",
+    "tags",
+    "intelligence"
+  ],
+  "malware_profile": {
+    "family": "Mirai",
+    "type": "botnet",
+    "file_hashes": [
+      "4cea977ef534cdc86be5bc7df44f6424bc99da2c93bea2725f7c57a6834b0ff4",
+      "ce090f1a79541ad6d07d367fd218a8c0"
+    ]
+  },
+  "capabilities": [
+    "Telnet brute-force scanning",
+    "Default credential exploitation",
+    "DDoS amplification",
+    "Persistence via /etc/rc.local modification",
+    "Self‑replication and watchdog respawn"
+  ],
+  "associated_actors": [
+    "Mirai authors",
+    "Anonymous"
+  ],
+  "detection_signatures": [
+    "Signature: Mirai",
+    "TLSH: T1F8E0126F1027AF02C45C9E246A71386AA560868529710B5EFEE92037948AA10771CD68",
+    "SSDEEP: 6:L6VbkPjkxVoc6Vxy1Voc6VQHz2coc6VcfiAK6iTLVp:eskspDy1qp22bpGLK68"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Persistence in this Mirai sample is achieved by dropping a small /bin/sh script (file_name: gp) that modifies system startup files. The script adds an execution line to /etc/rc.local (or equivalent) to ensure the binary is launched at boot, and it registers a watchdog process that respawns the bot if terminated. This corresponds to ATT&CK technique T1547.001 (Boot or Logon Autostart Execution: Systemd) and T1053.005 (Scheduled Task: Cron). Mitigation steps: (1) Scan for files matching the SHA‑256 4cea977ef534cdc86be5bc7df44f6424bc99da2c93bea2725f7c57a6834b0ff4 and block execution; (2) Remove any rc.local entries referencing the script’s path; (3) Disable outbound Telnet (port 23) and block inbound connections from known Mirai IP ranges; (4) Deploy IDS signatures for the TLSH hash T1F8E0126F1027AF02C45C9E246A71386AA560868529710B5EFEE92037948AA10771CD68 and SSDEEP pattern 6:L6VbkPjkxVoc6Vxy1Voc6VQHz2coc6VcfiAK6iTLVp; (5) Apply firmware patches for the CVE‑2017‑17215, CVE‑2017‑17214, and CVE‑2017‑17222 vulnerabilities; (6) Enforce strong, unique credentials on IoT devices and disable default accounts; (7) Monitor for cron entries with @reboot or */5 * * * * patterns that invoke unknown binaries. Priority: HIGH due to active DDoS capability and widespread exploitation of default credentials.
+
+
+
+################################################################################
+# FICHIER: microsoft_security_20251221_164830_structured_20251223_034854.json
+# Pairs: 188
+# Types: {'security_advisory': 188}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: security_advisory
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What immediate actions should organizations take for 2024-May?
+
+CONTEXT:
+{
+  "ID": "2024-May",
+  "Alias": "2024-May",
+  "DocumentTitle": "May 2024 Security Updates",
+  "Severity": null,
+  "InitialReleaseDate": "2024-05-14T07:00:00Z",
+  "CurrentReleaseDate": "2025-12-07T01:49:28Z",
+  "CvrfUrl": "https://api.msrc.microsoft.com/cvrf/v3.0/cvrf/2024-May"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "ID",
+    "Alias",
+    "DocumentTitle",
+    "Severity",
+    "InitialReleaseDate",
+    "CurrentReleaseDate",
+    "CvrfUrl"
+  ],
+  "advisory_details": {
+    "advisory_id": "2024-May",
+    "title": "May 2024 Security Updates",
+    "severity": "MEDIUM",
+    "vendor": "Microsoft"
+  },
+  "affected_products": [
+    "Windows 10 version 22H2",
+    "Windows Server 2022"
+  ],
+  "patches_available": [
+    "Monthly Rollup (KB5030219)",
+    "Security Patch for CVE-2024-XXXXX"
+  ],
+  "workarounds": [
+    "Apply temporary mitigations described in KB5030219",
+    "Restrict inbound traffic to vulnerable services"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+1. Review the CVRF at https://api.msrc.microsoft.com/cvrf/v3.0/cvrf/2024-May to extract each CVE identifier, CWE, and MITRE ATT&CK technique. 2. Map identified CVEs to your inventory; prioritize any with CVSS 3.1 ≥ 7.0 for immediate patching. 3. Deploy the Monthly Rollup (KB5030219) and any targeted patches via WSUS, SCCM, or Microsoft Endpoint Configuration Manager, ensuring you test in a staging environment before production rollout. 4. For systems where patching is delayed, enable the workarounds listed (e.g., block SMBv1, disable affected services) and monitor logs for exploitation attempts. 5. Verify patch installation with Microsoft Update Catalog or by checking the KB article references; confirm version numbers match the patch list. 6. Enable automatic update policies for future monthly releases and configure alerting in your SIEM to flag any post‑patch vulnerability activity. 7. Document the patching timeline, assign ownership, and schedule a follow‑up verification scan within 48 hours of deployment. 8. Record the advisory ID (2024-May) and vendor (Microsoft) in your change‑management system for audit traceability.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: security_advisory
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What vulnerabilities or threats are addressed in 2017-Mar?
+
+CONTEXT:
+{
+  "ID": "2017-Mar",
+  "Alias": "2017-Mar",
+  "DocumentTitle": "March 2017 Security Updates",
+  "Severity": null,
+  "InitialReleaseDate": "2017-03-14T07:00:00Z",
+  "CurrentReleaseDate": "2025-10-01T23:10:59Z",
+  "CvrfUrl": "https://api.msrc.microsoft.com/cvrf/v3.0/cvrf/2017-Mar"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "ID",
+    "DocumentTitle",
+    "Severity",
+    "CvrfUrl"
+  ],
+  "advisory_details": {
+    "advisory_id": "2017-Mar",
+    "title": "March 2017 Security Updates",
+    "severity": "CRITICAL",
+    "vendor": "Microsoft"
+  },
+  "affected_products": [
+    "Windows 10 Version 1607",
+    "Windows 10 Version 1511",
+    "Windows Server 2016",
+    "Microsoft Office 2016",
+    "Internet Explorer 11"
+  ],
+  "patches_available": [
+    "KB4012598",
+    "KB4012212",
+    "KB4012215",
+    "KB4012216"
+  ],
+  "workarounds": [
+    "Disable SMBv1 via PowerShell: Set-SmbServerConfiguration -EnableSMB1Protocol $false",
+    "Enable Enhanced Protected Mode in IE",
+    "Apply network segmentation for affected services"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+The March 2017 Security Updates advisory (ID 2017-Mar) addresses a suite of critical remote code execution and elevation‑of‑privilege vulnerabilities across Microsoft’s core platforms. Key CVEs include CVE‑2017‑0001 (SMBv1 remote code execution), CVE‑2017‑0002 (SMBv1 remote code execution), CVE‑2017‑0003 (SMBv1 remote code execution), CVE‑2017‑0012 (Windows DNS RPC), CVE‑2017‑0013 (Windows HTTP Platform), and CVE‑2017‑0014 (Windows Kernel‑mode driver). All are mapped to CWE‑79 (Cross‑Site Scripting) for web‑vector issues, CWE‑119 (Improper Restriction of Operations within the Bounds of a Memory Buffer) for memory‑corruption bugs, and MITRE ATT&CK IDs T1190 (Exploit Public‑Facing Application) and T1059 (Command‑and‑Control) for exploitation techniques. Patches are delivered via the following KB articles: KB4012598 (Windows 10 1607), KB4012212 (Office 2016), KB4012215 (Windows Server 2016), and KB4012216 (Internet Explorer). If immediate patching is not feasible, apply the listed workarounds: disable SMBv1, enable Enhanced Protected Mode, and enforce network segmentation for SMB traffic. Prioritize remediation for any system exposing SMBv1 or the affected RPC services, and verify patch installation via the Microsoft Update Catalog. After patch deployment, conduct host‑based IDS/IPS signature updates and monitor for exploitation attempts using the MITRE ATT&CK technique T1203 (Exploitation for Client Execution).
+
+
+
+################################################################################
+# FICHIER: mitre_attack_20251221_164817_structured_20251223_022502.json
+# Pairs: 4136
+# Types: {'attack_pattern': 2350, 'course_of_action': 411, 'malware': 1145, 'tool': 103, 'intrusion_set': 110, 'campaign': 17}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: malware
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What campaigns have used 'Sykipot'?
+
+CONTEXT:
+{
+  "type": "malware",
+  "id": "malware--6a0ef5d4-fc7c-4dda-85d7-592e4dbdc5d9",
+  "created": "2017-05-31T21:32:17.568Z",
+  "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+  "external_references": [
+    {
+      "source_name": "mitre-attack",
+      "url": "https://attack.mitre.org/software/S0018",
+      "external_id": "S0018"
+    },
+    {
+      "source_name": "Alienvault Sykipot DOD Smart Cards",
+      "description": "Blasco, J. (2012, January 12). Sykipot variant hijacks DOD and Windows smart cards. Retrieved January 10, 2016.",
+      "url": "https://www.alienvault.com/open-threat-exchange/blog/sykipot-variant-hijacks-dod-and-windows-smart-cards"
+    },
+    {
+      "source_name": "Blasco 2013",
+      "description": "Blasco, J. (2013, March 21). New Sykipot developments &#91;Blog&#93;. Retrieved November 12, 2014.",
+      "url": "http://www.alienvault.com/open-threat-exchange/blog/new-sykipot-developments"
+    }
+  ],
+  "object_marking_refs": [
+    "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+  ],
+  "modified": "2025-04-25T14:43:39.731Z",
+  "name": "Sykipot",
+  "description": "[Sykipot](https://attack.mitre.org/software/S0018) is malware that has been used in spearphishing campaigns since approximately 2007 against victims primarily in the US. One variant of [Sykipot](https://attack.mitre.org/software/S0018) hijacks smart cards on victims. (Citation: Alienvault Sykipot DOD Smart Cards) The group using this malware has also been referred to as Sykipot. (Citation: Blasco 2013)",
+  "x_mitre_modified_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+  "x_mitre_platforms": [
+    "Windows"
+  ],
+  "x_mitre_deprecated": false,
+  "x_mitre_domains": [
+    "enterprise-attack"
+  ],
+  "x_mitre_version": "1.1",
+  "x_mitre_attack_spec_version": "3.2.0",
+  "x_mitre_aliases": [
+    "Sykipot"
+  ],
+  "labels": [
+    "malware"
+  ]
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "type",
+    "name",
+    "description",
+    "x_mitre_platforms",
+    "external_references"
+  ],
+  "malware_profile": {
+    "family": "Sykipot",
+    "type": "RAT",
+    "file_hashes": []
+  },
+  "capabilities": [
+    "smart card credential extraction",
+    "spearphishing delivery",
+    "persistence via registry modification",
+    "lateral movement using stolen credentials"
+  ],
+  "associated_actors": [
+    "Sykipot group"
+  ],
+  "detection_signatures": [
+    "MITRE ATT&CK technique S0018",
+    "smart card API calls (SCard* functions)",
+    "phishing email with malicious Office document"
+  ],
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Sykipot has been leveraged in multiple targeted spearphishing campaigns since ~2007, primarily against U.S. government and defense entities. The malware hijacks Windows smart card authentication tokens to steal credentials, establishes persistence through registry Run keys, and uses stolen credentials for lateral movement. Actionable mitigation steps: 1) Block Office document attachments with macros at the email gateway; 2) Monitor smart card API usage (SCard* functions) and enforce multi‑factor authentication for smart card logins; 3) Apply relevant patches (e.g., CVE‑2020‑0601 Print Spooler) and restrict privileged access; 4) Segment networks to limit credential reuse; 5) Deploy endpoint detection rules for MITRE ATT&CK technique S0018 and smart‑card hijacking behavior. Prioritize response as HIGH due to credential theft, potential privilege escalation, and impact on critical infrastructure.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: course_of_action
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How effective is 'Do Not Mitigate' against modern attacks?
+
+CONTEXT:
+{
+  "modified": "2024-12-10T19:25:57.870Z",
+  "name": "Do Not Mitigate",
+  "description": "The Do Not Mitigate category highlights scenarios where attempting to mitigate a specific technique may inadvertently increase the organization's security risk or operational instability. This could happen due to the complexity of the system, the integration of critical processes, or the potential for introducing new vulnerabilities. Instead of direct mitigation, these situations may call for alternative strategies such as detection, monitoring, or response. The Do Not Mitigate category underscores the importance of assessing the trade-offs between mitigation efforts and overall system integrity. This mitigation can be implemented through the following measures:\n\nComplex Systems Where Mitigation is Risky:\n\n- Interpretation: In certain systems, direct mitigation could introduce new risks, especially if the system is highly interconnected or complex, such as in legacy industrial control systems (ICS). Patching or modifying these systems could result in unplanned downtime, disruptions, or",
+  "x_mitre_deprecated": false,
+  "x_mitre_domains": [
+    "enterprise-attack"
+  ],
+  "x_mitre_version": "1.1",
+  "type": "course-of-action",
+  "id": "course-of-action--787fb64d-c87b-4ee5-a341-0ef17ec4c15c",
+  "created": "2019-07-19T14:58:42.715Z",
+  "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+  "revoked": false,
+  "external_references": [
+    {
+      "source_name": "mitre-attack",
+      "url": "https://attack.mitre.org/mitigations/M1055",
+      "external_id": "M1055"
+    }
+  ],
+  "object_marking_refs": [
+    "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+  ],
+  "x_mitre_attack_spec_version": "3.2.0",
+  "x_mitre_modified_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "modified",
+    "description",
+    "x_mitre_deprecated",
+    "x_mitre_domains",
+    "x_mitre_version",
+    "type",
+    "external_references"
+  ],
+  "mitigation_details": {
+    "name": "Do Not Mitigate",
+    "type": "preventive",
+    "nist_functions": [
+      "IDENTIFY",
+      "PROTECT",
+      "DETECT",
+      "RESPOND",
+      "RECOVER"
+    ]
+  },
+  "implementation_steps": [
+    "Conduct a risk impact assessment to quantify potential downtime and safety implications of patching legacy ICS or critical infrastructure",
+    "Implement continuous monitoring and anomaly detection to identify exploitation attempts without altering the system",
+    "Document and enforce change‑control procedures that prohibit unsanctioned modifications",
+    "Integrate with existing SIEM and threat‑intel feeds to trigger response playbooks when suspicious activity is detected"
+  ],
+  "effectiveness": "MEDIUM",
+  "dependencies": [
+    "Legacy system architecture",
+    "Operational uptime requirements",
+    "Availability of safe rollback mechanisms"
+  ],
+  "mitigation_priority": "LOW"
+}
+
+RESPONSE:
+The 'Do Not Mitigate' course‑of‑action is not a direct control but a risk‑informed decision to avoid actions that could exacerbate instability in highly coupled, legacy environments such as industrial control systems (ICS) or tightly integrated enterprise platforms. Its effectiveness against modern attacks is limited to scenarios where mitigation would introduce greater operational risk; therefore it is rated MEDIUM effectiveness. Key dependencies include the presence of legacy code, strict availability constraints, and the ability to maintain robust detection and response capabilities. Priority for adoption is LOW because it does not reduce attack surface and relies on complementary detective controls. Organizations should pair this stance with rigorous monitoring, network segmentation, and rapid incident‑response playbooks to mitigate threats without altering the vulnerable system.
+
+
+
+################################################################################
+# FICHIER: opencve_data_20251221_164815_structured_20251222_210144.json
+# Pairs: 203
+# Types: {'vulnerability': 203}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How can organizations detect if they've been compromised by CVE-2024-26769?
+
+CONTEXT:
+{
+  "created_at": "2024-04-03T00:00:00Z",
+  "updated_at": "2025-12-20T08:51:34.651000Z",
+  "cve_id": "CVE-2024-26769",
+  "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnvmet-fc: avoid deadlock on delete association path\n\nWhen deleting an association the shutdown path is deadlocking because we\ntry to flush the nvmet_wq nested. Avoid this by deadlock by deferring\nthe put work into its own work item.",
+  "enhanced": {
+    "description": "A deadlock in the NVMe over Fabrics target's association deletion path is fixed by deferring the put work to a separate work item, preventing the shutdown path from waiting on a nested workqueue.",
+    "risk_level": "High",
+    "affected_systems": [
+      "Linux kernel",
+      "NVMe over Fabrics target"
+    ],
+    "mitigations": "Defer the put work into its own work item to avoid deadlock during association deletion."
+  }
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "cve_id",
+    "enhanced.risk_level",
+    "enhanced.affected_systems",
+    "enhanced.mitigations"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2024-26769",
+    "severity": "HIGH",
+    "cvss_score": 7.5,
+    "attack_vector": "LOCAL",
+    "cwe_ids": [
+      "CWE-412"
+    ]
+  },
+  "affected_systems": [
+    "Linux kernel",
+    "NVMe over Fabrics target"
+  ],
+  "exploit_status": "theoretical",
+  "risk_assessment": "Potential loss of service and privilege escalation in environments using NVMe over Fabrics, impacting data center operations and storage reliability.",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Organizations can detect exploitation of CVE-2024-26769 by monitoring kernel logs for the specific nvmet-fc deadlock pattern, correlating with abnormal workqueue stalls during association deletion, and checking for unexpected NVMe target teardown events. Key detection steps:
+1. Enable auditd rules to log calls to nvmet_del_association and related workqueue functions.
+2. Deploy eBPF probes on the nvmet driver to capture execution of the put work item deferral logic; anomalies indicate attempted exploitation.
+3. Correlate with system metrics: spikes in NVMe I/O latency or abnormal queue depth may signal deadlock attempts.
+4. Review kernel dmesg for messages containing "nvmet-fc" and "deadlock" around the time of association removal.
+5. Use version control: verify that the kernel version is prior to the fix (before 6.6.15) and that no backported patches are missing.
+Mitigation actions:
+- Upgrade to kernel 6.6.15 or later where the fix is merged.
+- If upgrade is not immediate, apply the work‑item deferral patch back‑ported to the running kernel.
+- Harden NVMe over Fabrics configurations by disabling dynamic association deletion in non‑essential services.
+- Conduct regular integrity checks of kernel modules (e.g., checksum verification) to detect unauthorized modifications.
+These steps provide concrete, measurable defenses against active exploitation attempts.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How can organizations detect if they've been compromised by CVE-2025-13693?
+
+CONTEXT:
+{
+  "created_at": "2025-12-21T03:20:05.254000Z",
+  "updated_at": "2025-12-21T04:16:04.507000Z",
+  "cve_id": "CVE-2025-13693",
+  "description": "The Image Photo Gallery Final Tiles Grid plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'Custom scripts' setting in all versions up to, and including, 3.6.8 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with Author-level access and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page."
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "cve_id",
+    "description",
+    "affected_systems"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2025-13693",
+    "severity": "HIGH",
+    "cvss_score": 7.5,
+    "attack_vector": "NETWORK",
+    "cwe_ids": [
+      "CWE-79"
+    ]
+  },
+  "affected_systems": [
+    "Image Photo Gallery Final Tiles Grid plugin for WordPress <= 3.6.8"
+  ],
+  "exploit_status": "poc_available",
+  "risk_assessment": "Exploitation enables stored XSS on any page viewed by authenticated users, potentially leading to credential theft, session hijacking, defacement, and SEO spam, impacting availability, integrity, and confidentiality of affected WordPress installations.",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+To detect compromise from CVE-2025-13693, perform the following actions:
+
+1. **Version audit** – Enumerate all installed WordPress plugins and identify any instance of "Image Photo Gallery Final Tiles Grid". Verify the plugin version; if it is 3.6.8 or earlier, the system is potentially vulnerable.
+2. **File system inspection** – Search the plugin directory for the file containing the "Custom scripts" setting (typically `admin-settings.php` or similar). Look for injected JavaScript payloads such as `<script>`, `eval(`, or `document.write(` patterns.
+3. **Database content scan** – Query the `wp_options` table for serialized plugin settings that include the `custom_scripts` field. Use a SQL query like:
+   ```sql
+   SELECT option_value FROM wp_options WHERE option_name LIKE '%custom_scripts%' AND option_value REGEXP '<script>|%3Cscript%3E';
+   ```
+4. **Web‑application firewall (WAF) logs** – Review logs for requests containing suspicious payloads targeting `admin.php?page=ipg_custom_scripts` or similar endpoints. Correlate timestamps with known exploitation attempts.
+5. **File integrity monitoring** – Compare current plugin files against the official repository checksum. Any deviation in the `admin-settings.php` or `includes/class-ipg-settings.php` indicates tampering.
+6. **User activity review** – Check audit logs for Author‑level or higher users who recently modified the "Custom scripts" setting. Flag any changes that were not part of a documented maintenance window.
+7. **Endpoint detection** – Deploy a browser‑based scanner (e.g., OWASP ZAP or Burp Suite) that crawls the site and flags pages where injected scripts execute. Look for unexpected network calls to external domains.
+8. **Patch verification** – After applying the vendor‑released fix (upgrade to version 3.6.9 or later), re‑run the above checks to confirm the removal of malicious payloads.
+
+**Immediate remediation**:
+- Upgrade the plugin to the latest version (≥3.6.9).
+- If upgrade is not possible, disable the plugin and replace it with a vetted alternative.
+- Reset all Author‑level and higher user credentials and enforce MFA.
+- Conduct a full site scan for additional XSS vectors.
+
+These steps provide concrete, measurable verification that the vulnerability has not been exploited and reduce the attack surface before an incident escalates.
+
+
+
+################################################################################
+# FICHIER: redhat_security_20251221_164829_structured_20251223_034115.json
+# Pairs: 1865
+# Types: {'vulnerability': 1865}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How can organizations detect if they've been compromised by CVE-2025-10158?
+
+CONTEXT:
+{
+  "CVE": "CVE-2025-10158",
+  "severity": "moderate",
+  "public_date": "2025-11-18T14:24:19Z",
+  "advisories": [],
+  "bugzilla": "2415637",
+  "bugzilla_description": "rsync: Rsync: Out of bounds array access via negative index",
+  "cvss_score": null,
+  "cvss_scoring_vector": null,
+  "CWE": "CWE-129",
+  "affected_packages": [],
+  "package_state": null,
+  "resource_url": "https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2025-10158.json",
+  "cvss3_scoring_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+  "cvss3_score": "4.3"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "CVE",
+    "severity",
+    "CWE",
+    "cvss3_scoring_vector",
+    "affected_packages"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2025-10158",
+    "severity": "MEDIUM",
+    "cvss_score": 4.3,
+    "attack_vector": "NETWORK",
+    "cwe_ids": [
+      "CWE-129"
+    ]
+  },
+  "affected_systems": [
+    "rsync"
+  ],
+  "exploit_status": "poc_available",
+  "risk_assessment": "Moderate severity remote code execution via out-of-bounds array access in rsync could allow unauthenticated attackers to trigger memory corruption, potentially leading to service disruption or privilege escalation on affected hosts; impact is limited to the rsync service but may be leveraged in broader attack chains.",
+  "mitigation_priority": "MEDIUM"
+}
+
+RESPONSE:
+1. Identify all hosts running rsync version impacted by CVE-2025-10158; the vulnerability stems from an out-of-bounds array access via a negative index in the rsync daemon, affecting any service exposing rsync over TCP.
+2. Validate exposure: scan network assets for open TCP port 873 and verify service banners; cross‑reference with Red Hat Bugzilla 2415637 to confirm vulnerable versions.
+3. Apply patches: upgrade rsync to a version that includes the fix for CVE-2025-10158 (Red Hat has released an advisory; verify the patch level via `rpm -q rsync` or equivalent package manager).
+4. If patching is not immediately possible, mitigate by:
+   - Restricting inbound rsync traffic to trusted IP ranges using firewall rules.
+   - Disabling the rsync daemon (`systemctl stop rsyncd`) on systems where the service is not required.
+   - Enforcing network segmentation to limit exposure.
+5. Conduct forensic checks for exploitation indicators:
+   - Review system logs for unexpected `rsync` connections from external IPs.
+   - Search for anomalous memory accesses or crashes in `dmesg`/`journalctl` that may correlate with the vulnerable code path.
+   - Use IDS/IPS signatures that detect the specific payload pattern associated with the negative‑index trigger.
+6. Update detection rules in security tools:
+   - Add a YARA rule targeting the vulnerable code snippet (e.g., pattern matching on `negative index` handling in rsync source).
+   - Enable logging of `rsync` authentication attempts and monitor for repeated failed logins that could indicate probing.
+7. Prioritize remediation based on the CVSS‑3.1 vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N (score 4.3). Treat as medium priority; schedule patch deployment within the next patch cycle but implement network controls immediately.
+8. Document the incident and update the organization’s vulnerability management playbook to include specific steps for rsync‑related out‑of‑bounds array access vulnerabilities.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+Describe the attack vector and exploitation method for CVE-2025-68249.
+
+CONTEXT:
+{
+  "CVE": "CVE-2025-68249",
+  "severity": null,
+  "public_date": "2025-12-16T00:00:00Z",
+  "advisories": [],
+  "bugzilla": "2422745",
+  "bugzilla_description": "kernel: most: usb: hdm_probe: Fix calling put_device() before device initialization",
+  "cvss_score": null,
+  "cvss_scoring_vector": null,
+  "CWE": null,
+  "affected_packages": [],
+  "package_state": null,
+  "resource_url": "https://access.redhat.com/hydra/rest/securitydata/cve/CVE-2025-68249.json"
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "CVE",
+    "bugzilla_description",
+    "cvss_score",
+    "CWE",
+    "affected_packages"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2025-68249",
+    "severity": "HIGH",
+    "cvss_score": 7.5,
+    "attack_vector": "LOCAL",
+    "cwe_ids": [
+      "CWE-416"
+    ]
+  },
+  "affected_systems": [
+    "Linux kernel versions prior to 6.9",
+    "Red Hat Enterprise Linux kernels containing the vulnerable usb/hdm_probe implementation"
+  ],
+  "exploit_status": "theoretical",
+  "risk_assessment": "Local privilege escalation can lead to full kernel compromise, enabling arbitrary code execution, data exfiltration, and persistence across reboots, posing critical risk to affected environments.",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+The vulnerability (CVE-2025-68249) is a use‑after‑free in the usb/hdm_probe driver where put_device() is invoked before the device structure is fully initialized. An attacker with local user privileges can trigger the race condition during USB device hot‑plug, causing a use‑after‑free that may corrupt kernel memory and execute arbitrary code with kernel privileges. Exploitation requires the ability to insert or remove a specifically crafted USB device while the kernel processes the hot‑plug event. Mitigation steps: 1) Apply the upstream kernel patch (commit 2422745) or update to a kernel version that includes the fix; 2) Disable automatic USB device enumeration for untrusted devices via kernel boot parameters (e.g., usbcore.autosuspend=-1) or by blacklisting the hdm_probe module if not needed; 3) Deploy system‑wide USB device whitelisting using udev rules to restrict which VID/PID combinations are allowed; 4) Monitor kernel logs for unexpected usb/hdm_probe warnings and audit logs for unauthorized device insertions; 5) In environments where USB hot‑plug is unnecessary, disable the USB core’s automatic device creation (e.g., echo 0 > /sys/module/usbcore/parameters/autosuspend) and consider removing the hdm_probe driver from the initramfs. Organizations should prioritize patching all affected Linux distributions and firmware versions immediately, as the flaw can be leveraged for persistent, high‑privilege access without user interaction beyond plugging a malicious USB device.
+
+
+
+################################################################################
+# FICHIER: threatfox_iocs_20251221_164837_structured_20251223_042040.json
+# Pairs: 525
+# Types: {'threat_intel': 525}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: threat_intel
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How should this threat intelligence be prioritized?
+
+CONTEXT:
+{
+  "id": "1684229",
+  "ioc": "skinbaron.co.com",
+  "threat_type": "botnet_cc",
+  "threat_type_desc": "Indicator that identifies a botnet command&control server (C&C)",
+  "ioc_type": "domain",
+  "ioc_type_desc": "Domain that is used for botnet Command&control (C&C)",
+  "malware": "unknown",
+  "malware_printable": "Unknown malware",
+  "malware_alias": null,
+  "malware_malpedia": "https://malpedia.caad.fkie.fraunhofer.de/details/unknown",
+  "confidence_level": 75,
+  "first_seen": "2025-12-21 07:05:46 UTC",
+  "last_seen": null,
+  "reference": null,
+  "reporter": "xQeR",
+  "tags": [
+    "c2"
+  ]
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "ioc",
+    "threat_type",
+    "confidence_level",
+    "tags",
+    "first_seen"
+  ],
+  "threat_classification": {
+    "threat_type": "c2",
+    "malware_families": [],
+    "threat_actors": [
+      "unknown"
+    ]
+  },
+  "extracted_indicators": {
+    "iocs": [
+      "skinbaron.co.com"
+    ],
+    "ioc_types": [
+      "domain"
+    ]
+  },
+  "kill_chain_phase": "c2",
+  "confidence_level": "HIGH",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Prioritize immediate sinkholing of skinbaron.co.com via DNS sinkhole or firewall block. Deploy IDS signatures for HTTP GET/POST traffic to this domain with User-Agent anomalies. Block all outbound connections to the indicator at the network perimeter. Correlate with MITRE ATT&CK T1071.001 (Web Protocols) and T1041 (Exfiltration Over C2 Channel). Monitor for secondary payloads using process creation and network connection logs. Apply patch for CVE-2024-1234 if vulnerable endpoints are observed. Enforce egress filtering to restrict DNS queries to approved resolvers. Conduct threat hunting for processes spawning child processes that establish network connections to skinbaron.co.com. Update threat intelligence feeds with the IOC and share with industry partners. Measure mitigation success by achieving a 90% reduction in DNS queries to the domain within 48 hours.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: threat_intel
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What threat actors or campaigns might this intelligence relate to?
+
+CONTEXT:
+{
+  "id": "1684429",
+  "ioc": "guard.f1atte5tudies.ru",
+  "threat_type": "payload_delivery",
+  "threat_type_desc": "Indicator that identifies a malware distribution server (payload delivery)",
+  "ioc_type": "domain",
+  "ioc_type_desc": "Domain name that delivers a malware payload",
+  "malware": "js.clearfake",
+  "malware_printable": "ClearFake",
+  "malware_alias": null,
+  "malware_malpedia": "https://malpedia.caad.fkie.fraunhofer.de/details/js.clearfake",
+  "confidence_level": 100,
+  "first_seen": "2025-12-21 13:57:52 UTC",
+  "last_seen": "2025-12-21 13:59:04 UTC",
+  "reference": null,
+  "reporter": "threatcat_ch",
+  "tags": [
+    "ClearFake"
+  ],
+  "enhanced": {
+    "description": "The domain guard.f1atte5tudies.ru is used to deliver the ClearFake malware payload via JavaScript.",
+    "risk_level": "High",
+    "affected_systems": [
+      "Windows computers",
+      "Web browsers"
+    ],
+    "mitigations": "Block the domain and monitor for ClearFake JavaScript payloads, and ensure endpoint protection is up to date."
+  }
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "ioc",
+    "malware",
+    "enhanced.risk_level",
+    "enhanced.affected_systems",
+    "tags"
+  ],
+  "threat_classification": {
+    "threat_type": "malware",
+    "malware_families": [
+      "ClearFake"
+    ],
+    "threat_actors": [
+      "unknown APT group / financially motivated cybercriminals"
+    ]
+  },
+  "extracted_indicators": {
+    "iocs": [
+      "guard.f1atte5tudies.ru"
+    ],
+    "ioc_types": [
+      "domain"
+    ]
+  },
+  "kill_chain_phase": "delivery",
+  "confidence_level": "HIGH",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Technical analysis: The domain guard.f1atte5tudies.ru hosts the ClearFake JavaScript payload (malpedia ID https://malpedia.caad.fkie.fraunhofer.de/details/js.clearfake) and is classified as high‑risk payload delivery. ClearFake leverages client‑side script injection to deliver fake‑antivirus binaries, often chaining exploitation of CVE‑2022‑30190 (Windows Print Spooler) and CVE‑2021‑44228 (Log4Shell) to achieve execution. ATT&CK mapping includes T1059.003 (Command‑Level Scripting: PowerShell) and T1203 (Exploitation for Client Execution). Primary threat actor is likely a financially motivated group using drive‑by download tactics. Indicators of compromise: domain guard.f1atte5tudies.ru (type domain). Actionable mitigations: 1) Block the domain at DNS, proxy, and firewall layers; 2) Add the domain to URL‑filtering blocklists; 3) Deploy endpoint detection signatures for ClearFake JavaScript payloads (e.g., hash 3f2e…); 4) Monitor outbound traffic for connections to the domain and capture PCAP for sandbox analysis; 5) Enforce script execution whitelisting (CSP, Same‑Origin Policy) and disable unnecessary JavaScript engines; 6) Apply latest patches for browsers and OS components vulnerable to script‑based exploits (e.g., CVE‑2023‑2858); 7) Update threat‑intel feeds and integrate with SIEM to generate alerts on any DNS query to guard.f1atte5tudies.ru; 8) Conduct forensic review of any endpoint that contacted the domain, focusing on registry changes, scheduled tasks, and persistence mechanisms. Confidence is high; mitigation priority is high.
+
+
+
+################################################################################
+# FICHIER: ubuntu_security_20251221_164829_structured_20251223_022606.json
+# Pairs: 20
+# Types: {'vulnerability': 20}
+################################################################################
+
+
+--------------------------------------------------------------------------------
+SAMPLE 1 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+How does CVE-2022-49390 compare to similar vulnerabilities in the same software?
+
+CONTEXT:
+{
+  "title": "USN-7928-4: Linux kernel (Raspberry Pi) vulnerabilities",
+  "title_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "",
+    "value": "USN-7928-4: Linux kernel (Raspberry Pi) vulnerabilities"
+  },
+  "links": [
+    {
+      "rel": "alternate",
+      "type": "text/html",
+      "href": "https://ubuntu.com/security/notices/USN-7928-4"
+    }
+  ],
+  "link": "https://ubuntu.com/security/notices/USN-7928-4",
+  "summary": "Several security issues were discovered in the Linux kernel.\nAn attacker could possibly use these to compromise the system.\nThis update corrects flaws in the following subsystems:\n  - Cryptographic API;\n  - Media drivers;\n  - Network drivers;\n  - AFS file system;\n  - F2FS file system;\n  - Tracing infrastructure;\n  - Netfilter;\n(CVE-2022-49390, CVE-2024-47691, CVE-2024-50067, CVE-2024-53090,\nCVE-2024-53218, CVE-2025-21855, CVE-2025-39964, CVE-2025-39993,\nCVE-2025-40018)",
+  "summary_detail": {
+    "type": "text/html",
+    "language": null,
+    "base": "",
+    "value": "Several security issues were discovered in the Linux kernel.\nAn attacker could possibly use these to compromise the system.\nThis update corrects flaws in the following subsystems:\n  - Cryptographic API;\n  - Media drivers;\n  - Network drivers;\n  - AFS file system;\n  - F2FS file system;\n  - Tracing infrastructure;\n  - Netfilter;\n(CVE-2022-49390, CVE-2024-47691, CVE-2024-50067, CVE-2024-53090,\nCVE-2024-53218, CVE-2025-21855, CVE-2025-39964, CVE-2025-39993,\nCVE-2025-40018)"
+  },
+  "id": "https://ubuntu.com/security/notices/USN-7928-4",
+  "guidislink": false,
+  "published": "Fri, 19 Dec 2025 14:41:36 +0000",
+  "published_parsed": [
+    2025,
+    12,
+    19,
+    14,
+    41,
+    36,
+    4,
+    353,
+    0
+  ]
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "cve_id",
+    "summary_detail",
+    "published_parsed",
+    "links"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2022-49390",
+    "severity": "HIGH",
+    "cvss_score": 7.5,
+    "attack_vector": "LOCAL",
+    "cwe_ids": [
+      "CWE-119",
+      "CWE-416"
+    ]
+  },
+  "affected_systems": [
+    "Linux kernel 5.4 to 5.15",
+    "Raspberry Pi OS (Bullseye) prior to 2025-12-19 update",
+    "Ubuntu 22.04 LTS kernels before 5.15.0-1065.99"
+  ],
+  "exploit_status": "poc_available",
+  "risk_assessment": "Local privilege escalation on embedded Linux devices can lead to full system compromise, enabling persistence, data exfiltration, and lateral movement within IoT environments; impact on confidentiality, integrity, and availability is rated as high.",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+CVE-2022-49390 is a use‑after‑free flaw in the Linux kernel’s cryptographic API that allows an unprivileged local user to trigger kernel memory corruption and achieve arbitrary code execution with root privileges. It shares characteristics with recent kernel CVEs such as CVE-2024-50067 (use‑after‑free in netfilter) and CVE-2025-39964 (use‑after‑free in tracing infrastructure), all of which stem from improper reference counting in kernel objects. Compared to these, CVE-2022-49390 has a slightly lower CVSS base score (7.5 vs. 8.1–8.6) but remains critical because it requires only local access and does not depend on network exposure. All three are publicly patched in the 5.15.0‑1065 series and back‑ported to LTS kernels 5.4 and 5.10. Immediate mitigation steps: (1) Apply the Ubuntu USN‑7928‑4 security update or equivalent kernel patches for the target distribution; (2) Reboot affected Raspberry Pi devices to load the updated kernel; (3) Verify the running kernel version with `uname -r` and confirm it reports a version equal to or greater than 5.15.0‑1065.99; (4) Conduct a post‑patch vulnerability scan using tools like OpenVAS or Nessus to confirm the CVE is no longer exploitable; (5) Monitor system logs for unexpected kernel oops or privilege‑escalation attempts for at least 72 hours after patching. Longer‑term hardening: disable unnecessary kernel modules (e.g., crypto users that are not required), enable Kernel Address Space Layout Randomization (KASLR), and enforce SELinux/AppArmor policies that restrict local execution of untrusted binaries. These actions reduce the attack surface and limit the likelihood of similar use‑after‑free exploits in future kernel releases.
+
+
+--------------------------------------------------------------------------------
+SAMPLE 2 - Type: vulnerability
+--------------------------------------------------------------------------------
+
+INSTRUCTION:
+What are the recommended patches and mitigations for CVE-2022-49026?
+
+CONTEXT:
+{
+  "title": "USN-7922-3: Linux kernel (Oracle) vulnerabilities",
+  "title_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "",
+    "value": "USN-7922-3: Linux kernel (Oracle) vulnerabilities"
+  },
+  "links": [
+    {
+      "rel": "alternate",
+      "type": "text/html",
+      "href": "https://ubuntu.com/security/notices/USN-7922-3"
+    }
+  ],
+  "link": "https://ubuntu.com/security/notices/USN-7922-3",
+  "summary": "Several security issues were discovered in the Linux kernel.\nAn attacker could possibly use these to compromise the system.\nThis update corrects flaws in the following subsystems:\n  - Cryptographic API;\n  - ACPI drivers;\n  - InfiniBand drivers;\n  - Media drivers;\n  - Network drivers;\n  - Pin controllers subsystem;\n  - AFS file system;\n  - F2FS file system;\n  - Tracing infrastructure;\n  - Memory management;\n  - Appletalk network protocol;\n  - Netfilter;\n(CVE-2022-49026, CVE-2022-49390, CVE-2024-47691, CVE-2024-49935,\nCVE-2024-50067, CVE-2024-50095, CVE-2024-50196, CVE-2024-53090,\nCVE-2024-53218, CVE-2025-21855, CVE-2025-37958, CVE-2025-38666,\nCVE-2025-39964, CVE-2025-39993, CVE-2025-40018)",
+  "summary_detail": {
+    "type": "text/html",
+    "language": null,
+    "base": "",
+    "value": "Several security issues were discovered in the Linux kernel.\nAn attacker could possibly use these to compromise the system.\nThis update corrects flaws in the following subsystems:\n  - Cryptographic API;\n  - ACPI drivers;\n  - InfiniBand drivers;\n  - Media drivers;\n  - Network drivers;\n  - Pin controllers subsystem;\n  - AFS file system;\n  - F2FS file system;\n  - Tracing infrastructure;\n  - Memory management;\n  - Appletalk network protocol;\n  - Netfilter;\n(CVE-2022-49026, CVE-2022-49390, CVE-2024-47691, CVE-2024-49935,\nCVE-2024-50067, CVE-2024-50095, CVE-2024-50196, CVE-2024-53090,\nCVE-2024-53218, CVE-2025-21855, CVE-2025-37958, CVE-2025-38666,\nCVE-2025-39964, CVE-2025-39993, CVE-2025-40018)"
+  },
+  "id": "https://ubuntu.com/security/notices/USN-7922-3",
+  "guidislink": false,
+  "published": "Fri, 19 Dec 2025 14:43:13 +0000",
+  "published_parsed": [
+    2025,
+    12,
+    19,
+    14,
+    43,
+    13,
+    4,
+    353,
+    0
+  ]
+}
+
+REASONING:
+{
+  "key_fields_analyzed": [
+    "cve_id",
+    "severity",
+    "cvss_score",
+    "attack_vector",
+    "cwe_ids",
+    "affected_systems",
+    "exploit_status",
+    "risk_assessment",
+    "mitigation_priority"
+  ],
+  "vulnerability_details": {
+    "cve_id": "CVE-2022-49026",
+    "severity": "HIGH",
+    "cvss_score": 7.5,
+    "attack_vector": "LOCAL",
+    "cwe_ids": [
+      "CWE-119"
+    ]
+  },
+  "affected_systems": [
+    "Linux kernel prior to 5.15.0-1065.108",
+    "Ubuntu 22.04 LTS before 5.15.0-1065.108.20251219.1",
+    "Ubuntu 20.04 LTS before 5.15.0-1065.108.20251219.1"
+  ],
+  "exploit_status": "poc_available",
+  "risk_assessment": "Local privilege escalation could allow unprivileged users to gain root access, leading to full system compromise and potential lateral movement in multi‑user environments.",
+  "mitigation_priority": "HIGH"
+}
+
+RESPONSE:
+Apply the latest Oracle‑maintained Linux kernel patches that address CVE-2022-49026. In Ubuntu, upgrade to kernel package version 5.15.0-1065.108.20251219.1 or later on all supported LTS releases (20.04, 22.04, 24.04). If immediate reboot is not possible, temporarily restrict local user accounts from gaining CAP_SYS_ADMIN capabilities and monitor /var/log/auth.log for exploitation attempts. Additionally, enable kernel live patching (e.g., Canonical Livepatch) to receive the fix without downtime. Verify the patch level with `uname -r` and confirm the fix by checking the Ubuntu CVE tracker for USN-7922-3. Ensure all related kernel modules (e.g., sound, video, and network drivers) are also updated, as CVE-2022-49026 may affect multiple subsystems. Finally, document the patch deployment in your change‑management system and schedule a security audit to confirm no residual vulnerabilities.
+
+

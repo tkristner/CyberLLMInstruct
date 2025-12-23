@@ -12,3 +12,4 @@ structured_data/
 # macOS system files
 .DS_Store
 **/.DS_Store
+*__pycache__*

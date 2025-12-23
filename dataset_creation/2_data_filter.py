@@ -26,7 +26,7 @@ class CyberDataFilter:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.ollama_url = ollama_url
-        self.model = "gemma3:latest"
+        self.model = "qwen3:8b"
         
         # Keywords and patterns for filtering
         self.cybersecurity_keywords = {
@@ -135,7 +135,7 @@ Text: {content_limited}
 
 Answer YES or NO only.
 """
-        response = self.query_ollama(prompt, timeout=3)  # Shorter timeout
+        response = self.query_ollama(prompt, timeout=30)  # Allow 30s for LLM response
         
         # Parse the response
         is_relevant = False
@@ -196,27 +196,47 @@ Content: {content_limited}
 """
         
         logger.info("Sending prompt to Ollama")
-        # Use a shorter timeout (3 seconds) to prevent long waits
-        response = self.query_ollama(prompt, timeout=3)
+        # Allow adequate time for LLM response
+        response = self.query_ollama(prompt, timeout=60)
         logger.info(f"Received response from Ollama: {len(response) if response else 0} chars")
-        
+
+        if not response:
+            return entry
+
         # Try to parse the JSON response
         try:
+            # Remove qwen3 thinking tags if present
+            if "<think>" in response and "</think>" in response:
+                response = response.split("</think>")[-1].strip()
+
             # First check if we have JSON delimiters and extract just the JSON
-            if "```json" in response and "```" in response.split("```json", 1)[1]:
+            if "```json" in response:
                 json_content = response.split("```json", 1)[1].split("```", 1)[0].strip()
                 enhanced_data = json.loads(json_content)
-            elif "```" in response and "```" in response.split("```", 1)[1]:
-                json_content = response.split("```", 1)[1].split("```", 1)[0].strip()
-                enhanced_data = json.loads(json_content)
+            elif "```" in response:
+                parts = response.split("```")
+                for part in parts:
+                    part = part.strip()
+                    if part.startswith("{") or part.startswith("["):
+                        enhanced_data = json.loads(part)
+                        break
+                else:
+                    raise json.JSONDecodeError("No JSON found", response, 0)
             else:
-                # Try to parse the whole response
-                enhanced_data = json.loads(response)
-                
+                # Try to find JSON object in response
+                json_start = response.find("{")
+                json_end = response.rfind("}") + 1
+                if json_start >= 0 and json_end > json_start:
+                    json_content = response[json_start:json_end]
+                    enhanced_data = json.loads(json_content)
+                else:
+                    enhanced_data = json.loads(response)
+
             # Add enhanced data to the entry
             entry["enhanced"] = enhanced_data
+            logger.info("Successfully parsed LLM response as JSON")
             return entry
-            
+
         except json.JSONDecodeError:
             # If we can't parse as JSON, just add the raw response
             logger.warning("Could not parse LLM response as JSON")
@@ -322,11 +342,11 @@ Content: {content_limited}
         relevant_entries = []
         filtered_out_entries = []
         
-        # Process just a sample for testing if there are many entries
-        process_count = min(len(data), 5)  # Process at most 5 entries for testing
-        logger.info(f"Processing {process_count} entries for this test run")
-        
-        for i, entry in enumerate(data[:process_count]):
+        # Process all entries
+        process_count = len(data)
+        logger.info(f"Processing {process_count} entries")
+
+        for i, entry in enumerate(data):
             logger.info(f"Processing entry {i+1}/{process_count}")
             is_relevant, reason = self.filter_entry(entry)
             if is_relevant:
@@ -366,8 +386,8 @@ Content: {content_limited}
             logger.error(f"Error saving filtered data: {str(e)}")
             return False
 
-    def process_directory(self, limit=5):
-        """Process files in the input directory, limited to a specified number for testing."""
+    def process_directory(self, limit=None):
+        """Process files in the input directory."""
         total_stats = {
             'processed_files': 0,
             'total_entries': 0,
@@ -375,7 +395,7 @@ Content: {content_limited}
             'filtered_entries': 0
         }
         
-        # Process only limited number of files (for testing)
+        # Process files (optionally limited)
         # To process ALL files, remove the limit by changing the line below to:
         # for file_path in self.input_dir.glob('*.*'):
         files_to_process = list(self.input_dir.glob('*.*'))
@@ -385,7 +405,7 @@ Content: {content_limited}
             ubuntu_files = [f for f in files_to_process if 'ubuntu_security' in f.name]
             if ubuntu_files:
                 files_to_process = ubuntu_files[:1]
-                logger.info("Prioritizing Ubuntu security data file for testing")
+                logger.info("Prioritizing Ubuntu security data file")
         
         # Limit the number of files if specified
         if limit:
@@ -429,7 +449,7 @@ def main():
     parser.add_argument("--input-dir", default="raw_data", help="Directory containing raw data")
     parser.add_argument("--output-dir", default="filtered_data", help="Directory to save filtered data")
     parser.add_argument("--ollama-url", default="http://localhost:11434", help="URL for Ollama API")
-    parser.add_argument("--limit", type=int, default=5, help="Limit the number of files to process (default: 5, set to 0 for no limit)")
+    parser.add_argument("--limit", type=int, default=0, help="Limit the number of files to process (default: 0 = no limit)")
     parser.add_argument("--disable-ollama", action="store_true", help="Disable using Ollama and use only rule-based filtering")
     
     args = parser.parse_args()

@@ -42,8 +42,13 @@ class CyberDataCollector:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Initialize API clients
-        self.github_client = Github(os.getenv('GITHUB_TOKEN'))
-        self.opencve_auth = (os.getenv('OPENCVE_EMAIL'), os.getenv('OPENCVE_PASSWORD'))
+        from github import Auth
+        github_token = os.getenv('GITHUB_TOKEN')
+        self.github_client = Github(auth=Auth.Token(github_token)) if github_token else None
+        # OpenCVE uses username (not email) for basic auth
+        opencve_user = os.getenv('OPENCVE_USERNAME') or os.getenv('OPENCVE_EMAIL')
+        opencve_pass = os.getenv('OPENCVE_PASSWORD')
+        self.opencve_auth = (opencve_user, opencve_pass) if opencve_user and opencve_pass else None
         self.nvd_api_key = os.getenv('NVD_API_KEY')
         
         # Load API keys from environment variables
@@ -99,14 +104,14 @@ class CyberDataCollector:
             # Security Advisories
             'microsoft_security': 'https://api.msrc.microsoft.com/cvrf/v2.0/updates',
             'ubuntu_usn': 'https://ubuntu.com/security/notices/rss.xml',
-            'redhat_security': 'https://access.redhat.com/labs/securitydataapi/cve.json',
+            'redhat_security': 'https://access.redhat.com/hydra/rest/securitydata/cve.json',
             
             # Research and Reports
             'arxiv_cs_crypto': 'http://export.arxiv.org/api/query?search_query=cat:cs.CR&max_results=100',
             'exploit_db': 'https://www.exploit-db.com/download/',
             
             # Malware Information
-            'malware_bazaar': 'https://bazaar.abuse.ch/api/v1/',
+            'malware_bazaar': 'https://mb-api.abuse.ch/api/v1/',
             'virustotal': 'https://www.virustotal.com/vtapi/v2/',
             'malpedia': 'https://malpedia.caad.fkie.fraunhofer.de/api/v1/',
             'malshare': 'https://malshare.com/api.php',
@@ -244,22 +249,233 @@ class CyberDataCollector:
         logger.error(f"All retry attempts failed for {url}: {str(last_error)}")
         return None
 
-    def fetch_cve_data(self, start_index: int = 0, results_per_page: int = 2000) -> Optional[Dict]:
+    def fetch_cve_data(
+        self,
+        start_index: int = 0,
+        results_per_page: int = 2000,
+        start_year: int = None,
+        end_year: int = None,
+    ) -> Optional[Dict]:
         """
         Fetch CVE data from NVD database.
-        
+
+        Args:
+            start_index: Starting index for pagination
+            results_per_page: Number of results per page (max 2000)
+            start_year: Start year for CVE filter (e.g., 2021)
+            end_year: End year for CVE filter (e.g., 2025)
+
         Note: Implements rate limiting of 5 requests per 30 seconds
         """
         try:
             params = {
                 'startIndex': start_index,
-                'resultsPerPage': results_per_page
+                'resultsPerPage': results_per_page,
             }
+
+            # Add date range filter if specified
+            if start_year and end_year:
+                params['pubStartDate'] = f'{start_year}-01-01T00:00:00.000'
+                params['pubEndDate'] = f'{end_year}-12-31T23:59:59.999'
+
             response = self._make_request('nvd_cve', self.endpoints['nvd_cve'], params=params)
             return response.json()
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching CVE data: {str(e)}")
             return None
+
+    def fetch_cve_data_stratified(
+        self,
+        min_per_period: int = 5000,
+        period_ratio: Dict[str, float] = None,
+        severity_ratio: Dict[str, float] = None,
+        only_period: str = None,
+    ) -> Dict[str, List]:
+        """
+        Fetch CVE data with stratified sampling across years and severity.
+
+        Periods with ratios (default):
+        - old: 1999-2010 (20%)
+        - mid: 2011-2020 (30%)
+        - recent: 2021-2025 (50%)
+
+        Severity distribution (default):
+        - CRITICAL: 40%
+        - HIGH: 35%
+        - MEDIUM: 20%
+        - LOW: 5%
+
+        Args:
+            min_per_period: Minimum CVEs per period (smallest period gets this)
+            period_ratio: Dict with period weights (default: old=0.2, mid=0.3, recent=0.5)
+            severity_ratio: Dict with severity weights (default favors critical/high)
+
+        Returns:
+            Dict with 'old', 'mid', 'recent' keys containing CVE lists
+        """
+        if period_ratio is None:
+            period_ratio = {
+                'old': 0.20,      # 20%
+                'mid': 0.30,      # 30%
+                'recent': 0.50,   # 50%
+            }
+
+        if severity_ratio is None:
+            # Prioritize high severity but keep realistic ratios
+            # CRITICAL + HIGH = 60%, allows flexibility if not enough critical
+            severity_ratio = {
+                'CRITICAL': 0.30,
+                'HIGH': 0.40,
+                'MEDIUM': 0.25,
+                'LOW': 0.05,
+            }
+
+        periods = {
+            'old': list(range(1999, 2011)),      # 12 years
+            'mid': list(range(2011, 2021)),      # 10 years
+            'recent': list(range(2021, 2026)),   # 5 years
+        }
+
+        # Calculate target per period based on ratios
+        # min_per_period applies to the smallest ratio, others scale up
+        min_ratio = min(period_ratio.values())
+        period_targets = {
+            name: max(min_per_period, int(min_per_period * (ratio / min_ratio)))
+            for name, ratio in period_ratio.items()
+        }
+
+        logger.info("=== CVE Stratified Collection ===")
+        logger.info(f"Period targets: old={period_targets['old']}, mid={period_targets['mid']}, recent={period_targets['recent']}")
+        logger.info(f"Severity distribution: CRITICAL={severity_ratio['CRITICAL']:.0%}, HIGH={severity_ratio['HIGH']:.0%}, MEDIUM={severity_ratio['MEDIUM']:.0%}, LOW={severity_ratio['LOW']:.0%}")
+
+        results = {'old': [], 'mid': [], 'recent': []}
+
+        # Filter periods if only_period specified
+        periods_to_process = {only_period: periods[only_period]} if only_period else periods
+
+        for period_name, years in periods_to_process.items():
+            target_for_period = period_targets[period_name]
+            logger.info(f"\n=== Period '{period_name}': {years[0]}-{years[-1]} (target: {target_for_period}) ===")
+
+            period_cves = []
+
+            # Fetch by severity level
+            for severity, ratio in severity_ratio.items():
+                target_count = int(target_for_period * ratio)
+                per_year = max(1, target_count // len(years))
+
+                logger.info(f"\nSeverity {severity}: target {target_count} CVEs (~{per_year}/year)")
+
+                severity_cves = []
+
+                for year in years:
+                    data = self._fetch_cve_by_severity(
+                        year=year,
+                        severity=severity,
+                        max_results=per_year,
+                    )
+
+                    if data:
+                        severity_cves.extend(data)
+                        logger.info(f"  {year} [{severity}]: {len(data)} CVEs")
+
+                    if len(severity_cves) >= target_count:
+                        break
+
+                period_cves.extend(severity_cves[:target_count])
+                logger.info(f"  {severity} total: {len(severity_cves[:target_count])} CVEs")
+
+            results[period_name] = period_cves
+            logger.info(f"\nPeriod '{period_name}' total: {len(period_cves)} CVEs")
+
+        total = sum(len(v) for v in results.values())
+        logger.info(f"\n=== TOTAL: {total} CVEs ===")
+        for name, cves in results.items():
+            pct = len(cves) / total * 100 if total > 0 else 0
+            logger.info(f"  {name}: {len(cves)} ({pct:.1f}%)")
+
+        return results
+
+    def _fetch_cve_by_severity(
+        self,
+        year: int,
+        severity: str,
+        max_results: int = 500,
+    ) -> List[Dict]:
+        """
+        Fetch CVEs for a specific year and severity level.
+
+        Uses CVSSv3 for 2015+ and CVSSv2 for older years.
+        CVSSv2 mapping: CRITICAL->HIGH (no critical in v2), HIGH->HIGH, MEDIUM->MEDIUM, LOW->LOW
+
+        NVD API limits date range to 120 days, so we query by quarter.
+        For recent years (2021+), queries all 4 quarters to get more variety.
+
+        Args:
+            year: Year to fetch
+            severity: CRITICAL, HIGH, MEDIUM, or LOW
+            max_results: Max CVEs to fetch
+
+        Returns:
+            List of CVE entries
+        """
+        import random
+        import time
+
+        quarter_dates = {
+            1: (f'{year}-01-01T00:00:00.000', f'{year}-03-31T23:59:59.999'),
+            2: (f'{year}-04-01T00:00:00.000', f'{year}-06-30T23:59:59.999'),
+            3: (f'{year}-07-01T00:00:00.000', f'{year}-09-30T23:59:59.999'),
+            4: (f'{year}-10-01T00:00:00.000', f'{year}-12-31T23:59:59.999'),
+        }
+
+        # For recent years, query all quarters; for older years, pick one random
+        if year >= 2021:
+            quarters_to_fetch = [1, 2, 3, 4]
+            per_quarter = max(1, max_results // 4)
+        else:
+            quarters_to_fetch = [random.randint(1, 4)]
+            per_quarter = max_results
+
+        all_cves = []
+
+        for quarter in quarters_to_fetch:
+            if len(all_cves) >= max_results:
+                break
+
+            start_date, end_date = quarter_dates[quarter]
+
+            try:
+                # Build params
+                params = {
+                    'startIndex': 0,
+                    'resultsPerPage': min(500, per_quarter),
+                    'pubStartDate': start_date,
+                    'pubEndDate': end_date,
+                }
+
+                if year >= 2015:
+                    params['cvssV3Severity'] = severity
+                else:
+                    v2_severity = 'HIGH' if severity == 'CRITICAL' else severity
+                    params['cvssV2Severity'] = v2_severity
+
+                # Rate limit: wait 6 seconds between requests
+                time.sleep(6)
+
+                response = self._make_request('nvd_cve', self.endpoints['nvd_cve'], params=params)
+                if not response:
+                    continue
+
+                data = response.json()
+                cves = data.get('vulnerabilities', [])
+                all_cves.extend(cves)
+
+            except Exception as e:
+                logger.error(f"Error fetching CVEs for {year} Q{quarter} {severity}: {e}")
+                continue
+
+        return all_cves[:max_results]
 
     def fetch_opencve_data(self, limit: int = 100) -> Optional[Dict]:
         """
@@ -330,13 +546,380 @@ class CyberDataCollector:
 
     def fetch_nist_standards(self) -> Optional[Dict]:
         """
-        Fetch NIST cyber security standards.
-        
+        Fetch NIST SP 800-53 Rev 5 security controls from OSCAL GitHub repository.
+
         Returns:
-            Dictionary containing NIST standards or None if failed
+            Dictionary containing NIST security controls or None if failed
         """
-        logger.warning("NIST standards fetching is disabled due to URL issues")
-        return None
+        try:
+            url = "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json"
+            logger.info("Fetching NIST SP 800-53 Rev 5 controls...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            catalog = data.get('catalog', {})
+            groups = catalog.get('groups', [])
+
+            # Extract controls into flat list
+            controls = []
+            for group in groups:
+                family_id = group.get('id', '')
+                family_title = group.get('title', '')
+
+                for control in group.get('controls', []):
+                    control_data = {
+                        'id': control.get('id', ''),
+                        'title': control.get('title', ''),
+                        'family_id': family_id,
+                        'family_title': family_title,
+                        'class': control.get('class', ''),
+                    }
+
+                    # Extract guidance and statement from parts
+                    for part in control.get('parts', []):
+                        part_name = part.get('name', '')
+                        if part_name == 'statement':
+                            control_data['statement'] = part.get('prose', '')
+                        elif part_name == 'guidance':
+                            control_data['guidance'] = part.get('prose', '')
+
+                    # Extract properties
+                    for prop in control.get('props', []):
+                        if prop.get('name') == 'label':
+                            control_data['label'] = prop.get('value', '')
+
+                    controls.append(control_data)
+
+            logger.info(f"Fetched {len(controls)} NIST SP 800-53 controls from {len(groups)} families")
+
+            return {
+                'source': 'NIST SP 800-53 Rev 5',
+                'version': catalog.get('metadata', {}).get('version', 'unknown'),
+                'controls': controls
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching NIST standards: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing NIST standards: {str(e)}")
+            return None
+
+    def fetch_nist_csf(self) -> Optional[Dict]:
+        """
+        Fetch NIST Cybersecurity Framework 2.0 from OSCAL GitHub repository.
+
+        Returns:
+            Dictionary containing CSF 2.0 functions, categories, and subcategories
+        """
+        try:
+            url = "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/CSF/v2.0/json/NIST_CSF_v2.0_catalog.json"
+            logger.info("Fetching NIST CSF 2.0...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            catalog = data.get('catalog', {})
+            groups = catalog.get('groups', [])
+
+            # Extract functions, categories, and subcategories
+            functions = []
+            for group in groups:
+                function_data = {
+                    'id': group.get('id', ''),
+                    'title': group.get('title', ''),
+                    'categories': []
+                }
+
+                for control in group.get('controls', []):
+                    category_data = {
+                        'id': control.get('id', ''),
+                        'title': control.get('title', ''),
+                        'subcategories': []
+                    }
+
+                    # Extract subcategories from nested controls
+                    for subcontrol in control.get('controls', []):
+                        subcategory = {
+                            'id': subcontrol.get('id', ''),
+                            'title': subcontrol.get('title', ''),
+                        }
+                        # Get implementation examples from parts
+                        for part in subcontrol.get('parts', []):
+                            if part.get('name') == 'implementation-examples':
+                                subcategory['examples'] = part.get('prose', '')
+                        category_data['subcategories'].append(subcategory)
+
+                    function_data['categories'].append(category_data)
+                functions.append(function_data)
+
+            total_subcategories = sum(
+                len(cat['subcategories'])
+                for func in functions
+                for cat in func['categories']
+            )
+            logger.info(f"Fetched NIST CSF 2.0: {len(functions)} functions, {total_subcategories} subcategories")
+
+            return {
+                'source': 'NIST Cybersecurity Framework 2.0',
+                'version': catalog.get('metadata', {}).get('version', 'unknown'),
+                'functions': functions
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching NIST CSF: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing NIST CSF: {str(e)}")
+            return None
+
+    def fetch_nist_sp800_171(self) -> Optional[Dict]:
+        """
+        Fetch NIST SP 800-171 Rev 3 - Protecting Controlled Unclassified Information.
+
+        Returns:
+            Dictionary containing SP 800-171 security requirements
+        """
+        try:
+            url = "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-171/rev3/json/NIST_SP800-171_rev3_catalog.json"
+            logger.info("Fetching NIST SP 800-171 Rev 3...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            catalog = data.get('catalog', {})
+            groups = catalog.get('groups', [])
+
+            # Extract requirements into flat list
+            requirements = []
+            for group in groups:
+                family_id = group.get('id', '')
+                family_title = group.get('title', '')
+
+                for control in group.get('controls', []):
+                    req_data = {
+                        'id': control.get('id', ''),
+                        'title': control.get('title', ''),
+                        'family_id': family_id,
+                        'family_title': family_title,
+                    }
+
+                    # Extract requirement text and discussion from parts
+                    for part in control.get('parts', []):
+                        part_name = part.get('name', '')
+                        if part_name == 'statement':
+                            req_data['requirement'] = part.get('prose', '')
+                        elif part_name == 'discussion':
+                            req_data['discussion'] = part.get('prose', '')
+                        elif part_name == 'assessment':
+                            req_data['assessment'] = part.get('prose', '')
+
+                    # Extract properties
+                    for prop in control.get('props', []):
+                        if prop.get('name') == 'label':
+                            req_data['label'] = prop.get('value', '')
+
+                    requirements.append(req_data)
+
+            logger.info(f"Fetched {len(requirements)} NIST SP 800-171 requirements from {len(groups)} families")
+
+            return {
+                'source': 'NIST SP 800-171 Rev 3',
+                'version': catalog.get('metadata', {}).get('version', 'unknown'),
+                'requirements': requirements
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching NIST SP 800-171: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing NIST SP 800-171: {str(e)}")
+            return None
+
+    def fetch_nist_ssdf(self) -> Optional[Dict]:
+        """
+        Fetch NIST SP 800-218 SSDF - Secure Software Development Framework.
+
+        Returns:
+            Dictionary containing SSDF practices and tasks
+        """
+        try:
+            url = "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-218/ver1/json/NIST_SP800-218_ver1_catalog.json"
+            logger.info("Fetching NIST SP 800-218 SSDF...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            catalog = data.get('catalog', {})
+            groups = catalog.get('groups', [])
+
+            # Extract practices and tasks
+            practice_groups = []
+            for group in groups:
+                group_data = {
+                    'id': group.get('id', ''),
+                    'title': group.get('title', ''),
+                    'practices': []
+                }
+
+                for control in group.get('controls', []):
+                    practice = {
+                        'id': control.get('id', ''),
+                        'title': control.get('title', ''),
+                        'tasks': []
+                    }
+
+                    # Extract practice description from parts
+                    for part in control.get('parts', []):
+                        if part.get('name') == 'statement':
+                            practice['description'] = part.get('prose', '')
+
+                    # Extract tasks from nested controls
+                    for task in control.get('controls', []):
+                        task_data = {
+                            'id': task.get('id', ''),
+                            'title': task.get('title', ''),
+                        }
+                        for part in task.get('parts', []):
+                            if part.get('name') == 'statement':
+                                task_data['description'] = part.get('prose', '')
+                        practice['tasks'].append(task_data)
+
+                    # Extract properties (label)
+                    for prop in control.get('props', []):
+                        if prop.get('name') == 'label':
+                            practice['label'] = prop.get('value', '')
+
+                    group_data['practices'].append(practice)
+                practice_groups.append(group_data)
+
+            total_practices = sum(len(g['practices']) for g in practice_groups)
+            total_tasks = sum(
+                len(p['tasks'])
+                for g in practice_groups
+                for p in g['practices']
+            )
+            logger.info(f"Fetched NIST SSDF: {len(practice_groups)} groups, {total_practices} practices, {total_tasks} tasks")
+
+            return {
+                'source': 'NIST SP 800-218 SSDF v1.1',
+                'version': catalog.get('metadata', {}).get('version', 'unknown'),
+                'practice_groups': practice_groups
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching NIST SSDF: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing NIST SSDF: {str(e)}")
+            return None
+
+    def fetch_mitre_attack_ics(self) -> Optional[Dict]:
+        """
+        Fetch MITRE ATT&CK for ICS (Industrial Control Systems) in STIX format.
+
+        Returns:
+            Dictionary containing ICS-specific attack techniques, groups, and software
+        """
+        try:
+            url = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/ics-attack/ics-attack.json"
+            logger.info("Fetching MITRE ATT&CK for ICS...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            objects = data.get('objects', [])
+
+            # Categorize objects by type
+            techniques = []
+            groups = []
+            software = []
+            mitigations = []
+
+            for obj in objects:
+                obj_type = obj.get('type', '')
+
+                if obj_type == 'attack-pattern':
+                    tech = {
+                        'id': obj.get('id', ''),
+                        'name': obj.get('name', ''),
+                        'description': obj.get('description', ''),
+                        'platforms': obj.get('x_mitre_platforms', []),
+                        'kill_chain_phases': [
+                            phase.get('phase_name', '')
+                            for phase in obj.get('kill_chain_phases', [])
+                        ],
+                    }
+                    # Extract external ID (T####)
+                    for ref in obj.get('external_references', []):
+                        if ref.get('source_name') == 'mitre-attack':
+                            tech['mitre_id'] = ref.get('external_id', '')
+                            tech['url'] = ref.get('url', '')
+                            break
+                    techniques.append(tech)
+
+                elif obj_type == 'intrusion-set':
+                    grp = {
+                        'id': obj.get('id', ''),
+                        'name': obj.get('name', ''),
+                        'description': obj.get('description', ''),
+                        'aliases': obj.get('aliases', []),
+                    }
+                    for ref in obj.get('external_references', []):
+                        if ref.get('source_name') == 'mitre-attack':
+                            grp['mitre_id'] = ref.get('external_id', '')
+                            break
+                    groups.append(grp)
+
+                elif obj_type in ['malware', 'tool']:
+                    sw = {
+                        'id': obj.get('id', ''),
+                        'name': obj.get('name', ''),
+                        'description': obj.get('description', ''),
+                        'type': obj_type,
+                        'platforms': obj.get('x_mitre_platforms', []),
+                    }
+                    for ref in obj.get('external_references', []):
+                        if ref.get('source_name') == 'mitre-attack':
+                            sw['mitre_id'] = ref.get('external_id', '')
+                            break
+                    software.append(sw)
+
+                elif obj_type == 'course-of-action':
+                    mit = {
+                        'id': obj.get('id', ''),
+                        'name': obj.get('name', ''),
+                        'description': obj.get('description', ''),
+                    }
+                    for ref in obj.get('external_references', []):
+                        if ref.get('source_name') == 'mitre-attack':
+                            mit['mitre_id'] = ref.get('external_id', '')
+                            break
+                    mitigations.append(mit)
+
+            logger.info(f"Fetched MITRE ATT&CK ICS: {len(techniques)} techniques, {len(groups)} groups, {len(software)} software, {len(mitigations)} mitigations")
+
+            return {
+                'source': 'MITRE ATT&CK for ICS',
+                'version': data.get('spec_version', 'unknown'),
+                'techniques': techniques,
+                'groups': groups,
+                'software': software,
+                'mitigations': mitigations
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching MITRE ATT&CK ICS: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing MITRE ATT&CK ICS: {str(e)}")
+            return None
 
     def fetch_mitre_attack(self) -> Optional[Dict]:
         """Fetch MITRE ATT&CK framework data."""
@@ -351,21 +934,110 @@ class CyberDataCollector:
     def fetch_capec_data(self) -> Optional[Dict]:
         """Fetch MITRE CAPEC (Common Attack Pattern Enumeration and Classification) data."""
         try:
-            response = self.session.get(self.endpoints['mitre_capec'])
+            import zipfile
+            import io
+
+            response = self.session.get(self.endpoints['mitre_capec'], timeout=60)
             response.raise_for_status()
-            return {'xml_data': response.text}
+
+            # CAPEC URL returns a ZIP file containing the XML
+            content_type = response.headers.get('Content-Type', '')
+            if 'zip' in content_type or response.content[:2] == b'PK':
+                # Extract XML from ZIP
+                with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
+                    xml_files = [f for f in zf.namelist() if f.endswith('.xml')]
+                    if xml_files:
+                        xml_content = zf.read(xml_files[0]).decode('utf-8')
+                        logger.info(f"Extracted {xml_files[0]} from CAPEC ZIP ({len(xml_content)} chars)")
+                        return self._parse_capec_xml(xml_content)
+                    else:
+                        logger.error("No XML file found in CAPEC ZIP")
+                        return None
+            else:
+                # Direct XML response (fallback)
+                return self._parse_capec_xml(response.text)
+
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching CAPEC data: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error processing CAPEC data: {str(e)}")
+            return None
+
+    def _parse_capec_xml(self, xml_content: str) -> Optional[Dict]:
+        """Parse CAPEC XML and extract attack patterns."""
+        try:
+            root = ET.fromstring(xml_content)
+
+            # CAPEC namespace
+            ns = {'capec': 'http://capec.mitre.org/capec-3'}
+
+            attack_patterns = []
+            for ap in root.findall('.//capec:Attack_Pattern', ns):
+                pattern = {
+                    'id': ap.get('ID'),
+                    'name': ap.get('Name'),
+                    'status': ap.get('Status'),
+                    'abstraction': ap.get('Abstraction'),
+                }
+
+                # Extract description
+                desc = ap.find('.//capec:Description', ns)
+                if desc is not None:
+                    pattern['description'] = ''.join(desc.itertext()).strip()
+
+                # Extract likelihood
+                likelihood = ap.find('.//capec:Likelihood_Of_Attack', ns)
+                if likelihood is not None:
+                    pattern['likelihood'] = likelihood.text
+
+                # Extract severity
+                severity = ap.find('.//capec:Typical_Severity', ns)
+                if severity is not None:
+                    pattern['severity'] = severity.text
+
+                # Extract related weaknesses (CWE)
+                weaknesses = []
+                for cwe in ap.findall('.//capec:Related_Weakness', ns):
+                    weaknesses.append(cwe.get('CWE_ID'))
+                if weaknesses:
+                    pattern['related_cwe'] = weaknesses
+
+                # Extract mitigations
+                mitigations = []
+                for mit in ap.findall('.//capec:Mitigation', ns):
+                    mitigations.append(''.join(mit.itertext()).strip())
+                if mitigations:
+                    pattern['mitigations'] = mitigations
+
+                attack_patterns.append(pattern)
+
+            logger.info(f"Parsed {len(attack_patterns)} CAPEC attack patterns")
+            return {
+                'Attack_Patterns': attack_patterns,
+                'count': len(attack_patterns),
+                'timestamp': datetime.now().isoformat(),
+                'source': 'MITRE CAPEC'
+            }
+
+        except ET.ParseError as e:
+            logger.error(f"Error parsing CAPEC XML: {str(e)}")
             return None
 
     def fetch_ubuntu_security_notices(self) -> Optional[Dict]:
         """Fetch Ubuntu Security Notices."""
-        try:
-            feed = feedparser.parse(self.endpoints['ubuntu_usn'])
-            return {'entries': feed.entries}
-        except Exception as e:
-            logger.error(f"Error fetching Ubuntu Security Notices: {str(e)}")
-            return None
+        for attempt in range(3):
+            try:
+                response = self.session.get(self.endpoints['ubuntu_usn'], timeout=10)
+                response.raise_for_status()
+                feed = feedparser.parse(response.text)
+                return {'entries': feed.entries}
+            except Exception as e:
+                logger.warning(f"Ubuntu Security attempt {attempt + 1}/3 failed: {str(e)}")
+                if attempt < 2:
+                    time.sleep(2)
+        logger.error("Failed to fetch Ubuntu Security Notices after 3 attempts")
+        return None
 
     def fetch_arxiv_papers(self) -> Optional[Dict]:
         """Fetch recent cyber security papers from arXiv."""
@@ -400,17 +1072,63 @@ class CyberDataCollector:
 
     def fetch_malware_data(self) -> Optional[Dict]:
         """
-        Fetch malware data from MalwareBazaar.
+        Fetch malware data from MalwareBazaar API.
+
+        Returns:
+            Dictionary containing recent malware samples or None if failed
         """
-        logger.warning("Malware data fetching is disabled due to API issues")
-        return None
+        try:
+            # MalwareBazaar API requires Auth-Key header
+            abuse_ch_key = os.getenv('ABUSE_CH_AUTH_KEY')
+            if not abuse_ch_key:
+                logger.warning("ABUSE_CH_AUTH_KEY not set - MalwareBazaar requires authentication. Get a key at https://auth.abuse.ch/")
+                return None
+
+            headers = {'Auth-Key': abuse_ch_key}
+            response = self.session.post(
+                self.endpoints['malware_bazaar'],
+                data={'query': 'get_recent', 'selector': '100'},
+                headers=headers,
+                timeout=30
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+                return {
+                    'samples': result.get('data', []),
+                    'query_status': result.get('query_status'),
+                    'timestamp': datetime.now().isoformat(),
+                    'source': 'MalwareBazaar'
+                }
+            else:
+                logger.warning(f"MalwareBazaar returned status {response.status_code}")
+            return None
+        except Exception as e:
+            logger.error(f"Error fetching MalwareBazaar data: {str(e)}")
+            return None
 
     def fetch_social_engineering_data(self) -> Optional[Dict]:
         """
-        Fetch social engineering data from PhishTank.
+        Fetch phishing data from OpenPhish (free feed, no API key required).
+
+        Returns:
+            Dictionary containing phishing URLs or None if failed
         """
-        logger.warning("Social engineering data fetching is disabled due to scraping issues")
-        return None
+        try:
+            # OpenPhish free feed
+            response = self.session.get(self.endpoints['openphish'], timeout=30)
+            if response.status_code == 200:
+                phishing_urls = [url.strip() for url in response.text.split('\n') if url.strip()]
+                return {
+                    'phishing_urls': phishing_urls[:500],  # Limit to 500 URLs
+                    'total_count': len(phishing_urls),
+                    'timestamp': datetime.now().isoformat(),
+                    'source': 'OpenPhish'
+                }
+            return None
+        except Exception as e:
+            logger.error(f"Error fetching OpenPhish data: {str(e)}")
+            return None
 
     def scrape_security_articles(self, url: str) -> Optional[Dict]:
         """
@@ -502,26 +1220,33 @@ class CyberDataCollector:
     def fetch_ctf_data(self) -> Optional[Dict]:
         """
         Fetch CTF event data and challenges from various platforms.
-        
+
         Returns:
             Dictionary containing CTF data or None if failed
         """
         try:
-            # Get upcoming and ongoing CTF events from CTFtime
-            # CTFtime API requires start and end time parameters
-            start_time = datetime.now()
-            end_time = start_time + timedelta(days=90)  # Get events for next 90 days
-            
+            # Get PAST CTF events (more valuable for training - have writeups, solutions)
+            end_time = datetime.now()
+            start_time = end_time - timedelta(days=365)  # Past year of events
+
             params = {
                 'start': int(start_time.timestamp()),
                 'finish': int(end_time.timestamp()),
-                'limit': 100
+                'limit': 500  # Get more events
             }
-            
-            response = self.session.get(self.endpoints['ctftime'], params=params)
+
+            # CTFtime requires a proper User-Agent
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (compatible; CyberLLMInstruct/1.0; +https://github.com/Adelsamir01/CyberLLMInstruct)',
+                'Accept': 'application/json'
+            }
+
+            response = self.session.get(self.endpoints['ctftime'], params=params, headers=headers)
             response.raise_for_status()
             ctftime_events = response.json()
-            
+
+            logger.info(f"Fetched {len(ctftime_events)} CTF events from the past year")
+
             # Compile CTF data from different sources
             ctf_data = {
                 'ctftime_events': ctftime_events,
@@ -531,28 +1256,495 @@ class CyberDataCollector:
                     'event_timeframe': f"{start_time.date()} to {end_time.date()}"
                 }
             }
-            
+
             return ctf_data
-            
+
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching CTF data: {str(e)}")
             return None
 
     def fetch_security_testing_resources(self) -> Optional[Dict]:
         """
-        Fetch security testing scripts and resources from educational sources.
-        
-        Note: Some endpoints may be blocked by corporate firewalls or security policies.
-        GitHub rate limits apply for raw.githubusercontent.com requests.
+        Fetch OWASP Cheat Sheets - security best practices and testing guides.
+
+        Returns:
+            Dictionary containing OWASP cheatsheets or None if failed
         """
-        logger.warning("Security testing resources fetching is disabled due to URL issues")
-        return None
+        try:
+            logger.info("Fetching OWASP Cheat Sheets...")
+
+            # Get list of cheatsheets from GitHub API
+            api_url = "https://api.github.com/repos/OWASP/CheatSheetSeries/contents/cheatsheets"
+            response = self.session.get(api_url, timeout=30)
+            response.raise_for_status()
+            files = response.json()
+
+            # Filter markdown files only
+            cheatsheet_files = [f for f in files if f['name'].endswith('.md')]
+            logger.info(f"Found {len(cheatsheet_files)} OWASP cheatsheets")
+
+            cheatsheets = []
+            # Fetch content of each cheatsheet
+            for i, file_info in enumerate(cheatsheet_files):
+                try:
+                    name = file_info['name'].replace('.md', '').replace('_', ' ')
+                    raw_url = file_info['download_url']
+
+                    # Fetch content
+                    content_response = self.session.get(raw_url, timeout=30)
+                    content_response.raise_for_status()
+                    content = content_response.text
+
+                    # Extract title and introduction
+                    lines = content.split('\n')
+                    title = name
+                    introduction = ""
+
+                    for j, line in enumerate(lines):
+                        if line.startswith('# '):
+                            title = line[2:].strip()
+                        elif line.startswith('## Introduction') or line.startswith('## Overview'):
+                            # Get next non-empty lines as introduction
+                            intro_lines = []
+                            for k in range(j + 1, min(j + 10, len(lines))):
+                                if lines[k].startswith('## '):
+                                    break
+                                if lines[k].strip():
+                                    intro_lines.append(lines[k].strip())
+                            introduction = ' '.join(intro_lines)
+                            break
+
+                    cheatsheets.append({
+                        'id': file_info['name'].replace('.md', ''),
+                        'title': title,
+                        'introduction': introduction[:1000] if introduction else '',
+                        'content': content[:5000],  # Limit content size
+                        'url': f"https://cheatsheetseries.owasp.org/cheatsheets/{file_info['name'].replace('.md', '.html')}",
+                        'source': 'OWASP Cheat Sheet Series'
+                    })
+
+                    if (i + 1) % 20 == 0:
+                        logger.info(f"Fetched {i + 1}/{len(cheatsheet_files)} cheatsheets")
+
+                    # Rate limiting
+                    time.sleep(0.5)
+
+                except Exception as e:
+                    logger.debug(f"Error fetching {file_info['name']}: {e}")
+                    continue
+
+            logger.info(f"Successfully fetched {len(cheatsheets)} OWASP cheatsheets")
+
+            return {
+                'source': 'OWASP Cheat Sheet Series',
+                'cheatsheets': cheatsheets
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching OWASP cheatsheets: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing OWASP cheatsheets: {str(e)}")
+            return None
+
+    def fetch_alienvault_otx(self) -> Optional[Dict]:
+        """
+        Fetch threat intelligence pulses from AlienVault OTX.
+        Uses search API to get diverse public pulses across threat categories.
+
+        Returns:
+            Dictionary containing threat pulses or None if failed
+        """
+        try:
+            if not self.api_keys.get('alienvault'):
+                logger.warning("AlienVault OTX API key not configured - set ALIENVAULT_API_KEY")
+                return None
+
+            headers = {'X-OTX-API-KEY': self.api_keys['alienvault']}
+            all_pulses = []
+            seen_ids = set()
+
+            # Search for pulses across multiple threat categories
+            search_terms = [
+                'ransomware', 'malware', 'APT', 'phishing', 'botnet',
+                'trojan', 'backdoor', 'exploit', 'CVE', 'threat',
+                'attack', 'campaign', 'intrusion', 'IOC', 'C2'
+            ]
+
+            for term in search_terms:
+                try:
+                    response = self.session.get(
+                        'https://otx.alienvault.com/api/v1/search/pulses',
+                        headers=headers,
+                        params={'q': term, 'limit': 200, 'sort': '-modified'},
+                        timeout=30
+                    )
+
+                    if response.status_code == 200:
+                        data = response.json()
+                        results = data.get('results', [])
+                        for pulse in results:
+                            pulse_id = pulse.get('id')
+                            if pulse_id and pulse_id not in seen_ids:
+                                seen_ids.add(pulse_id)
+                                all_pulses.append(pulse)
+
+                        logger.info(f"OTX search '{term}': {len(results)} pulses (total unique: {len(all_pulses)})")
+
+                        if len(all_pulses) >= 2000:
+                            break
+
+                    time.sleep(0.5)  # Rate limiting
+
+                except Exception as e:
+                    logger.warning(f"OTX search error for '{term}': {e}")
+                    continue
+
+            # Also get subscribed pulses
+            try:
+                response = self.session.get(
+                    self.endpoints['alienvault_otx'],
+                    headers=headers,
+                    params={'limit': 100},
+                    timeout=30
+                )
+                if response.status_code == 200:
+                    data = response.json()
+                    for pulse in data.get('results', []):
+                        pulse_id = pulse.get('id')
+                        if pulse_id and pulse_id not in seen_ids:
+                            seen_ids.add(pulse_id)
+                            all_pulses.append(pulse)
+                    logger.info(f"OTX subscribed: added {len(data.get('results', []))} pulses")
+            except Exception as e:
+                logger.warning(f"OTX subscribed error: {e}")
+
+            logger.info(f"Total unique OTX pulses collected: {len(all_pulses)}")
+
+            return {
+                'pulses': all_pulses[:2000],  # Limit to 2000 pulses
+                'count': len(all_pulses),
+                'timestamp': datetime.now().isoformat(),
+                'source': 'AlienVault OTX'
+            }
+        except Exception as e:
+            logger.error(f"Error fetching AlienVault OTX data: {str(e)}")
+            return None
+
+    def fetch_threatfox_iocs(self) -> Optional[Dict]:
+        """
+        Fetch recent IOCs from ThreatFox.
+
+        Returns:
+            Dictionary containing IOCs or None if failed
+        """
+        try:
+            # ThreatFox API also requires Auth-Key header (same as MalwareBazaar)
+            abuse_ch_key = os.getenv('ABUSE_CH_AUTH_KEY')
+            if not abuse_ch_key:
+                logger.warning("ABUSE_CH_AUTH_KEY not set - ThreatFox requires authentication. Get a key at https://auth.abuse.ch/")
+                return None
+
+            headers = {'Auth-Key': abuse_ch_key}
+            response = self.session.post(
+                self.endpoints['threatfox_api'],
+                json={'query': 'get_iocs', 'days': 7},
+                headers=headers,
+                timeout=30
+            )
+
+            if response.status_code == 200:
+                result = response.json()
+                return {
+                    'iocs': result.get('data', [])[:500],  # Limit to 500 IOCs
+                    'query_status': result.get('query_status'),
+                    'timestamp': datetime.now().isoformat(),
+                    'source': 'ThreatFox'
+                }
+            else:
+                logger.warning(f"ThreatFox returned status {response.status_code}")
+            return None
+        except Exception as e:
+            logger.error(f"Error fetching ThreatFox data: {str(e)}")
+            return None
+
+    def fetch_github_security_advisories(self) -> Optional[Dict]:
+        """
+        Fetch security advisories from GitHub Security Advisory Database.
+
+        Returns:
+            Dictionary containing security advisories or None if failed
+        """
+        try:
+            # Use the official GitHub Advisories API (not repo search)
+            advisories = []
+            headers = {
+                'Accept': 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+            }
+
+            # Add auth token if available for higher rate limits
+            github_token = os.getenv('GITHUB_TOKEN')
+            if github_token:
+                headers['Authorization'] = f'Bearer {github_token}'
+
+            # Fetch multiple pages of advisories
+            for page in range(1, 6):  # Get up to 500 advisories (5 pages x 100)
+                response = self.session.get(
+                    'https://api.github.com/advisories',
+                    headers=headers,
+                    params={'per_page': 100, 'page': page},
+                    timeout=30
+                )
+
+                if response.status_code != 200:
+                    logger.warning(f"GitHub Advisories API returned {response.status_code}")
+                    break
+
+                page_advisories = response.json()
+                if not page_advisories:
+                    break
+
+                advisories.extend(page_advisories)
+                logger.info(f"Fetched page {page}: {len(page_advisories)} advisories")
+
+                # Check if there are more pages
+                if 'Link' not in response.headers or 'next' not in response.headers.get('Link', ''):
+                    break
+
+            logger.info(f"Total GitHub advisories fetched: {len(advisories)}")
+
+            return {
+                'advisories': advisories,
+                'count': len(advisories),
+                'timestamp': datetime.now().isoformat(),
+                'source': 'GitHub Security Advisory Database'
+            }
+        except Exception as e:
+            logger.error(f"Error fetching GitHub Security Advisories: {str(e)}")
+            return None
+
+    def fetch_lolbas(self) -> Optional[Dict]:
+        """
+        Fetch LOLBAS (Living Off The Land Binaries And Scripts) data.
+        Windows binaries that can be used for post-exploitation.
+
+        Returns:
+            Dictionary containing LOLBAS entries or None if failed
+        """
+        try:
+            url = "https://lolbas-project.github.io/api/lolbas.json"
+            logger.info("Fetching LOLBAS data...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            # Data is a list of LOLBAS entries
+            entries = data if isinstance(data, list) else []
+
+            # Categorize entries by type
+            categories = {}
+            for entry in entries:
+                entry_type = entry.get('Type', 'Unknown')
+                if entry_type not in categories:
+                    categories[entry_type] = 0
+                categories[entry_type] += 1
+
+            logger.info(f"Fetched {len(entries)} LOLBAS entries: {categories}")
+
+            return {
+                'source': 'LOLBAS Project',
+                'description': 'Living Off The Land Binaries And Scripts - Windows binaries for post-exploitation',
+                'entries': entries,
+                'count': len(entries),
+                'categories': categories,
+                'timestamp': datetime.now().isoformat()
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching LOLBAS data: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing LOLBAS data: {str(e)}")
+            return None
+
+    def fetch_loldrivers(self) -> Optional[Dict]:
+        """
+        Fetch LOLDrivers (Living Off The Land Drivers) data.
+        Vulnerable and malicious Windows drivers.
+
+        Returns:
+            Dictionary containing LOLDrivers entries or None if failed
+        """
+        try:
+            url = "https://www.loldrivers.io/api/drivers.json"
+            logger.info("Fetching LOLDrivers data...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            # Data is a list of driver entries
+            entries = data if isinstance(data, list) else []
+
+            # Categorize by category
+            categories = {}
+            for entry in entries:
+                cat = entry.get('Category', 'Unknown')
+                if cat not in categories:
+                    categories[cat] = 0
+                categories[cat] += 1
+
+            logger.info(f"Fetched {len(entries)} LOLDrivers entries: {categories}")
+
+            return {
+                'source': 'LOLDrivers Project',
+                'description': 'Living Off The Land Drivers - Vulnerable and malicious Windows drivers',
+                'entries': entries,
+                'count': len(entries),
+                'categories': categories,
+                'timestamp': datetime.now().isoformat()
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching LOLDrivers data: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing LOLDrivers data: {str(e)}")
+            return None
+
+    def fetch_hijacklibs(self) -> Optional[Dict]:
+        """
+        Fetch HijackLibs DLL hijacking data.
+        Mappings between DLLs and vulnerable executables.
+
+        Returns:
+            Dictionary containing HijackLibs entries or None if failed
+        """
+        try:
+            url = "https://hijacklibs.net/api/hijacklibs.json"
+            logger.info("Fetching HijackLibs data...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            # Data is a list of hijack entries
+            entries = data if isinstance(data, list) else []
+
+            # Categorize by type
+            hijack_types = {}
+            for entry in entries:
+                h_type = entry.get('Type', 'Unknown')
+                if h_type not in hijack_types:
+                    hijack_types[h_type] = 0
+                hijack_types[h_type] += 1
+
+            logger.info(f"Fetched {len(entries)} HijackLibs entries: {hijack_types}")
+
+            return {
+                'source': 'HijackLibs',
+                'description': 'DLL Hijacking opportunities - mappings between DLLs and vulnerable executables',
+                'entries': entries,
+                'count': len(entries),
+                'hijack_types': hijack_types,
+                'timestamp': datetime.now().isoformat()
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching HijackLibs data: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing HijackLibs data: {str(e)}")
+            return None
+
+    def fetch_osint_framework(self) -> Optional[Dict]:
+        """
+        Fetch OSINT Framework data - categorized OSINT tools and resources.
+
+        Returns:
+            Dictionary containing OSINT Framework categories and tools or None if failed
+        """
+        try:
+            url = "https://osintframework.com/arf.json"
+            logger.info("Fetching OSINT Framework data...")
+
+            response = self.session.get(url, timeout=60)
+            response.raise_for_status()
+            data = response.json()
+
+            def count_tools(node, depth=0):
+                """Recursively count tools in the tree structure."""
+                count = 0
+                if isinstance(node, dict):
+                    if node.get('type') == 'url':
+                        count = 1
+                    for child in node.get('children', []):
+                        count += count_tools(child, depth + 1)
+                elif isinstance(node, list):
+                    for item in node:
+                        count += count_tools(item, depth + 1)
+                return count
+
+            def extract_categories(node, parent_path=""):
+                """Extract top-level categories with tool counts."""
+                categories = []
+                if isinstance(node, dict):
+                    name = node.get('name', '')
+                    current_path = f"{parent_path}/{name}" if parent_path else name
+
+                    if node.get('children'):
+                        tool_count = count_tools(node)
+                        if parent_path == "":  # Top-level category
+                            categories.append({
+                                'name': name,
+                                'tool_count': tool_count
+                            })
+                        for child in node.get('children', []):
+                            categories.extend(extract_categories(child, current_path))
+                elif isinstance(node, list):
+                    for item in node:
+                        categories.extend(extract_categories(item, parent_path))
+                return categories
+
+            # Get categories from root
+            root_children = data.get('children', []) if isinstance(data, dict) else data
+            categories = []
+            total_tools = 0
+
+            for child in root_children:
+                if isinstance(child, dict) and child.get('name'):
+                    tool_count = count_tools(child)
+                    total_tools += tool_count
+                    categories.append({
+                        'name': child.get('name'),
+                        'tool_count': tool_count
+                    })
+
+            logger.info(f"Fetched OSINT Framework: {len(categories)} categories, {total_tools} tools")
+
+            return {
+                'source': 'OSINT Framework',
+                'description': 'Categorized collection of OSINT tools and resources',
+                'framework_data': data,
+                'categories_summary': categories,
+                'total_tools': total_tools,
+                'timestamp': datetime.now().isoformat()
+            }
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching OSINT Framework data: {str(e)}")
+            return None
+        except Exception as e:
+            logger.error(f"Error parsing OSINT Framework data: {str(e)}")
+            return None
 
 def main():
     """Main function to process command-line arguments and run data collection."""
     description = """
     Collect cybersecurity data from various sources.
-    
+
     Working sources:
     - cve_data: CVE vulnerability data from NVD
     - opencve_data: CVE vulnerability data from OpenCVE API
@@ -563,22 +1755,36 @@ def main():
     - redhat_security: Red Hat Security Data
     - microsoft_security: Microsoft Security Updates
     - ctf_data: CTF event data and challenges
-    
-    Disabled sources (known issues):
-    - nist_standards: NIST cybersecurity standards (URL issues)
-    - malware_data: Malware data from MalwareBazaar (API issues)
-    - social_engineering: Phishing data from PhishTank (scraping issues)
-    - security_testing: Security testing resources (URL issues)
+    - malware_data: Malware samples from MalwareBazaar
+    - social_engineering: Phishing URLs from OpenPhish
+    - alienvault_otx: Threat intelligence from AlienVault OTX
+    - threatfox_iocs: IOCs from ThreatFox
+    - github_security: Security advisories from GitHub
+    - lolbas: Living Off The Land Binaries (Windows post-exploitation)
+    - loldrivers: Vulnerable/malicious Windows drivers
+    - hijacklibs: DLL hijacking opportunities
+    - osint_framework: OSINT tools and resources catalog
+
+    Disabled sources (use --sources to enable):
+    - nist_standards: NIST SP 800-53 Rev 5 security controls
+    - nist_csf: NIST Cybersecurity Framework 2.0
+    - nist_sp800_171: NIST SP 800-171 Rev 3 (CUI protection)
+    - nist_ssdf: NIST SP 800-218 SSDF (Secure Software Development)
+    - mitre_attack_ics: MITRE ATT&CK for ICS/OT
+    - security_testing: OWASP Cheat Sheets
     """
-    
+
     parser = argparse.ArgumentParser(description=description, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--sources", nargs="+", help="List of sources to fetch data from, space-separated")
     parser.add_argument("--output-dir", default="raw_data", help="Directory to save collected data")
-    
+    parser.add_argument("--cve-stratified", action="store_true", help="Use stratified CVE collection (by period and severity)")
+    parser.add_argument("--cve-min-period", type=int, default=5000, help="Minimum CVEs for smallest period (old=20%%, mid=30%%, recent=50%%)")
+    parser.add_argument("--cve-period", choices=['old', 'mid', 'recent', 'all'], default='all', help="Which period to collect (default: all)")
+
     args = parser.parse_args()
-    
+
     collector = CyberDataCollector(output_dir=args.output_dir)
-    
+
     # Define all available sources
     all_sources = {
         'cve_data': collector.fetch_cve_data,
@@ -590,13 +1796,26 @@ def main():
         'redhat_security': collector.fetch_redhat_security,
         'microsoft_security': collector.fetch_microsoft_security,
         'ctf_data': collector.fetch_ctf_data,
-    }
-    
-    # Disabled sources
-    disabled_sources = {
-        'nist_standards': collector.fetch_nist_standards,
         'malware_data': collector.fetch_malware_data,
         'social_engineering': collector.fetch_social_engineering_data,
+        'alienvault_otx': collector.fetch_alienvault_otx,
+        'threatfox_iocs': collector.fetch_threatfox_iocs,
+        'github_security': collector.fetch_github_security_advisories,
+        # Offensive/Pentest sources
+        'lolbas': collector.fetch_lolbas,
+        'loldrivers': collector.fetch_loldrivers,
+        'hijacklibs': collector.fetch_hijacklibs,
+        # OSINT sources
+        'osint_framework': collector.fetch_osint_framework,
+    }
+
+    # Disabled sources (need special handling or have known issues)
+    disabled_sources = {
+        'nist_standards': collector.fetch_nist_standards,
+        'nist_csf': collector.fetch_nist_csf,
+        'nist_sp800_171': collector.fetch_nist_sp800_171,
+        'nist_ssdf': collector.fetch_nist_ssdf,
+        'mitre_attack_ics': collector.fetch_mitre_attack_ics,
         'security_testing': collector.fetch_security_testing_resources,
     }
     
@@ -618,8 +1837,24 @@ def main():
         # If no sources specified, use all working ones
         sources_to_fetch = all_sources
     
+    # Handle stratified CVE collection
+    if args.cve_stratified:
+        cve_data = collector.fetch_cve_data_stratified(
+            min_per_period=args.cve_min_period,
+            only_period=args.cve_period if args.cve_period != 'all' else None,
+        )
+
+        for period_name, cves in cve_data.items():
+            if cves:
+                filename = f"cve_data_{period_name}"
+                collector.save_data({'vulnerabilities': cves, 'period': period_name}, filename)
+                logger.info(f"Saved {len(cves)} CVEs for period '{period_name}'")
+
+        # Remove cve_data from sources to avoid double-fetching
+        sources_to_fetch.pop('cve_data', None)
+
     logger.info(f"Collecting data from {len(sources_to_fetch)} sources")
-    
+
     for source_name, fetch_function in sources_to_fetch.items():
         logger.info(f"Fetching data from {source_name}...")
         data = fetch_function()

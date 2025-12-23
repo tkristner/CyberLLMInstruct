@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 class SecurityAligner:
     def __init__(self, input_dir: str = "reviewed_data", output_dir: str = "security_aligned",
-                 ollama_model: str = 'gemma3', ollama_url: str = "http://localhost:11434"):
+                 ollama_model: str = 'qwen3:8b', ollama_url: str = "http://localhost:11434"):
         """Initialize the security aligner with directory configurations."""
         self.input_dir = Path(input_dir)
         self.output_dir = Path(output_dir)

@@ -16,8 +16,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class CyberDomainClassifier:
-    def __init__(self, input_dir: str = "structured_data", output_dir: str = "domain_classified", 
-                 ollama_model: str = "gemma3", ollama_port: int = 11434):
+    def __init__(self, input_dir: str = "structured_data", output_dir: str = "domain_classified",
+                 ollama_model: str = "qwen3:8b", ollama_port: int = 11434):
         """Initialize the domain classifier with directory configurations."""
         self.input_dir = Path(input_dir)
         self.output_dir = Path(output_dir)

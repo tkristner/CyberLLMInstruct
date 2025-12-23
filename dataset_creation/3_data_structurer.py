@@ -20,7 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class CyberDataStructurer:
-    def __init__(self, input_dir: str = "filtered_data", output_dir: str = "structured_data", ollama_model: str = "gemma3", ollama_port: int = 65008):
+    def __init__(self, input_dir: str = "filtered_data", output_dir: str = "structured_data", ollama_model: str = "qwen3:8b", ollama_port: int = 11434):
         """Initialize the data structurer with directory configurations."""
         self.input_dir = Path(input_dir)
         self.output_dir = Path(output_dir)
@@ -186,8 +186,8 @@ class CyberDataStructurer:
         template = self.templates[entry_type]
         pairs = []
         
-        # Only use the first two instruction templates to reduce processing time
-        for instruction_template in template['instruction'][:2]:
+        # Use all instruction templates
+        for instruction_template in template['instruction']:
             instruction = instruction_template.format(**fields)
             
             # Create a focused prompt for Ollama with just the relevant entry data
@@ -221,10 +221,10 @@ class CyberDataStructurer:
         
         structured_pairs = []
         total_entries = len(data)
-        
-        # Process only first 5 entries for testing
-        for i, entry in enumerate(data[:5], 1):
-            logger.info(f"Processing entry {i}/{min(5, total_entries)} from {input_file.name}")
+
+        # Process all entries
+        for i, entry in enumerate(data, 1):
+            logger.info(f"Processing entry {i}/{total_entries} from {input_file.name}")
             entry_type = self.detect_entry_type(entry)
             if entry_type:
                 pairs = self.create_instruction_response_pair(entry, entry_type)
@@ -247,10 +247,10 @@ class CyberDataStructurer:
         # Get all JSON files in the input directory
         input_files = list(self.input_dir.glob('*_filtered_*.json'))
         total_files = len(input_files)
-        
-        # Process only first 2 files for testing
-        for i, file_path in enumerate(input_files[:2], 1):
-            logger.info(f"Processing file {i}/{min(2, total_files)}: {file_path.name}")
+
+        # Process all files
+        for i, file_path in enumerate(input_files, 1):
+            logger.info(f"Processing file {i}/{total_files}: {file_path.name}")
             structured_pairs = self.structure_dataset(file_path)
             
             if structured_pairs:
