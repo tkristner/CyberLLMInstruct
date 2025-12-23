@@ -41,7 +41,9 @@
         "actors": [
           "Epic",
           "Power Loader"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0042a9f5-f053-4769-b3ef-9ad018dfa298",
@@ -56,7 +58,9 @@
         "actors": [
           "Epic",
           "Epic"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0042a9f5-f053-4769-b3ef-9ad018dfa298",
@@ -71,7 +75,9 @@
         "actors": [
           "Epic",
           "Epic"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0042a9f5-f053-4769-b3ef-9ad018dfa298",
@@ -86,7 +92,9 @@
         "actors": [
           "Epic",
           "Epic"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0042a9f5-f053-4769-b3ef-9ad018dfa298",
@@ -101,7 +109,9 @@
         "actors": [
           "Epic",
           "Epic"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -118,7 +128,9 @@
         "actors": [
           "Epic",
           "Power Loader"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -132,10 +144,14 @@
         "evidence": [
           "Mechanisms: block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -232,7 +248,9 @@
           "Shamoon",
           "Wizard Spider",
           "Wizard Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -250,7 +268,9 @@
           "Shamoon",
           "Shamoon",
           "Shamoon"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -268,7 +288,9 @@
           "Shamoon",
           "LuminousMoth",
           "LuminousMoth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -286,7 +308,9 @@
           "Shamoon",
           "Shamoon",
           "LuminousMoth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -304,7 +328,9 @@
           "Shamoon",
           "Shamoon",
           "Shamoon"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -324,7 +350,9 @@
           "Shamoon",
           "Shamoon",
           "Operation Wocao"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f1951e8a-500e-4a26-8803-76d95c4554b4",
@@ -342,7 +370,9 @@
           "Operation Wocao",
           "Operation Wocao",
           "Wizard Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -360,7 +390,9 @@
           "Shamoon",
           "LuminousMoth",
           "LuminousMoth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2959d63f-73fd-46a1-abd2-109d7dcede32",
@@ -378,7 +410,9 @@
           "FIN7",
           "OilRig",
           "Earth Lusca"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--57340c81-c025-4189-8fa0-fc7ede51bae4",
@@ -396,7 +430,9 @@
           "Operation Wocao",
           "Wizard Spider",
           "Qilin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -411,7 +447,9 @@
           "Controls: GPO",
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--93e7968a-9074-4eac-8ae9-9f5200ec3317",
@@ -423,7 +461,9 @@
         "evidence": [
           "Mechanisms: limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--cc2399fd-3cd3-4319-8d0a-fbd6420cdaf8",
@@ -435,7 +475,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--2f316f6c-ae42-44fe-adf8-150989e0f6d3",
@@ -448,7 +490,9 @@
           "Controls: GPO",
           "Mechanisms: disable, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -466,9 +510,11 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "APT41",
-          "APT29"
-        ]
+          "APT29",
+          "APT41"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -484,12 +530,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "APT38",
-          "Cobalt Group",
-          "Earth Lusca",
-          "LockBit 2.0",
-          "MuddyWater"
-        ]
+          "Shamoon",
+          "APT29",
+          "Bad Rabbit",
+          "Patchwork",
+          "BRONZE BUTLER"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -505,12 +553,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "APT38",
-          "Cobalt Group",
+          "Shamoon",
+          "Lazarus Group",
+          "Kimsuky",
           "APT32",
-          "BlackByte",
-          "Earth Lusca"
-        ]
+          "PlugX"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -527,10 +577,12 @@
         ],
         "actors": [
           "APT38",
-          "Anchor",
           "GoldMax",
-          "NETWIRE"
-        ]
+          "NETWIRE",
+          "Anchor"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -546,14 +598,18 @@
           "T2 unique mitigations: 4"
         ],
         "actors": [
-          "Mustang Panda",
-          "Naikon",
-          "FIN13",
+          "Lazarus Group",
           "APT32",
-          "Earth Lusca"
-        ]
+          "Patchwork",
+          "BADNEWS",
+          "PlugX"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -613,7 +669,9 @@
           "PITSTOP",
           "BPFDoor",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -628,7 +686,9 @@
         "actors": [
           "CASTLETAP",
           "PITSTOP"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -646,7 +706,9 @@
           "CASTLETAP",
           "Penquin",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -661,7 +723,9 @@
         "actors": [
           "BPFDoor",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -681,7 +745,9 @@
           "PITSTOP",
           "PITSTOP",
           "BPFDoor"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -698,7 +764,9 @@
           "PITSTOP",
           "BPFDoor",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--3257eb21-f9a7-4430-8de1-d8b6e288f529",
@@ -713,7 +781,9 @@
         "actors": [
           "CASTLETAP",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--acd0ba37-7ba9-4cc5-ac61-796586cd856d",
@@ -728,7 +798,9 @@
         "actors": [
           "PITSTOP",
           "PITSTOP"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2acf44aa-542f-4366-b4eb-55ef5747759c",
@@ -745,7 +817,9 @@
           "Penquin",
           "Penquin",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -760,7 +834,9 @@
           "Controls: firewall",
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -778,9 +854,11 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "PITSTOP",
-          "CASTLETAP"
-        ]
+          "CASTLETAP",
+          "PITSTOP"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -798,7 +876,9 @@
         "actors": [
           "Penquin",
           "BPFDoor"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -814,10 +894,12 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "PITSTOP",
+          "Penquin",
           "CASTLETAP",
-          "Penquin"
-        ]
+          "PITSTOP"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005cc321-08ce-4d17-b1ea-cb5275926520",
@@ -835,9 +917,13 @@
         "actors": [
           "Penquin",
           "CASTLETAP"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--00d0b012-8a03-410e-95de-5826bf542de6",
@@ -855,7 +941,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -948,7 +1036,9 @@
           "Wizard Spider",
           "APT41 DUST",
           "Fox Kitten"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -966,7 +1056,9 @@
           "Wizard Spider",
           "APT41 DUST",
           "PoetRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -984,7 +1076,9 @@
           "PoetRAT",
           "LunarWeb",
           "Sagerunex"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -1002,7 +1096,9 @@
           "InvisibleFerret",
           "Magic Hound",
           "BeaverTail"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -1019,7 +1115,9 @@
           "APT28",
           "Volt Typhoon",
           "Lotus Blossom"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -1039,7 +1137,9 @@
           "PoetRAT",
           "InvisibleFerret",
           "APT28"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--354a7f88-63fb-41b5-a801-ce3b377b36f1",
@@ -1057,7 +1157,9 @@
           "Wizard Spider",
           "PoetRAT",
           "Aquatic Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--cba37adb-d6fb-4610-b069-dd04c0643384",
@@ -1075,7 +1177,9 @@
           "Wizard Spider",
           "Aquatic Panda",
           "Play"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--7bc57495-ea59-4380-be31-a64af124ef18",
@@ -1093,7 +1197,9 @@
           "UNC3886",
           "Fox Kitten",
           "PoetRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -1111,7 +1217,9 @@
           "Wizard Spider",
           "PoetRAT",
           "Aquatic Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -1125,7 +1233,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -1143,12 +1253,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "APT28",
-          "Magic Hound",
-          "Turian",
-          "Micropsia",
-          "TONESHELL"
-        ]
+          "APT39",
+          "BRONZE BUTLER",
+          "InvisiMole",
+          "MuddyWater",
+          "Kimsuky"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -1164,10 +1276,12 @@
           "T2 unique mitigations: 7"
         ],
         "actors": [
-          "Mustang Panda",
           "Sea Turtle",
-          "Kimsuky"
-        ]
+          "Kimsuky",
+          "Mustang Panda"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -1183,12 +1297,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "FIN13",
-          "APT3",
-          "Sowbug",
-          "TONESHELL",
-          "APT39"
-        ]
+          "APT5",
+          "Kimsuky",
+          "InvisibleFerret",
+          "APT39",
+          "Magic Hound"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -1204,12 +1320,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Ke3chang",
-          "APT28",
-          "HAFNIUM",
           "Chimera",
-          "Akira"
-        ]
+          "APT28",
+          "Akira",
+          "Ke3chang",
+          "HAFNIUM"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--00f90846-cbd1-4fc5-9233-df5c2bf2a662",
@@ -1225,11 +1343,15 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "InvisiMole",
-          "Micropsia"
-        ]
+          "Micropsia",
+          "InvisiMole"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1320,7 +1442,9 @@
           "FIN7",
           "WarzoneRAT",
           "ZxShell"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1338,7 +1462,9 @@
           "TrickBot",
           "Latrodectus",
           "WarzoneRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1356,7 +1482,9 @@
           "Proton",
           "Gamaredon Group",
           "ZxShell"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1371,7 +1499,9 @@
         "actors": [
           "FIN7",
           "TrickBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1386,7 +1516,9 @@
         "actors": [
           "FIN7",
           "Fox Kitten"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -1403,7 +1535,9 @@
         "actors": [
           "FIN7",
           "TrickBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--b17a1a56-e99c-403c-8948-561df0cffe81",
@@ -1418,7 +1552,9 @@
         "actors": [
           "FIN7",
           "Fox Kitten"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--671cd17f-a765-48fd-adc4-dad1941b1ae3",
@@ -1433,7 +1569,9 @@
         "actors": [
           "FIN7",
           "Gamaredon Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--1c4e5d32-1fe9-4116-9d9d-59e3925bd6a2",
@@ -1451,7 +1589,9 @@
           "Carberp",
           "Latrodectus",
           "DanBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--cbb66055-0325-4111-aca0-40547b6ad5b0",
@@ -1468,7 +1608,9 @@
           "TrickBot",
           "WarzoneRAT",
           "Gamaredon Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -1482,7 +1624,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--20f6a9df-37c4-4e20-9e47-025983b1b39d",
@@ -1494,7 +1638,9 @@
         "evidence": [
           "Mechanisms: block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--cc2399fd-3cd3-4319-8d0a-fbd6420cdaf8",
@@ -1506,7 +1652,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--23843cff-f7b9-4659-a7b7-713ef347f547",
@@ -1518,7 +1666,9 @@
         "evidence": [
           "Mechanisms: restrict"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -1539,7 +1689,9 @@
           "FIN7",
           "GCMAN",
           "Fox Kitten"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1555,9 +1707,11 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Gamaredon Group",
-          "FIN7"
-        ]
+          "FIN7",
+          "Gamaredon Group"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1573,10 +1727,12 @@
           "T2 unique mitigations: 7"
         ],
         "actors": [
-          "TrickBot",
           "FIN7",
+          "TrickBot",
           "Fox Kitten"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01327cde-66c4-4123-bf34-5f258d59457b",
@@ -1592,13 +1748,17 @@
           "T2 unique mitigations: 6"
         ],
         "actors": [
-          "WarzoneRAT",
+          "FIN7",
           "Fox Kitten",
           "ZxShell",
-          "FIN7"
-        ]
+          "WarzoneRAT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1689,7 +1849,9 @@
           "Indrik Spider",
           "2016 Ukraine Electric Power Attack",
           "LockBit 2.0"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1707,7 +1869,9 @@
           "Cobalt Strike",
           "Cobalt Strike",
           "Medusa Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1725,7 +1889,9 @@
           "Indrik Spider",
           "Cobalt Strike",
           "Cobalt Strike"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1743,7 +1909,9 @@
           "Indrik Spider",
           "Medusa Group",
           "Medusa Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1761,7 +1929,9 @@
           "DarkGate",
           "Magic Hound",
           "APT41"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -1778,7 +1948,9 @@
         "actors": [
           "Indrik Spider",
           "Volt Typhoon"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--212306d8-efa4-44c9-8c2d-ed3d2e224aa0",
@@ -1796,7 +1968,9 @@
           "FIN7",
           "OilRig",
           "SolarWinds Compromise"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2",
@@ -1812,7 +1986,9 @@
           "Indrik Spider",
           "Sandworm Team",
           "Ember Bear"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--65013dd2-bc61-43e3-afb5-a14c4fa7437a",
@@ -1830,7 +2006,9 @@
           "Operation Wocao",
           "Wizard Spider",
           "APT42"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--e196b5c5-8118-4a1c-ab8a-936586ce3db5",
@@ -1848,7 +2026,9 @@
           "Sandworm Team",
           "Volt Typhoon",
           "Lazarus Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -1862,7 +2042,9 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90f39ee1-d5a3-4aaa-9f28-3b42815b0d46",
@@ -1874,7 +2056,9 @@
         "evidence": [
           "Mechanisms: block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--93e7968a-9074-4eac-8ae9-9f5200ec3317",
@@ -1886,7 +2070,9 @@
         "evidence": [
           "Mechanisms: restrict"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--47e0e9fe-96ce-4f65-8bb1-8be1feacb5db",
@@ -1899,7 +2085,9 @@
           "Controls: WDAC",
           "Mechanisms: prevent, block, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -1917,12 +2105,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Mustang Panda",
-          "Naikon",
-          "Latrodectus",
-          "FIN13",
-          "APT32"
-        ]
+          "Sandworm Team",
+          "DarkWatchman",
+          "Lazarus Group",
+          "FIN6",
+          "TA2541"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1938,12 +2128,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "Mustang Panda",
           "DarkWatchman",
+          "Mustang Panda",
           "Stuxnet",
-          "Bumblebee",
-          "Astaroth"
-        ]
+          "Astaroth",
+          "Bumblebee"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1959,12 +2151,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Avaddon",
-          "Mustang Panda",
-          "POWERSTATS",
+          "FIN7",
           "Latrodectus",
-          "DarkWatchman"
-        ]
+          "DarkWatchman",
+          "FIN6",
+          "jRAT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -1980,12 +2174,14 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "POWERSTATS",
+          "FIN7",
           "Leviathan",
           "MuddyWater",
           "GravityRAT",
-          "Valak"
-        ]
+          "POWERSTATS"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -2001,14 +2197,18 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Mustang Panda",
-          "Naikon",
-          "DarkTortilla",
-          "Latrodectus",
-          "APT32"
-        ]
+          "Sandworm Team",
+          "Lazarus Group",
+          "FIN6",
+          "TA2541",
+          "APT29"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--01df3350-ce05-4bdf-bdf8-0a919a66d4a8",
@@ -2026,7 +2226,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2116,7 +2318,9 @@
         "actors": [
           "Cobalt Strike",
           "SMOKEDHAM"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2134,7 +2338,9 @@
           "APT39",
           "InvisiMole",
           "CHOPSTICK"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2151,7 +2357,9 @@
           "InvisiMole",
           "TONESHELL",
           "KeyBoy"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2169,7 +2377,9 @@
           "OilRig",
           "RDAT",
           "NightClub"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2187,7 +2397,9 @@
           "BADHATCH",
           "Ursnif",
           "njRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -2207,7 +2419,9 @@
           "njRAT",
           "Trojan.Karagany",
           "OilRig"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90",
@@ -2225,7 +2439,9 @@
           "PoetRAT",
           "Silence",
           "APT28"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--1644e709-12d2-41e5-a60f-3470991f5011",
@@ -2241,7 +2457,9 @@
           "Cobalt Strike",
           "Dragonfly",
           "CosmicDuke"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--707399d6-ab3e-4963-9315-d9d3818cd6a0",
@@ -2259,7 +2477,9 @@
           "Dragonfly",
           "Trojan.Karagany",
           "UPPERCUT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--e3b6daca-e963-4a69-aee6-ed4fd653ad58",
@@ -2277,7 +2497,9 @@
           "Volt Typhoon",
           "Cuckoo Stealer",
           "RedLine Stealer"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [],
@@ -2296,12 +2518,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "APT28",
-          "Magic Hound",
-          "Turian",
-          "Micropsia",
-          "TONESHELL"
-        ]
+          "APT39",
+          "BRONZE BUTLER",
+          "InvisiMole",
+          "MuddyWater",
+          "Kimsuky"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2319,7 +2543,9 @@
         "actors": [
           "Magic Hound",
           "TRANSLATEXT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2335,12 +2561,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Rover",
+          "Crimson",
           "Machete",
-          "APT28",
-          "FunnyDream",
-          "CosmicDuke"
-        ]
+          "Aria-body",
+          "InvisiMole",
+          "AppleSeed"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2356,12 +2584,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "LunarMail",
-          "Magic Hound",
-          "CosmicDuke",
           "Crimson",
-          "Winter Vivern"
-        ]
+          "LunarMail",
+          "Carbanak",
+          "Winter Vivern",
+          "Magic Hound"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0259baeb-9f63-4c69-bf10-eb038c390688",
@@ -2377,14 +2607,18 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Metamorfo",
-          "TajMahal",
-          "Rover",
-          "RTM",
-          "APT28"
-        ]
+          "Zebrocy",
+          "BADNEWS",
+          "Gamaredon Group",
+          "Raccoon Stealer",
+          "Attor"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2477,7 +2711,9 @@
           "QakBot",
           "NETWIRE",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2494,7 +2730,9 @@
           "Grandoreiro",
           "QakBot",
           "NETWIRE"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2512,7 +2750,9 @@
           "Grandoreiro",
           "QakBot",
           "ShadowPad"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2530,7 +2770,9 @@
           "QakBot",
           "Uroburos",
           "SysUpdate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2548,7 +2790,9 @@
           "Turla",
           "Sibot",
           "Uroburos"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -2568,7 +2812,9 @@
           "Turla",
           "QakBot",
           "NETWIRE"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -2583,7 +2829,9 @@
         "actors": [
           "DarkWatchman",
           "PipeMon"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--d1fcf083-a721-4223-aedf-bf8960798d62",
@@ -2601,7 +2849,9 @@
           "Turla",
           "QakBot",
           "Chaes"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -2619,7 +2869,9 @@
           "QakBot",
           "SysUpdate",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -2637,7 +2889,9 @@
           "DarkWatchman",
           "QUADAGENT",
           "QUADAGENT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -2651,7 +2905,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -2669,12 +2925,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "PolyglotDuke",
-          "APT32",
           "QakBot",
+          "APT32",
+          "Sibot",
           "Mosquito",
-          "Sibot"
-        ]
+          "PolyglotDuke"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2690,10 +2948,12 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "ComRAT",
           "Uroburos",
-          "Pikabot",
-          "ComRAT"
-        ]
+          "Pikabot"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2709,12 +2969,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "TYPEFRAME",
+          "Grandoreiro",
+          "Uroburos",
+          "PipeMon",
           "Volgmer",
-          "APT32",
-          "SysUpdate",
-          "PipeMon"
-        ]
+          "REvil"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2730,11 +2992,13 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "PipeMon",
           "Grandoreiro",
+          "PipeMon",
           "Gelsemium",
           "RCSession"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
@@ -2750,14 +3014,18 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
+          "Grandoreiro",
           "Gelsemium",
-          "APT32",
-          "TinyTurla",
           "PipeMon",
-          "Grandoreiro"
-        ]
+          "REvil",
+          "APT32"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--02fefddc-fb1b-423f-a76b-7552dd211d4d",
@@ -2775,7 +3043,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -2870,7 +3140,9 @@
           "UNC3886",
           "UNC3886",
           "UNC3886"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -2885,7 +3157,9 @@
         "actors": [
           "UNC3886",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -2901,7 +3175,9 @@
           "UNC3886",
           "UNC3886",
           "UNC3886"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -2916,7 +3192,9 @@
         "actors": [
           "UNC3886",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -2934,7 +3212,9 @@
           "APT41",
           "Rocke",
           "RotaJakiro"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -2952,7 +3232,9 @@
           "UNC3886",
           "ArcaneDoor",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--6151cbea-819b-455a-9fa6-99a1cc58797d",
@@ -2968,7 +3250,9 @@
           "UNC3886",
           "UNC3886",
           "UNC3886"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--b17a1a56-e99c-403c-8948-561df0cffe81",
@@ -2986,7 +3270,9 @@
           "UNC3886",
           "APT41",
           "APT41"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--3f886f2a-874f-4333-b794-aa6075009b1c",
@@ -3004,7 +3290,9 @@
           "ArcaneDoor",
           "ArcaneDoor",
           "APT41"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--d2d642da-61ff-4211-b4df-7923c9ca220c",
@@ -3019,7 +3307,9 @@
         "actors": [
           "UNC3886",
           "UNC3886"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -3033,7 +3323,9 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--987988f0-cf86-4680-a875-2f6456ab2448",
@@ -3045,7 +3337,9 @@
         "evidence": [
           "Mechanisms: restrict"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -3063,9 +3357,11 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "APT41",
-          "APT29"
-        ]
+          "APT29",
+          "APT41"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -3083,7 +3379,9 @@
         "actors": [
           "Rocke",
           "APT41"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -3099,9 +3397,11 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "APT41",
-          "APT29"
-        ]
+          "APT29",
+          "APT41"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -3118,9 +3418,11 @@
         ],
         "actors": [
           "Rocke",
-          "APT41",
-          "APT29"
-        ]
+          "APT29",
+          "APT41"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03259939-0b57-482f-8eb5-87c0e0d54334",
@@ -3136,12 +3438,16 @@
           "T2 unique mitigations: 8"
         ],
         "actors": [
+          "UNC3886",
           "APT29",
-          "APT41",
-          "UNC3886"
-        ]
+          "APT41"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3230,7 +3536,9 @@
         "actors": [
           "ArcaneDoor",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3246,7 +3554,9 @@
           "ArcaneDoor",
           "Kimsuky",
           "Mustang Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3264,7 +3574,9 @@
           "Mustang Panda",
           "Sea Turtle",
           "Dok"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3279,7 +3591,9 @@
         "actors": [
           "ArcaneDoor",
           "Mustang Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3297,7 +3611,9 @@
           "Mustang Panda",
           "Sea Turtle",
           "Line Runner"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -3314,7 +3630,9 @@
         "actors": [
           "ArcaneDoor",
           "ArcaneDoor"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--ea071aa0-8f17-416f-ab0d-2bab7e79003d",
@@ -3329,7 +3647,9 @@
         "actors": [
           "ArcaneDoor",
           "Line Runner"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f4c1826f-a322-41cd-9557-562100848c84",
@@ -3345,7 +3665,9 @@
           "ArcaneDoor",
           "ArcaneDoor",
           "ArcaneDoor"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--10d51417-ee35-4589-b1ff-b6df1c334e8d",
@@ -3361,7 +3683,9 @@
           "ArcaneDoor",
           "Kimsuky",
           "Sea Turtle"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--43e7dc91-05b2-474c-b9ac-2ed4fe101f4d",
@@ -3378,7 +3702,9 @@
           "ArcaneDoor",
           "Kimsuky",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -3392,7 +3718,9 @@
         "evidence": [
           "Mechanisms: block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--feff9142-e8c2-46f4-842b-bd6fb3d41157",
@@ -3404,7 +3732,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--1dcaeb21-9348-42ea-950a-f842aaf1ae1f",
@@ -3416,7 +3746,9 @@
         "evidence": [
           "Mechanisms: limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--eb88d97c-32f1-40be-80f0-d61a4b0b4b31",
@@ -3428,7 +3760,9 @@
         "evidence": [
           "Mechanisms: disable"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--2a4f6c11-a4a7-4cb9-b0ef-6ae1bb3a718a",
@@ -3440,7 +3774,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -3458,10 +3794,12 @@
           "T2 unique mitigations: 7"
         ],
         "actors": [
-          "Mustang Panda",
           "Sea Turtle",
-          "Kimsuky"
-        ]
+          "Kimsuky",
+          "Mustang Panda"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3477,9 +3815,11 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "Mustang Panda",
-          "Kimsuky"
-        ]
+          "Kimsuky",
+          "Mustang Panda"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3495,9 +3835,11 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "Mustang Panda",
-          "Kimsuky"
-        ]
+          "Kimsuky",
+          "Mustang Panda"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--035bb001-ab69-4a0b-9f6c-2de8b09e1b9d",
@@ -3513,11 +3855,15 @@
           "T2 unique mitigations: 6"
         ],
         "actors": [
-          "Mustang Panda",
-          "Kimsuky"
-        ]
+          "Kimsuky",
+          "Mustang Panda"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3610,7 +3956,9 @@
           "InvisiMole",
           "GravityRAT",
           "Gamaredon Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3628,7 +3976,9 @@
           "Operation Wocao",
           "njRAT",
           "Lokibot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3646,7 +3996,9 @@
           "OilRig",
           "InvisibleFerret",
           "APT39"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3664,7 +4016,9 @@
           "UPPERCUT",
           "Azorult",
           "Epic"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3682,7 +4036,9 @@
           "Micropsia",
           "LuminousMoth",
           "Medusa Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -3702,7 +4058,9 @@
           "Medusa Group",
           "Operation Wocao",
           "Wizard Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--ec8fc7e2-b356-455c-8db5-2e37be158e7d",
@@ -3720,7 +4078,9 @@
           "LuminousMoth",
           "FIN7",
           "Lokibot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -3738,7 +4098,9 @@
           "Operation Wocao",
           "njRAT",
           "Lokibot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f4599aa0-4f85-4a32-80ea-fc39dc965945",
@@ -3756,7 +4118,9 @@
           "Wizard Spider",
           "Wizard Spider",
           "BADHATCH"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--3ccef7ae-cb5e-48f6-8302-897105fbf55c",
@@ -3774,7 +4138,9 @@
           "FIN7",
           "Lokibot",
           "Goopy"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [],
@@ -3793,12 +4159,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "POWRUNER",
-          "BlackCat",
-          "Ke3chang",
+          "Sandworm Team",
+          "Wizard Spider",
+          "Bazar",
           "Latrodectus",
-          "Sandworm Team"
-        ]
+          "BoomBox"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3814,12 +4182,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Medusa Group",
+          "Kwampirs",
           "APT32",
-          "Mis-Type",
-          "APT3",
-          "Agent Tesla"
-        ]
+          "InvisibleFerret",
+          "Remsec",
+          "Medusa Group"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3835,9 +4205,11 @@
           "T2 unique mitigations: 4"
         ],
         "actors": [
-          "Emotet",
-          "Sandworm Team"
-        ]
+          "Sandworm Team",
+          "Emotet"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3853,12 +4225,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Medusa Group",
-          "APT38",
-          "Latrodectus",
+          "BlackCat",
+          "Kwampirs",
           "APT32",
-          "PlugX"
-        ]
+          "Zebrocy",
+          "KOPILUWAK"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -3876,11 +4250,15 @@
         "actors": [
           "TONESHELL",
           "Aquatic Panda",
-          "Woody RAT",
-          "Havoc"
-        ]
+          "Havoc",
+          "Woody RAT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2",
@@ -4002,7 +4380,9 @@
           "Sandworm Team",
           "Sandworm Team",
           "Agrius"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2",
@@ -4020,7 +4400,9 @@
           "Sandworm Team",
           "Sandworm Team",
           "Sea Turtle"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2",
@@ -4037,7 +4419,9 @@
           "Sandworm Team",
           "Ember Bear",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2",
@@ -4054,7 +4438,9 @@
           "Kimsuky",
           "Contagious Interview",
           "Agrius"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2",
@@ -4070,7 +4456,9 @@
           "Indrik Spider",
           "Sandworm Team",
           "Ember Bear"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -4087,7 +4475,9 @@
         "actors": [
           "Sandworm Team",
           "Ember Bear"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2d3f5b3c-54ca-4f4d-bb1f-849346d31230",
@@ -4103,7 +4493,9 @@
           "Sandworm Team",
           "Kimsuky",
           "Star Blizzard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--76551c52-b111-4884-bc47-ff3e728f0156",
@@ -4118,7 +4510,9 @@
         "actors": [
           "Sandworm Team",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--16cdd21f-da65-4e4f-bc04-dd7d198c7b26",
@@ -4133,7 +4527,9 @@
         "actors": [
           "Sandworm Team",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--69f897fd-12a9-4c89-ad6a-46d2f3c38262",
@@ -4148,7 +4544,9 @@
         "actors": [
           "Sandworm Team",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -4162,10 +4560,14 @@
         "evidence": [
           "Mechanisms: prevent, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4258,7 +4660,9 @@
           "Attor",
           "APT28",
           "Magic Hound"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4276,7 +4680,9 @@
           "UNC3886",
           "Aquatic Panda",
           "Sandworm Team"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4294,7 +4700,9 @@
           "Daggerfly",
           "CozyCar",
           "APT41"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4312,7 +4720,9 @@
           "Emissary",
           "DEADEYE",
           "Magic Hound"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4330,7 +4740,9 @@
           "InvisiMole",
           "QakBot",
           "StrelaStealer"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -4350,7 +4762,9 @@
           "TA505",
           "MuddyWater",
           "Kimsuky"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--391d824f-0ef1-47a0-b0ee-c59a75e27670",
@@ -4368,7 +4782,9 @@
           "Sandworm Team",
           "Winnti for Windows",
           "Attor"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f1951e8a-500e-4a26-8803-76d95c4554b4",
@@ -4386,7 +4802,9 @@
           "FIN7",
           "Winnti for Windows",
           "Attor"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--dfd7cc1d-e1d8-4394-a198-97c4cab8aa67",
@@ -4404,7 +4822,9 @@
           "SolarWinds Compromise",
           "Sandworm Team",
           "Magic Hound"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
@@ -4422,7 +4842,9 @@
           "FIN7",
           "UNC3886",
           "SolarWinds Compromise"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -4436,7 +4858,9 @@
         "evidence": [
           "Mechanisms: block, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -4454,12 +4878,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "PolyglotDuke",
-          "APT32",
           "QakBot",
+          "APT32",
+          "Sibot",
           "Mosquito",
-          "Sibot"
-        ]
+          "PolyglotDuke"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4475,10 +4901,12 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "DEADEYE",
           "IcedID",
-          "Lazarus Group",
-          "DEADEYE"
-        ]
+          "Lazarus Group"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4494,12 +4922,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "Lazarus Group",
+          "Bisonal",
+          "Kwampirs",
           "Sakula",
-          "Latrodectus",
-          "APT32",
-          "APT19",
-          "Heyoka Backdoor"
-        ]
+          "IcedID"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4515,10 +4945,12 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "APT41",
           "APT28",
-          "UNC3886"
-        ]
+          "UNC3886",
+          "APT41"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--045d0922-2310-4e60-b5e4-3302302cb3c5",
@@ -4534,14 +4966,18 @@
           "T2 unique mitigations: 4"
         ],
         "actors": [
-          "Cobalt Strike",
-          "APT38",
-          "RTM",
+          "MuddyWater",
+          "KONNI",
+          "InvisiMole",
           "Sakula",
-          "KONNI"
-        ]
+          "RTM"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0470e792-32f8-46b0-a351-652bc35e9336",
@@ -4589,7 +5025,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0470e792-32f8-46b0-a351-652bc35e9336",
@@ -4604,7 +5042,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0470e792-32f8-46b0-a351-652bc35e9336",
@@ -4619,7 +5059,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0470e792-32f8-46b0-a351-652bc35e9336",
@@ -4634,7 +5076,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -4651,7 +5095,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--4a5b7ade-8bb5-4853-84ed-23f262002665",
@@ -4666,7 +5112,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--d63a3fb8-9452-4e9d-a60a-54be68d5998c",
@@ -4681,7 +5129,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--3aef9463-9a7a-43ba-8957-a867e07c1e6a",
@@ -4696,7 +5146,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--deb98323-e13f-4b0c-8d94-175379069062",
@@ -4711,7 +5163,9 @@
         "actors": [
           "TeamTNT",
           "Hildegard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -4726,7 +5180,9 @@
           "Controls: firewall",
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--1dcaeb21-9348-42ea-950a-f842aaf1ae1f",
@@ -4738,7 +5194,9 @@
         "evidence": [
           "Mechanisms: restrict, limit, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--93e7968a-9074-4eac-8ae9-9f5200ec3317",
@@ -4750,7 +5208,9 @@
         "evidence": [
           "Mechanisms: limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -4768,9 +5228,11 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "TeamTNT",
-          "Hildegard"
-        ]
+          "Hildegard",
+          "TeamTNT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0470e792-32f8-46b0-a351-652bc35e9336",
@@ -4786,11 +5248,15 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "TeamTNT",
-          "Hildegard"
-        ]
+          "Hildegard",
+          "TeamTNT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--04a5a8ab-3bc8-4c83-95c9-55274a89786d",
@@ -4818,10 +5284,14 @@
         "evidence": [
           "Mechanisms: prevent, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--04ee0cb7-dac3-4c6c-9387-4c6aa096f4cf",
@@ -4839,7 +5309,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--04ef4356-8926-45e2-9441-634b6f3dcecb",
@@ -4857,7 +5329,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -4950,7 +5424,9 @@
           "Machete",
           "ADVSTORESHELL",
           "Flagpro"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -4968,7 +5444,9 @@
           "LunarWeb",
           "Kessel",
           "OopsIE"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -4986,7 +5464,9 @@
           "Torisma",
           "RDAT",
           "CharmPower"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -5002,7 +5482,9 @@
           "DarkWatchman",
           "Sandworm Team",
           "LockBit 3.0"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -5020,7 +5502,9 @@
           "Lazarus Group",
           "KONNI",
           "APT33"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -5040,7 +5524,9 @@
           "Astaroth",
           "Torisma",
           "Sardonic"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--e3b6daca-e963-4a69-aee6-ed4fd653ad58",
@@ -5058,7 +5544,9 @@
           "Juicy Mix",
           "LunarWeb",
           "RedLine Stealer"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2aed01ad-3df3-4410-a8cb-11ea4ded587c",
@@ -5076,7 +5564,9 @@
           "Latrodectus",
           "Helminth",
           "WellMess"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--7e150503-88e7-4861-866b-ff1ac82c4475",
@@ -5094,7 +5584,9 @@
           "Sardonic",
           "Sandworm Team",
           "LunarWeb"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--322bad5a-1c49-4d23-ab79-76d641794afa",
@@ -5112,7 +5604,9 @@
           "TrickBot",
           "BRONZE BUTLER",
           "SysUpdate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -5126,7 +5620,9 @@
         "evidence": [
           "Mechanisms: prevent, detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -5145,11 +5641,13 @@
         ],
         "actors": [
           "DarkWatchman",
-          "TA551",
           "QakBot",
           "Ebury",
+          "TA551",
           "Astaroth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -5165,12 +5663,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
+          "Tropic Trooper",
           "POWRUNER",
-          "Cobalt Strike",
           "Denis",
-          "SUNBURST",
-          "SysUpdate"
-        ]
+          "Ebury",
+          "WellMess"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -5188,7 +5688,9 @@
         "actors": [
           "gh0st RAT",
           "njRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -5204,11 +5706,13 @@
           "T2 unique mitigations: 4"
         ],
         "actors": [
+          "Sandworm Team",
           "TrickBot",
-          "MuddyWater",
           "Carbanak",
-          "Sandworm Team"
-        ]
+          "MuddyWater"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -5228,9 +5732,13 @@
           "LunarWeb",
           "Cobalt Strike",
           "Kevin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5322,7 +5830,9 @@
           "DUSTTRAP",
           "IcedID",
           "Emotet"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5337,7 +5847,9 @@
         "actors": [
           "BADHATCH",
           "DUSTTRAP"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5355,7 +5867,9 @@
           "Lazarus Group",
           "Uroburos",
           "Emotet"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5373,7 +5887,9 @@
           "DUSTTRAP",
           "Lazarus Group",
           "IcedID"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5391,7 +5907,9 @@
           "Lazarus Group",
           "ComRAT",
           "DEADWOOD"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -5411,7 +5929,9 @@
           "SMOKEDHAM",
           "Emotet",
           "CHIMNEYSWEEP"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--005a06c6-14bf-4118-afa0-ebcd8aebb0c9",
@@ -5429,7 +5949,9 @@
           "BADHATCH",
           "Lazarus Group",
           "Lazarus Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--391d824f-0ef1-47a0-b0ee-c59a75e27670",
@@ -5447,7 +5969,9 @@
           "Lazarus Group",
           "IcedID",
           "Uroburos"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--d1fcf083-a721-4223-aedf-bf8960798d62",
@@ -5465,7 +5989,9 @@
           "DUSTTRAP",
           "Lazarus Group",
           "Uroburos"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -5483,7 +6009,9 @@
           "IcedID",
           "Emotet",
           "Netwalker"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -5497,7 +6025,9 @@
         "evidence": [
           "Mechanisms: detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90f39ee1-d5a3-4aaa-9f28-3b42815b0d46",
@@ -5509,7 +6039,9 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -5527,10 +6059,12 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "ComRAT",
           "Uroburos",
-          "Pikabot",
-          "ComRAT"
-        ]
+          "Pikabot"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5546,10 +6080,12 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "DEADEYE",
           "IcedID",
-          "Lazarus Group",
-          "DEADEYE"
-        ]
+          "Lazarus Group"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5565,9 +6101,11 @@
           "T2 unique mitigations: 4"
         ],
         "actors": [
-          "BADHATCH",
-          "CHIMNEYSWEEP"
-        ]
+          "CHIMNEYSWEEP",
+          "BADHATCH"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5583,11 +6121,13 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "Lazarus Group",
           "DUSTPAN",
           "Dtrack",
-          "IcedID"
-        ]
+          "IcedID",
+          "Lazarus Group"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0533ab23-3f7d-463f-9bd8-634d27e4dee1",
@@ -5606,9 +6146,13 @@
           "macOS.OSAMiner",
           "DUSTTRAP",
           "Pikabot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--06780952-177c-4247-b978-79c357fb311f",
@@ -5630,7 +6174,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5676,7 +6222,9 @@
         "actors": [
           "Ebury",
           "Ebury"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5691,7 +6239,9 @@
         "actors": [
           "Ebury",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5709,7 +6259,9 @@
           "Ebury",
           "Skidmap",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5724,7 +6276,9 @@
         "actors": [
           "Ebury",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5739,7 +6293,9 @@
         "actors": [
           "Ebury",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -5758,7 +6314,9 @@
           "Ebury",
           "Skidmap",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--cc3502b5-30cc-4473-ad48-42d51a6ef6d1",
@@ -5773,7 +6331,9 @@
         "actors": [
           "Ebury",
           "Ebury"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -5788,7 +6348,9 @@
         "actors": [
           "Ebury",
           "Ebury"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5806,7 +6368,9 @@
           "Ebury",
           "Skidmap",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f4c1826f-a322-41cd-9557-562100848c84",
@@ -5822,7 +6386,9 @@
           "Ebury",
           "Ebury",
           "Ebury"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -5836,7 +6402,9 @@
         "evidence": [
           "Mechanisms: control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--9bb9e696-bff8-4ae1-9454-961fc7d91d5f",
@@ -5848,7 +6416,9 @@
         "evidence": [
           "Mechanisms: prevent, limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -5868,7 +6438,9 @@
         "actors": [
           "Ebury",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5886,7 +6458,9 @@
         "actors": [
           "Ebury",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--06c00069-771a-4d57-8ef5-d3718c1a8771",
@@ -5904,9 +6478,13 @@
         "actors": [
           "Ebury",
           "Skidmap"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0708ae90-d0eb-4938-9a76-d0fc94f6eec1",
@@ -5924,7 +6502,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--086952c4-5b90-4185-b573-02bad8e11953",
@@ -5942,7 +6522,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--09312b1a-c3c6-4b45-9844-3ccc78e5d82f",
@@ -5998,10 +6580,14 @@
         "evidence": [
           "Mechanisms: prevent, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0979abf9-4e26-43ec-9b6e-54efc4e70fca",
@@ -6029,10 +6615,14 @@
         "evidence": [
           "Mechanisms: prevent, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6127,7 +6717,9 @@
           "Operation Wocao",
           "Lokibot",
           "Astaroth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6145,7 +6737,9 @@
           "Operation Wocao",
           "njRAT",
           "Lokibot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6163,7 +6757,9 @@
           "Operation Wocao",
           "njRAT",
           "Lokibot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6181,7 +6777,9 @@
           "APT28",
           "InvisiMole",
           "AppleSeed"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6199,7 +6797,9 @@
           "Micropsia",
           "Operation Wocao",
           "njRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -6219,7 +6819,9 @@
           "Cobalt Strike",
           "Cobalt Strike",
           "Operation Wocao"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--ec8fc7e2-b356-455c-8db5-2e37be158e7d",
@@ -6237,7 +6839,9 @@
           "Lokibot",
           "PoetRAT",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6255,7 +6859,9 @@
           "Micropsia",
           "Operation Wocao",
           "njRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--707399d6-ab3e-4963-9315-d9d3818cd6a0",
@@ -6273,7 +6879,9 @@
           "Operation Wocao",
           "Lokibot",
           "Astaroth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--03d7999c-1f4c-42cc-8373-e7690d318104",
@@ -6291,7 +6899,9 @@
           "Operation Wocao",
           "njRAT",
           "Lokibot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [],
@@ -6310,12 +6920,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "FIN13",
-          "APT3",
-          "Sowbug",
-          "TONESHELL",
-          "APT39"
-        ]
+          "APT5",
+          "Kimsuky",
+          "InvisibleFerret",
+          "APT39",
+          "Magic Hound"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6331,9 +6943,11 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "Ke3chang",
-          "APT28"
-        ]
+          "APT28",
+          "Ke3chang"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6349,12 +6963,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Rover",
+          "Crimson",
           "Machete",
-          "APT28",
-          "MgBot",
-          "CosmicDuke"
-        ]
+          "InvisiMole",
+          "AppleSeed",
+          "TajMahal"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6370,12 +6986,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Magic Hound",
-          "CosmicDuke",
-          "KGH_SPY",
           "Crimson",
-          "QakBot"
-        ]
+          "QakBot",
+          "Carbanak",
+          "Magic Hound",
+          "CosmicDuke"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -6393,9 +7011,13 @@
         "actors": [
           "Sandworm Team",
           "MgBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--09b008a9-b4eb-462a-a751-a0eb58050cd9",
@@ -6432,7 +7054,9 @@
         "actors": [
           "Turla",
           "Turla"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--9efb1ea7-c37b-4595-9640-b7680cd84279",
@@ -6447,7 +7071,9 @@
         "actors": [
           "Turla",
           "Turla"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--910906dd-8c0a-475a-9cc1-5e029e2fad58",
@@ -6462,7 +7088,9 @@
         "actors": [
           "Turla",
           "Turla"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--6836813e-8ec8-4375-b459-abb388cb1a35",
@@ -6477,7 +7105,9 @@
         "actors": [
           "Turla",
           "Turla"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--fdc47f44-dd32-4b99-af5f-209f556f63c2",
@@ -6492,7 +7122,9 @@
         "actors": [
           "Turla",
           "Turla"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -6507,7 +7139,9 @@
           "Controls: audit",
           "Mechanisms: limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--25dc1ce8-eb55-4333-ae30-a7cb4f5894a1",
@@ -6519,10 +7153,14 @@
         "evidence": [
           "Mechanisms: restrict, limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6615,7 +7253,9 @@
           "APT32",
           "KV Botnet Activity",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6630,7 +7270,9 @@
         "actors": [
           "OSX_OCEANLOTUS.D",
           "Black Basta"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6648,7 +7290,9 @@
           "Black Basta",
           "XCSSET",
           "Rocke"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6664,7 +7308,9 @@
           "TeamTNT",
           "Kinsing",
           "Rocke"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6680,7 +7326,9 @@
           "TeamTNT",
           "Black Basta",
           "Penquin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -6700,7 +7348,9 @@
           "Kinsing",
           "XCSSET",
           "Rocke"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--dfd7cc1d-e1d8-4394-a198-97c4cab8aa67",
@@ -6715,7 +7365,9 @@
         "actors": [
           "OSX_OCEANLOTUS.D",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
@@ -6732,7 +7384,9 @@
           "TeamTNT",
           "Black Basta",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--d10cbd34-42e3-45c0-84d2-535a09849584",
@@ -6750,7 +7404,9 @@
           "Bundlore",
           "Bundlore",
           "Dok"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--573ad264-1371-4ae0-8482-d2673b719dba",
@@ -6768,7 +7424,9 @@
           "XCSSET",
           "XCSSET",
           "COATHANGER"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -6782,7 +7440,9 @@
         "evidence": [
           "Mechanisms: prevent, restrict, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--9bb9e696-bff8-4ae1-9454-961fc7d91d5f",
@@ -6794,7 +7454,9 @@
         "evidence": [
           "Mechanisms: restrict"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -6812,12 +7474,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "TeamTNT",
-          "APT32",
           "XCSSET",
           "Penquin",
-          "OSX_OCEANLOTUS.D"
-        ]
+          "APT32",
+          "OSX_OCEANLOTUS.D",
+          "TeamTNT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6836,7 +7500,9 @@
           "Rocke",
           "TeamTNT",
           "COATHANGER"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6853,11 +7519,13 @@
         ],
         "actors": [
           "Rocke",
-          "TeamTNT",
+          "Penquin",
+          "Black Basta",
           "APT32",
-          "OSX/Shlayer",
-          "Black Basta"
-        ]
+          "OSX/Shlayer"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6873,9 +7541,11 @@
           "T2 unique mitigations: 4"
         ],
         "actors": [
-          "OSX/Shlayer",
-          "Bundlore"
-        ]
+          "Bundlore",
+          "OSX/Shlayer"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09b130a2-a77e-4af0-a361-f46f9aad1345",
@@ -6891,11 +7561,15 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "OSX_OCEANLOTUS.D",
-          "Black Basta"
-        ]
+          "Black Basta",
+          "OSX_OCEANLOTUS.D"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -6986,7 +7660,9 @@
           "APT28",
           "China Chopper",
           "P.A.S. Webshell"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7002,7 +7678,9 @@
           "APT28",
           "Lucifer",
           "Emotet"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7017,7 +7695,9 @@
         "actors": [
           "APT28",
           "Emotet"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7033,7 +7713,9 @@
           "APT28",
           "Lucifer",
           "Emotet"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7050,7 +7732,9 @@
           "Lucifer",
           "Emotet",
           "HermeticWizard"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -7070,7 +7754,9 @@
           "Lucifer",
           "Lucifer",
           "Emotet"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--5d0d3609-d06d-49e1-b9c9-b544e0c618cb",
@@ -7087,7 +7773,9 @@
           "China Chopper",
           "P.A.S. Webshell",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--eb125d40-0b2d-41ac-a71a-3229241c2cd3",
@@ -7102,7 +7790,9 @@
         "actors": [
           "APT28",
           "APT28"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--bc0f5e80-91c0-4e04-9fbb-e4e332c85dae",
@@ -7117,7 +7807,9 @@
         "actors": [
           "APT28",
           "APT28"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f232fa7a-025c-4d43-abc7-318e81a73d65",
@@ -7135,7 +7827,9 @@
           "APT28",
           "APT29",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -7149,7 +7843,9 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--b045d015-6bed-4490-bd38-56b41ece59a0",
@@ -7161,7 +7857,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90c218c3-fbf8-4830-98a7-e8cfb7eaa485",
@@ -7173,7 +7871,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--f9f9e6ef-bc0a-41ad-ba11-0924e5e84c4c",
@@ -7185,7 +7885,9 @@
         "evidence": [
           "Mechanisms: prevent, block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -7203,9 +7905,11 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "Emotet",
-          "APT28"
-        ]
+          "APT28",
+          "Emotet"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7221,9 +7925,11 @@
           "T2 unique mitigations: 6"
         ],
         "actors": [
-          "Emotet",
-          "APT28"
-        ]
+          "APT28",
+          "Emotet"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7241,7 +7947,9 @@
         "actors": [
           "APT28",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
@@ -7259,9 +7967,13 @@
         "actors": [
           "APT28",
           "APT29"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--09cd431f-eaf4-4d2a-acaf-2a7acfe7ed58",
@@ -7299,7 +8011,9 @@
           "APT32",
           "APT32",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2fee9321-3e71-4cf4-af24-d4d40d355b34",
@@ -7314,7 +8028,9 @@
         "actors": [
           "APT32",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--fdc47f44-dd32-4b99-af5f-209f556f63c2",
@@ -7329,7 +8045,9 @@
         "actors": [
           "APT32",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2959d63f-73fd-46a1-abd2-109d7dcede32",
@@ -7344,7 +8062,9 @@
         "actors": [
           "APT32",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--9efb1ea7-c37b-4595-9640-b7680cd84279",
@@ -7359,7 +8079,9 @@
         "actors": [
           "APT32",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -7373,7 +8095,9 @@
         "evidence": [
           "Mechanisms: prevent, block, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90f39ee1-d5a3-4aaa-9f28-3b42815b0d46",
@@ -7385,10 +8109,14 @@
         "evidence": [
           "Mechanisms: block, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0a241b6c-7bb2-48f9-98f7-128145b4d27f",
@@ -7423,10 +8151,14 @@
         "evidence": [
           "Mechanisms: prevent, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7560,7 +8292,9 @@
           "APT39",
           "APT32",
           "MgBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7577,7 +8311,9 @@
           "Mustang Panda",
           "APT32",
           "Poseidon Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7595,7 +8331,9 @@
           "Mustang Panda",
           "MgBot",
           "Storm-0501"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7613,7 +8351,9 @@
           "Mustang Panda",
           "APT32",
           "BlackByte"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7631,7 +8371,9 @@
           "APT39",
           "Mustang Panda",
           "APT32"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -7651,7 +8393,9 @@
           "APT28",
           "APT28",
           "APT39"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--41d9846c-f6af-4302-a654-24bba2729bc6",
@@ -7666,7 +8410,9 @@
         "actors": [
           "Trojan.Karagany",
           "Trojan.Karagany"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--b3d682b6-98f2-4fb0-aa3b-b4df007ca70a",
@@ -7682,7 +8428,9 @@
           "Trojan.Karagany",
           "Mustang Panda",
           "Carbanak"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--deb98323-e13f-4b0c-8d94-175379069062",
@@ -7698,7 +8446,9 @@
           "Trojan.Karagany",
           "APT39",
           "Storm-0501"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--d63a3fb8-9452-4e9d-a60a-54be68d5998c",
@@ -7716,7 +8466,9 @@
           "APT28",
           "APT39",
           "Mustang Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -7730,7 +8482,9 @@
         "evidence": [
           "Mechanisms: control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90f39ee1-d5a3-4aaa-9f28-3b42815b0d46",
@@ -7742,7 +8496,9 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90c218c3-fbf8-4830-98a7-e8cfb7eaa485",
@@ -7754,7 +8510,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--2a4f6c11-a4a7-4cb9-b0ef-6ae1bb3a718a",
@@ -7766,7 +8524,9 @@
         "evidence": [
           "Mechanisms: limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--9bb9e696-bff8-4ae1-9454-961fc7d91d5f",
@@ -7778,7 +8538,9 @@
         "evidence": [
           "Mechanisms: restrict, limit, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -7796,12 +8558,14 @@
           "T2 unique mitigations: 9"
         ],
         "actors": [
-          "Trojan.Karagany",
+          "APT39",
+          "Carbanak",
           "APT32",
-          "APT28",
-          "Tonto Team",
-          "MgBot"
-        ]
+          "Revenge RAT",
+          "Tonto Team"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7820,7 +8584,9 @@
           "APT39",
           "PinchDuke",
           "MgBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7839,7 +8605,9 @@
           "Trojan.Karagany",
           "PinchDuke",
           "MgBot"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7855,12 +8623,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
+          "APT39",
+          "Leviathan",
           "Mustang Panda",
-          "APT28",
           "APT32",
-          "Ember Bear",
-          "Leviathan"
-        ]
+          "APT28"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a3ead4e-6d47-4ccb-854c-a6a4f9d96b22",
@@ -7876,11 +8646,15 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Ember Bear",
-          "APT28"
-        ]
+          "APT28",
+          "Ember Bear"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -7973,7 +8747,9 @@
           "Astaroth",
           "gh0st RAT",
           "gh0st RAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -7988,7 +8764,9 @@
         "actors": [
           "Astaroth",
           "Astaroth"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8006,7 +8784,9 @@
           "gh0st RAT",
           "gh0st RAT",
           "Mustang Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8023,7 +8803,9 @@
           "Astaroth",
           "Dtrack",
           "Dtrack"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8038,7 +8820,9 @@
         "actors": [
           "Astaroth",
           "Metamorfo"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -8058,7 +8842,9 @@
           "Bumblebee",
           "Mustang Panda",
           "Metamorfo"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2b742742-28c3-4e1b-bab7-8350d6300fa7",
@@ -8073,7 +8859,9 @@
         "actors": [
           "Bumblebee",
           "Mustang Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--3b744087-9945-4a6f-91e8-9dbceda417a4",
@@ -8088,7 +8876,9 @@
         "actors": [
           "Stuxnet",
           "Mustang Panda"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -8102,7 +8892,9 @@
         "evidence": [
           "Mechanisms: prevent, block, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -8120,12 +8912,14 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Mustang Panda",
           "DarkWatchman",
+          "Attor",
+          "Mustang Panda",
           "Stuxnet",
-          "Bumblebee",
-          "Attor"
-        ]
+          "Bumblebee"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8141,12 +8935,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "Mustang Panda",
           "DarkWatchman",
+          "Mustang Panda",
           "Stuxnet",
-          "Bumblebee",
-          "Astaroth"
-        ]
+          "Astaroth",
+          "Bumblebee"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8162,11 +8958,13 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "DarkWatchman",
-          "Mustang Panda",
           "Metamorfo",
-          "Astaroth"
-        ]
+          "Astaroth",
+          "DarkWatchman",
+          "Mustang Panda"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8182,12 +8980,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "Metamorfo",
           "Mustang Panda",
-          "BLINDINGCAN",
           "Astaroth",
           "Bumblebee",
-          "Metamorfo"
-        ]
+          "BLINDINGCAN"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0a5231ec-41af-4a35-83d0-6bdf11f28c65",
@@ -8203,14 +9003,18 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "Mustang Panda",
-          "gh0st RAT",
-          "Stuxnet",
           "RotaJakiro",
-          "KillDisk"
-        ]
+          "Attor",
+          "KillDisk",
+          "Metamorfo",
+          "PipeMon"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0ad7bc5c-235a-4048-944b-3b286676cb74",
@@ -8249,7 +9053,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--b5dbb4c5-b0b1-40b1-80b6-e9e84ab90067",
@@ -8261,7 +9067,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--86598de0-b347-4928-9eb0-0acbfc21908c",
@@ -8273,7 +9081,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--20f6a9df-37c4-4e20-9e47-025983b1b39d",
@@ -8285,7 +9095,9 @@
         "evidence": [
           "Mechanisms: block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--12241367-a8b7-49b4-b86e-2236901ba50c",
@@ -8297,10 +9109,14 @@
         "evidence": [
           "Mechanisms: prevent, detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0af0ca99-357d-4ba1-805f-674fdfb7bef9",
@@ -8394,7 +9210,9 @@
           "StoneDrill",
           "APT38",
           "Lazarus Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--df8b2a25-8bdf-4856-953c-a04372b1c161",
@@ -8412,7 +9230,9 @@
           "APT38",
           "Lazarus Group",
           "WhisperGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -8428,7 +9248,9 @@
           "Sandworm Team",
           "APT38",
           "Lazarus Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--3c4a2599-71ee-4405-ba1e-0e28414b4bc5",
@@ -8446,7 +9268,9 @@
           "APT38",
           "Lazarus Group",
           "APT37"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--04fd5427-79c7-44ea-ae13-11b24778ff1c",
@@ -8461,7 +9285,9 @@
         "actors": [
           "Sandworm Team",
           "Lazarus Group"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -8475,7 +9301,9 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -8495,7 +9323,9 @@
         "actors": [
           "APT38",
           "MultiLayer Wiper"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0af0ca99-357d-4ba1-805f-674fdfb7bef9",
@@ -8511,11 +9341,13 @@
           "T2 unique mitigations: 5"
         ],
         "actors": [
-          "Lazarus Group",
+          "Sandworm Team",
           "HermeticWiper",
-          "KillDisk",
-          "Sandworm Team"
-        ]
+          "Lazarus Group",
+          "KillDisk"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0af0ca99-357d-4ba1-805f-674fdfb7bef9",
@@ -8531,11 +9363,13 @@
           "T2 unique mitigations: 1"
         ],
         "actors": [
-          "APT38",
+          "Sandworm Team",
           "Shamoon",
-          "KillDisk",
-          "Sandworm Team"
-        ]
+          "APT38",
+          "KillDisk"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0af0ca99-357d-4ba1-805f-674fdfb7bef9",
@@ -8551,12 +9385,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Lazarus Group",
-          "APT38",
+          "Sandworm Team",
           "CaddyWiper",
+          "Shamoon",
           "HermeticWiper",
-          "DEADWOOD"
-        ]
+          "Lazarus Group"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0af0ca99-357d-4ba1-805f-674fdfb7bef9",
@@ -8572,13 +9408,17 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "BFG Agonizer",
-          "HermeticWiper",
+          "Sandworm Team",
           "MultiLayer Wiper",
-          "Sandworm Team"
-        ]
+          "HermeticWiper",
+          "BFG Agonizer"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0bda01d5-4c1d-4062-8ee2-6872334383c3",
@@ -8606,10 +9446,14 @@
         "evidence": [
           "Mechanisms: block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0bf78622-e8d2-41da-a857-731472d61a92",
@@ -8627,7 +9471,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0c2d00da-7742-49e7-9928-4514e5075d32",
@@ -8680,7 +9526,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c2d00da-7742-49e7-9928-4514e5075d32",
@@ -8696,7 +9544,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c2d00da-7742-49e7-9928-4514e5075d32",
@@ -8712,7 +9562,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c2d00da-7742-49e7-9928-4514e5075d32",
@@ -8728,7 +9580,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c2d00da-7742-49e7-9928-4514e5075d32",
@@ -8744,7 +9598,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -8761,7 +9617,9 @@
         "actors": [
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2e34237d-8574-43f6-aace-ae2915de8597",
@@ -8776,7 +9634,9 @@
         "actors": [
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f1951e8a-500e-4a26-8803-76d95c4554b4",
@@ -8792,7 +9652,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -8808,7 +9670,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
@@ -8824,7 +9688,9 @@
           "DarkGate",
           "DarkGate",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -8838,7 +9704,9 @@
         "evidence": [
           "Mechanisms: control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--47e0e9fe-96ce-4f65-8bb1-8be1feacb5db",
@@ -8851,7 +9719,9 @@
           "Controls: AppLocker",
           "Mechanisms: block, restrict, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--cc2399fd-3cd3-4319-8d0a-fbd6420cdaf8",
@@ -8863,10 +9733,14 @@
         "evidence": [
           "Mechanisms: detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -8938,7 +9812,9 @@
         "actors": [
           "C0027",
           "Chimera"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -8956,7 +9832,9 @@
           "Ke3chang",
           "HAFNIUM",
           "Chimera"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -8971,7 +9849,9 @@
         "actors": [
           "C0027",
           "LAPSUS$"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -8988,7 +9868,9 @@
           "Ke3chang",
           "HAFNIUM",
           "Chimera"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -9003,7 +9885,9 @@
         "actors": [
           "Ke3chang",
           "Chimera"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -9020,7 +9904,9 @@
         "actors": [
           "C0027",
           "LAPSUS$"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--954a1639-f2d6-407d-aef3-4917622ca493",
@@ -9035,7 +9921,9 @@
         "actors": [
           "C0027",
           "LAPSUS$"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--e3a12395-188d-4051-9a16-ea8e14d07b88",
@@ -9050,7 +9938,9 @@
         "actors": [
           "C0027",
           "Chimera"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--edf91964-b26e-4b4a-9600-ccacd7d7df24",
@@ -9068,7 +9958,9 @@
           "HAFNIUM",
           "LAPSUS$",
           "Chimera"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--09a60ea3-a8d1-4ae5-976e-5783248b72a4",
@@ -9083,7 +9975,9 @@
         "actors": [
           "APT28",
           "Ke3chang"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -9097,7 +9991,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--93e7968a-9074-4eac-8ae9-9f5200ec3317",
@@ -9109,7 +10005,9 @@
         "evidence": [
           "Mechanisms: control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--2a4f6c11-a4a7-4cb9-b0ef-6ae1bb3a718a",
@@ -9121,7 +10019,9 @@
         "evidence": [
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -9139,12 +10039,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "Ke3chang",
-          "APT28",
-          "HAFNIUM",
           "Chimera",
-          "Akira"
-        ]
+          "APT28",
+          "Akira",
+          "Ke3chang",
+          "HAFNIUM"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -9160,9 +10062,11 @@
           "T2 unique mitigations: 3"
         ],
         "actors": [
-          "Ke3chang",
-          "APT28"
-        ]
+          "APT28",
+          "Ke3chang"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -9180,7 +10084,9 @@
         "actors": [
           "Chimera",
           "APT28"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -9197,10 +10103,12 @@
         ],
         "actors": [
           "Chimera",
-          "Ke3chang",
+          "APT28",
           "HAFNIUM",
-          "APT28"
-        ]
+          "Ke3chang"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c4b4fda-9062-47da-98b9-ceae2dcf052a",
@@ -9218,9 +10126,13 @@
         "actors": [
           "Chimera",
           "APT28"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0c8ab3eb-df48-4b9c-ace7-beacaac81cc5",
@@ -9269,7 +10181,9 @@
           "Volt Typhoon",
           "Scattered Spider",
           "APT28 Nearest Neighbor Campaign"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c8ab3eb-df48-4b9c-ace7-beacaac81cc5",
@@ -9284,7 +10198,9 @@
         "actors": [
           "Volt Typhoon",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c8ab3eb-df48-4b9c-ace7-beacaac81cc5",
@@ -9299,7 +10215,9 @@
         "actors": [
           "Volt Typhoon",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c8ab3eb-df48-4b9c-ace7-beacaac81cc5",
@@ -9314,7 +10232,9 @@
         "actors": [
           "Volt Typhoon",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0c8ab3eb-df48-4b9c-ace7-beacaac81cc5",
@@ -9329,7 +10249,9 @@
         "actors": [
           "Volt Typhoon",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -9346,7 +10268,9 @@
         "actors": [
           "Volt Typhoon",
           "APT28 Nearest Neighbor Campaign"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
@@ -9362,7 +10286,9 @@
           "Volt Typhoon",
           "Scattered Spider",
           "APT28 Nearest Neighbor Campaign"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--a9d4b653-6915-42af-98b2-5758c4ceee56",
@@ -9377,7 +10303,9 @@
         "actors": [
           "Volt Typhoon",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--b17a1a56-e99c-403c-8948-561df0cffe81",
@@ -9394,7 +10322,9 @@
           "Volt Typhoon",
           "Scattered Spider",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--10d51417-ee35-4589-b1ff-b6df1c334e8d",
@@ -9409,7 +10339,9 @@
         "actors": [
           "Volt Typhoon",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -9423,7 +10355,9 @@
         "evidence": [
           "Mechanisms: prevent, block"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--93e7968a-9074-4eac-8ae9-9f5200ec3317",
@@ -9435,7 +10369,9 @@
         "evidence": [
           "Mechanisms: monitor"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -9455,9 +10391,13 @@
         "actors": [
           "Scattered Spider",
           "Volt Typhoon"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0ca7beef-9bbc-4e35-97cf-437384ddce6a",
@@ -9477,7 +10417,9 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0cc222f5-c3ff-48e6-9f52-3314baf9d37e",
@@ -9512,10 +10454,14 @@
         "evidence": [
           "Mechanisms: prevent, control"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0ce73446-8722-4086-9d43-514f1d0f669e",
@@ -9543,7 +10489,9 @@
         "evidence": [
           "Mechanisms: prevent, block, control, detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--93e7968a-9074-4eac-8ae9-9f5200ec3317",
@@ -9555,7 +10503,9 @@
         "evidence": [
           "Mechanisms: limit"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--cc2399fd-3cd3-4319-8d0a-fbd6420cdaf8",
@@ -9568,10 +10518,14 @@
           "Controls: audit",
           "General mitigation"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0cf55441-b176-4332-89e7-2c4c7799d0ff",
@@ -9616,7 +10570,9 @@
           "Scattered Spider",
           "FIN4",
           "FIN4"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--dfefe2ed-4389-4318-8762-f0272b350a1b",
@@ -9631,7 +10587,9 @@
         "actors": [
           "Scattered Spider",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2dbbdcd5-92cf-44c0-aea2-fe24783a6bc3",
@@ -9646,7 +10604,9 @@
         "actors": [
           "Scattered Spider",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--a10641f4-87b4-45a3-a906-92a149cb2c27",
@@ -9661,7 +10621,9 @@
         "actors": [
           "Scattered Spider",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--f232fa7a-025c-4d43-abc7-318e81a73d65",
@@ -9676,7 +10638,9 @@
         "actors": [
           "Scattered Spider",
           "Scattered Spider"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -9691,7 +10655,9 @@
           "Controls: audit",
           "Mechanisms: monitor"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -9711,9 +10677,13 @@
         "actors": [
           "Scattered Spider",
           "FIN4"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0cfe31a7-81fc-472c-bc45-e2808d1066a3",
@@ -9756,7 +10726,9 @@
         "actors": [
           "Sandworm Team",
           "Ember Bear"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--b18eae87-b469-4e14-b454-b171b416bc18",
@@ -9771,7 +10743,9 @@
         "actors": [
           "Sandworm Team",
           "Ember Bear"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -9785,10 +10759,14 @@
         "evidence": [
           "Mechanisms: prevent"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -9881,7 +10859,9 @@
           "Astaroth",
           "OilRig",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -9899,7 +10879,9 @@
           "Ursnif",
           "DEADEYE",
           "njRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -9917,7 +10899,9 @@
           "DarkGate",
           "TeamTNT",
           "DUSTTRAP"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -9935,7 +10919,9 @@
           "njRAT",
           "USBStealer",
           "Fox Kitten"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -9953,7 +10939,9 @@
           "OilRig",
           "Chrommme",
           "HexEval Loader"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "enabled_by": [
@@ -9973,7 +10961,9 @@
           "DEADEYE",
           "GoldMax",
           "njRAT"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
@@ -9991,7 +10981,9 @@
           "Astaroth",
           "OilRig",
           "DarkGate"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--4ab929c6-ee2d-4fb5-aab4-b14be2ed7179",
@@ -10009,7 +11001,9 @@
           "Astaroth",
           "Astaroth",
           "APT39"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--9efb1ea7-c37b-4595-9640-b7680cd84279",
@@ -10027,7 +11021,9 @@
           "Ursnif",
           "Ursnif",
           "Qilin"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--2959d63f-73fd-46a1-abd2-109d7dcede32",
@@ -10045,7 +11041,9 @@
           "Ursnif",
           "Ursnif",
           "APT41 DUST"
-        ]
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "blocked_by": [
@@ -10059,7 +11057,9 @@
         "evidence": [
           "Mechanisms: detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "course-of-action--90f39ee1-d5a3-4aaa-9f28-3b42815b0d46",
@@ -10071,7 +11071,9 @@
         "evidence": [
           "Mechanisms: block, detect"
         ],
-        "actors": []
+        "actors": [],
+        "cves": [],
+        "is_ransomware": false
       }
     ],
     "alternatives": [
@@ -10089,12 +11091,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "TYPEFRAME",
+          "Grandoreiro",
+          "Uroburos",
+          "PipeMon",
           "Volgmer",
-          "APT32",
-          "SysUpdate",
-          "PipeMon"
-        ]
+          "REvil"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -10110,12 +11114,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
+          "Lazarus Group",
+          "Bisonal",
+          "Kwampirs",
           "Sakula",
-          "Latrodectus",
-          "APT32",
-          "APT19",
-          "Heyoka Backdoor"
-        ]
+          "IcedID"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -10131,12 +11137,14 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "TeamTNT",
-          "APT32",
           "XCSSET",
           "Penquin",
-          "OSX_OCEANLOTUS.D"
-        ]
+          "APT32",
+          "OSX_OCEANLOTUS.D",
+          "TeamTNT"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -10152,12 +11160,14 @@
           "T2 unique mitigations: 0"
         ],
         "actors": [
-          "TeamTNT",
-          "APT28",
-          "Winnti for Linux",
-          "Stuxnet",
-          "MEDUSA"
-        ]
+          "Skidmap",
+          "Uroburos",
+          "HiddenWasp",
+          "Hildegard",
+          "APT28"
+        ],
+        "cves": [],
+        "is_ransomware": false
       },
       {
         "source_id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
@@ -10173,12 +11183,16 @@
           "T2 unique mitigations: 2"
         ],
         "actors": [
-          "DarkGate",
           "Milan",
-          "Bazar"
-        ]
+          "Bazar",
+          "DarkGate"
+        ],
+        "cves": [],
+        "is_ransomware": false
       }
-    ]
+    ],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   },
   {
     "id": "attack-pattern--0dbf5f1b-a560-4d51-ac1b-d70caab3e1f0",
@@ -10196,6 +11210,8 @@
     "enables": [],
     "enabled_by": [],
     "blocked_by": [],
-    "alternatives": []
+    "alternatives": [],
+    "exploited_by_cves": [],
+    "ransomware_linked": false
   }
 ]
