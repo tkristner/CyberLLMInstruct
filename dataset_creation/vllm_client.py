@@ -20,12 +20,12 @@ class VLLMConfig:
     """Configuration for vLLM client."""
     base_url: str = "http://localhost:8000"
     model: str = "nemotron"
-    max_tokens: int = 1152  # 1024 response + 128 reasoning budget
+    max_tokens: int = 3072  # 2816 response + 256 reasoning budget
     temperature: float = 0.7
     timeout: int = 120
     max_concurrent: int = 8  # Maximum concurrent requests
     enable_thinking: bool = True  # Enable reasoning with budget limit
-    reasoning_budget: int = 128  # Limit thinking tokens to ~128 for efficiency
+    reasoning_budget: int = 256  # Limit thinking tokens for quality reasoning
     max_retries: int = 3  # Maximum retries for transient errors
     retry_delay: float = 1.0  # Base delay between retries (exponential backoff)
 

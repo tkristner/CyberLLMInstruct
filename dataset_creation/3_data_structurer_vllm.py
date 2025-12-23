@@ -51,7 +51,7 @@ class CyberDataStructurerVLLM:
         max_concurrent: int = 8,
         max_instructions_per_entry: int = 3,
         enable_thinking: bool = True,
-        reasoning_budget: int = 128,
+        reasoning_budget: int = 256,
     ):
         self.input_dir = Path(input_dir)
         self.output_dir = Path(output_dir)
@@ -65,7 +65,7 @@ class CyberDataStructurerVLLM:
             temperature=0.2,  # Low for consistent JSON structure
             max_concurrent=max_concurrent,
             enable_thinking=enable_thinking,
-            reasoning_budget=reasoning_budget,  # Default 256 recommended for quality
+            reasoning_budget=reasoning_budget,
         )
 
         # Extended template patterns for all cybersecurity data types
